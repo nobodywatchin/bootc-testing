@@ -1,3 +1,4 @@
+---
 type: gschema-gschema.overrides
 include:
   - 02-myos-global.gschema.override
