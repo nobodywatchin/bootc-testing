@@ -30,6 +30,7 @@ jobs:
           - /alma/alma-amd64.yml
           - /achillobator/achillobator-amd64.yml
           - /centos/centos-amd64.yml
+          - /helium/helium-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
