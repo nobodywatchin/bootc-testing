@@ -3,9 +3,9 @@ type: dnf
 source: ghcr.io/blue-build/modules/dnf:dnf-module
 install:
   packages:
-    - repo: https://pkgs.tailscale.com/stable/centos/10/tailscale.repo # Can specify the repo for packages to install
-      packages:
-        - tailscale
+  #  - repo: https://pkgs.tailscale.com/stable/centos/10/tailscale.repo # Can specify the repo for packages to install
+  #    packages:
+  #      - tailscale
   #      - package2
   #  - package3 # Will install package from the highest prio repo 
     - podman-compose
