@@ -1,0 +1,36 @@
+---
+type: dnf
+source: ghcr.io/blue-build/modules/dnf:dnf-module
+install:
+  packages:
+    - repo: https://pkgs.tailscale.com/stable/centos/10/tailscale.repo # Can specify the repo for packages to install
+      packages:
+        - tailscale
+  #      - package2
+  #  - package3 # Will install package from the highest prio repo 
+    - podman-compose
+    - podman-docker
+    - kubernetes
+    - kubernetes-kubeadm
+    - kubernetes-client
+    - kubernetes-systemd
+    - cockpit
+    - cockpit-selinux
+    - cockpit-machines
+    - cockpit-networkmanager
+    - cockpit-packagekit
+    - cockpit-ostree
+    - cockpit-podman
+    - cockpit-files
+    - cockpit-bridge 
+    - cockpit-ws 
+    - cockpit-storaged 
+    - cockpit-system
+    - xen
+    - libvirt
+    - libvirt-daemon-xen 
+    - libvirt-daemon-config-network 
+    - libvirt-daemon-driver-network 
+    - fastfetch
+    - miniaturo
+    - libopenraw
