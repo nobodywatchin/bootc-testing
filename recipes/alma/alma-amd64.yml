@@ -15,6 +15,7 @@ modules:
   - type: containerfile
     snippets:
       - RUN dnf install -y dnf5
+      - RUN dnf copr enable rpmsoftwaremanagement/dnf5-testing 
   - from-file: common/dnf.yml
   - from-file: common/gnome-extensions.yml
   - from-file: common/gschema-overrides.yml
