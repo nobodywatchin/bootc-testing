@@ -1,0 +1,7 @@
+---
+type: dnf
+source: ghcr.io/blue-build/modules/dnf:dnf-module
+install:
+  repo: https://pkgs.tailscale.com/stable/rhel/9/tailscale.repo # Can specify the repo for packages to install
+  packages:
+    - tailscale

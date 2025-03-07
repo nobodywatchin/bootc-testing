@@ -6,7 +6,7 @@ install:
     - podman-compose
     - podman-docker
   #  - kubernetes
-  # - kubernetes-kubeadm
+  #  - kubernetes-kubeadm
   #  - kubernetes-client
   #  - kubernetes-systemd
     - cockpit
@@ -29,7 +29,3 @@ install:
     - fastfetch
   #  - miniaturo
     - libopenraw
-install:
-  repo: https://pkgs.tailscale.com/stable/centos/10/tailscale.repo # Can specify the repo for packages to install
-  packages:
-    - tailscale
