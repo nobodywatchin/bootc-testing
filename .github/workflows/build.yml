@@ -27,8 +27,10 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
+          - /alma/alma9-amd64.yml
           - /alma/alma10-amd64.yml
         #  - /achillobator/achillobator-amd64.yml
+          - /centos/centos9-amd64.yml
           - /centos/centos10-amd64.yml
         #  - /helium/helium10-amd64.yml
           - /rocky/rocky9-amd64.yml

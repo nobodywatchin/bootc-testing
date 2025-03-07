@@ -1,13 +1,13 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: rocky9-testing
+name: alma10-testing
 # description will be included in the image's metadata
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/charles8191/rocky-bootc
-image-version: latest # latest is also supported if you want new updates ASAP
+base-image: quay.io/almalinuxorg/almalinux-bootc
+image-version: 9 # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -16,13 +16,14 @@ modules:
     snippets:
       - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
-      - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly 
+      - RUN dnf install -y dnf-plugins-core
+      - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
-  - from-file: common/tailscale-rhel9.yml
+#  - from-file: common/tailscale-centos10.yml
   - from-file: common/gnome-de.yml
   - from-file: common/gnome-extensions.yml
   - from-file: common/gschema-overrides.yml
-  - from-file: common/services.yml
+#  - from-file: common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   
