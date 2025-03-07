@@ -19,7 +19,7 @@ modules:
       - RUN dnf install -y dnf-plugins-core
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
-  - from-file: common/tailscale-centos9.yml
+#  - from-file: common/tailscale-centos9.yml
   - from-file: common/gnome-de.yml
   - from-file: common/gnome-extensions.yml
   - from-file: common/gschema-overrides.yml

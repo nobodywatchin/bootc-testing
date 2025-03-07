@@ -33,7 +33,7 @@ jobs:
           - /centos/centos9-amd64.yml
           - /centos/centos10-amd64.yml
         #  - /helium/helium10-amd64.yml
-          - /rocky/rocky9-amd64.yml
+        #  - /rocky/rocky9-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
