@@ -29,7 +29,7 @@ install:
     - fastfetch
   #  - miniaturo
     - libopenraw
- install:
+install:
   repo: https://pkgs.tailscale.com/stable/centos/10/tailscale.repo # Can specify the repo for packages to install
   packages:
     - tailscale
