@@ -27,11 +27,11 @@ jobs:
       matrix:
         recipe:
           # !! Add your recipes here
-          - /alma/alma-amd64.yml
-          - /achillobator/achillobator-amd64.yml
-          - /centos/centos-amd64.yml
-          - /helium/helium-amd64.yml
-          # - /rocky/rocky-amd64.yml
+          - /alma/alma10-amd64.yml
+        #  - /achillobator/achillobator-amd64.yml
+          - /centos/centos10-amd64.yml
+        #  - /helium/helium10-amd64.yml
+          - /rocky/rocky9-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
