@@ -17,6 +17,8 @@ modules:
       - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
       - RUN dnf install -y dnf-plugins-core
+      - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
+      - RUN dnf copr enable -y rpmsoftwaremanagement/dnf5-deps
       - RUN dnf copr enable -y nsella/dnf5-epel9 
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
