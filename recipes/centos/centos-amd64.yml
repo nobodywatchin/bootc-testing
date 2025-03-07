@@ -19,6 +19,7 @@ modules:
       - RUN dnf copr enable -y lucamagrone/epel-10-extra
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
+  - from-file: common/tailscale-centos10.yml
   - from-file: common/gnome-de.yml
   - from-file: common/gnome-extensions.yml
   - from-file: common/gschema-overrides.yml
