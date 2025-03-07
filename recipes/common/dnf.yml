@@ -13,7 +13,7 @@ install:
     - cockpit-selinux
     - cockpit-machines
     - cockpit-networkmanager
-    - cockpit-packagekit
+  #  - cockpit-packagekit
     - cockpit-ostree
     - cockpit-podman
     - cockpit-files
