@@ -16,6 +16,7 @@ modules:
     snippets:
       - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
+      - RUN dnf copr enable -yrpmsoftwaremanagement/dnf-nightly 
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
   - from-file: common/gnome-extensions.yml
