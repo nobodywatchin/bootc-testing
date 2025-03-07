@@ -31,7 +31,7 @@ jobs:
           - /achillobator/achillobator-amd64.yml
           - /centos/centos-amd64.yml
           - /helium/helium-amd64.yml
-          - /rocky/rocky-amd64.yml
+          # - /rocky/rocky-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build Custom Image
