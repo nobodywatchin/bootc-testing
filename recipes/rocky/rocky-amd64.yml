@@ -14,7 +14,7 @@ image-version: latest # latest is also supported if you want new updates ASAP
 modules:
   - type: containerfile
     snippets:
-      - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
+      - RUN dnf copr enable -y lucamagrone/epel-10-extra
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
   - from-file: common/gnome-extensions.yml
