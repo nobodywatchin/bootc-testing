@@ -5,6 +5,5 @@ repos:
   files:
     - https://pkgs.tailscale.com/stable/centos/9/tailscale.repo
 install:
-  - repo: tailscale-stable
-    packages:
-      - tailscale
+  packages:
+  - tailscale
