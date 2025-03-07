@@ -1,6 +1,6 @@
 ---
 type: dnf
-source: ghcr.io/blue-build/modules/dnf:dnf-module-gmpinder
+source: ghcr.io/blue-build/modules/dnf:dnf-module
 repos:
   files:
     - https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
