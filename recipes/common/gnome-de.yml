@@ -3,4 +3,4 @@ type: dnf
 source: ghcr.io/blue-build/modules/dnf:dnf-module
 group-install:
   packages: 
-    - Server with GUI
+    - GNOME Desktop
