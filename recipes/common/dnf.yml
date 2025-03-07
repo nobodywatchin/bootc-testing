@@ -3,7 +3,7 @@ type: dnf
 source: ghcr.io/blue-build/modules/dnf:dnf-module
 install:
   packages:
-    - podman-compose
+  #  - podman-compose
     - podman-docker
   #  - kubernetes
   #  - kubernetes-kubeadm
