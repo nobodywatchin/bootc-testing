@@ -15,7 +15,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  bluebuild:
+  bluebuild10:
     name: Build EL10 Images
     runs-on: ubuntu-latest
     permissions:
@@ -43,6 +43,7 @@ jobs:
 
           # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
+  bluebuild9:
     name: Build EL9 Images
     runs-on: ubuntu-latest
     permissions:
