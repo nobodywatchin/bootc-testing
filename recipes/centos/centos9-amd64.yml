@@ -16,6 +16,8 @@ modules:
     snippets:
       - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
+      - RUN dnf install -y dnf-plugins-core
+      - RUN dnf copr enable -y jonathanspw/dnf5-on-el9
       - RUN dnf install -y dnf5
   - from-file: common/dnf.yml
 #  - from-file: common/tailscale-centos9.yml
