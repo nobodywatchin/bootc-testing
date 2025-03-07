@@ -1,6 +1,6 @@
 ---
 type: dnf
-source: ghcr.io/blue-build/modules/dnf:dnf-module-gmpinder
+source: ghcr.io/blue-build/modules/dnf:dnf-module
 install:
   - podman-compose
   - podman-docker
