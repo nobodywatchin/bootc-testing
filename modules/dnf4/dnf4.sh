@@ -130,34 +130,34 @@ if [[ ${#INSTALL_PKGS[@]} -gt 0 && ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     # Doing both actions in one command allows for replacing required packages with alternatives
     # When --install= flag is used, URLs & local packages are not supported
     if ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf4 override remove -y "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf install "${HTTPS_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf4 install -y "${HTTPS_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
-      dnf install "${LOCAL_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")    
+      dnf4 install -y "${LOCAL_PKGS[@]}"
     elif ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
-      dnf install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}" $(printf -- "--install=%s " "${CLASSIC_PKGS[@]}")
+      dnf4 install -y "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ! ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}"
-      dnf install "${LOCAL_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}"
+      dnf4 install -y "${LOCAL_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ! ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}"
-      dnf install "${HTTPS_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}"
+      dnf4 install -y "${HTTPS_PKGS[@]}"
     elif ! ${CLASSIC_INSTALL} && ${HTTPS_INSTALL} && ${LOCAL_INSTALL}; then
-      dnf override remove "${REMOVE_PKGS[@]}"
-      dnf install "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
+      dnf4 override remove -y "${REMOVE_PKGS[@]}"
+      dnf4 install -y "${HTTPS_PKGS[@]}" "${LOCAL_PKGS[@]}"
     fi  
 elif [[ ${#INSTALL_PKGS[@]} -gt 0 ]]; then
     echo "Installing RPMs"
     echo_rpm_install
-    dnf install "${INSTALL_PKGS[@]}"
+    dnf4 install -y "${INSTALL_PKGS[@]}"
 elif [[ ${#REMOVE_PKGS[@]} -gt 0 ]]; then
     echo "Removing RPMs"
     echo "Removing: ${REMOVE_PKGS[*]}"
-    dnf override remove "${REMOVE_PKGS[@]}"
+    dnf4 override remove -y "${REMOVE_PKGS[@]}"
 fi
 
 get_json_array REPLACE 'try .["replace"][]' "$1"
@@ -200,7 +200,7 @@ if [[ ${#REPLACE[@]} -gt 0 ]]; then
         curl -fLs --create-dirs -O "${REPO_URL}" --output-dir "/etc/yum.repos.d/"
         echo "Downloaded repo file ${REPO_URL}"
 
-        dnf override replace --experimental --from "repo=copr:copr.fedorainfracloud.org:${MAINTAINER}:${REPO_NAME}" ${REPLACE_STR}
+        dnf4 override replace -y --experimental --from "repo=copr:copr.fedorainfracloud.org:${MAINTAINER}:${REPO_NAME}" ${REPLACE_STR}
         rm "/etc/yum.repos.d/${FILE_NAME}"
 
     done
