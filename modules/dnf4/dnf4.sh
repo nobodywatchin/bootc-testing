@@ -76,15 +76,30 @@ fi
 get_json_array INSTALL_PKGS 'try .["install"][]' "$1"
 get_json_array REMOVE_PKGS 'try .["remove"][]' "$1"
 get_json_array GROUPINSTALL_PKGS 'try .["groupinstall"][]' "$1"
+get_json_array GROUPREMOVE_PKGS 'try .["groupremove"][]' "$1"
 
 CLASSIC_INSTALL=false
 HTTPS_INSTALL=false
 LOCAL_INSTALL=false
 
-#Install Package Groups
+# Install Package Groups
 if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
+    echo "Checking for conflicts in package groups..."
+    CONFLICTS=$(dnf groupinstall --assumeno "${GROUPINSTALL_PKGS[@]}" 2>&1 | grep "conflicts with" | awk '{print $3}')
+    
+    if [[ -n "$CONFLICTS" ]]; then
+        echo "Removing conflicting packages: $CONFLICTS"
+        dnf remove -y $CONFLICTS
+    fi
+
     echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
-    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}"
+    dnf groupinstall -y --skip-broken "${GROUPINSTALL_PKGS[@]}"
+fi
+
+#Remove Package Groups
+if [[ ${#GROUPREMOVE_PKGS[@]} -gt 0 ]]; then
+    echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
+    dnf groupremove -y "${GROUPINSTALL_PKGS[@]}"
 fi
 
 # Install and remove RPM packages
@@ -211,10 +226,4 @@ if [[ ${#REPLACE[@]} -gt 0 ]]; then
         rm "/etc/yum.repos.d/${FILE_NAME}"
 
     done
-fi
-
-# Install Package Groups
-if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
-    echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
-    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}"
 fi

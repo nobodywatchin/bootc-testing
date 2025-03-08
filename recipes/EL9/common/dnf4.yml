@@ -1,0 +1,35 @@
+---
+type: dnf4
+source: local
+groupinstall:
+  - Server with GUI
+install:
+# CONTAINER TOOLS
+#  - podman-compose
+  - podman-docker
+#  - kubernetes
+#  - kubernetes-kubeadm
+#  - kubernetes-client
+#  - kubernetes-systemd
+# COCKPIT PACKAGES
+  - cockpit
+  - cockpit-selinux
+  - cockpit-machines
+  - cockpit-networkmanager
+  - cockpit-packagekit
+  - cockpit-ostree
+  - cockpit-podman
+  - cockpit-files
+  - cockpit-bridge
+  - cockpit-ws
+  - cockpit-storaged
+  - cockpit-system
+# VIRTUALIZATION
+#  - xen
+  - libvirt
+#  - libvirt-daemon-xen
+  - libvirt-daemon-config-network
+  - libvirt-daemon-driver-network
+# EXTRAS
+  - fastfetch
+  - libopenraw

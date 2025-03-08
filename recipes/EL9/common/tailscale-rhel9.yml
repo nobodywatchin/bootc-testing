@@ -1,0 +1,7 @@
+---
+type: dnf4
+source: local
+repos:
+  - https://pkgs.tailscale.com/stable/rhel/9/tailscale.repo
+install:
+  - tailscale

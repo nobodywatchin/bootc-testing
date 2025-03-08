@@ -20,10 +20,10 @@ modules:
       # - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
       # - RUN dnf copr enable -y nsella/dnf5-epel9 
       # - RUN dnf install -y dnf5
-  - from-file: common/tailscale-manual-rhel9.yml
-  - from-file: common/dnf4.yml
-  - from-file: common/gnome-extensions.yml
-  - from-file: common/gschema-overrides.yml
-  - from-file: common/services.yml
+  - from-file: EL9/common/tailscale-rhel9.yml
+  - from-file: EL9/common/dnf4.yml
+  - from-file: EL9/common/gnome-extensions.yml
+  - from-file: EL9/common/gschema-overrides.yml
+  - from-file: EL9/common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   
