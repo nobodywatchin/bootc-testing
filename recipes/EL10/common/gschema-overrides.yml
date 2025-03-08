@@ -4,5 +4,5 @@ include:
   - 02-EL10-global.gschema.override
   - 03-dash.gschema.override
   - 04-folders.gschema.override
-  - 05-El10-extensions.gschema.override
+  - 05-EL10-extensions.gschema.override
   - 06-theme.gschema.override
