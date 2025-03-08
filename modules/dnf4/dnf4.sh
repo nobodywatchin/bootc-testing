@@ -86,7 +86,7 @@ LOCAL_INSTALL=false
 if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
     echo "Checking for conflicts in package groups..."
     CONFLICTS=$(dnf groupinstall --assumeno "${GROUPINSTALL_PKGS[@]}" 2>&1 | grep "conflicts with" | awk '{print $3}')
-    
+
     if [[ -n "$CONFLICTS" ]]; then
         echo "Removing conflicting packages: $CONFLICTS"
         dnf remove -y $CONFLICTS
@@ -98,8 +98,8 @@ fi
 
 #Remove Package Groups
 if [[ ${#GROUPREMOVE_PKGS[@]} -gt 0 ]]; then
-    echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
-    dnf groupremove -y "${GROUPINSTALL_PKGS[@]}"
+    echo "Removing package groups: ${GROUPREMOVE_PKGS[*]}"
+    dnf groupremove -y "${GROUPREMOVE_PKGS[@]}"
 fi
 
 # Install and remove RPM packages
@@ -227,3 +227,7 @@ if [[ ${#REPLACE[@]} -gt 0 ]]; then
 
     done
 fi
+
+#Post-Module Cleanup
+echo "Running dnf autoremove to clean up unnecessary packages..."
+dnf autoremove -y

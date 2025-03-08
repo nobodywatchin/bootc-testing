@@ -1,9 +1,0 @@
----
-type: dnf
-source: ghcr.io/blue-build/modules/dnf:dnf-module
-repos:
-  files:
-    - https://pkgs.tailscale.com/stable/centos/9/tailscale.repo
-install:
-  packages:
-  - tailscale
