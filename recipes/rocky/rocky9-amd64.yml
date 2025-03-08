@@ -20,8 +20,8 @@ modules:
       - RUN dnf copr enable -y rpmsoftwaremanagement/dnf-nightly
       - RUN dnf copr enable -y nsella/dnf5-epel9 
       - RUN dnf install -y dnf5
+  - from-file: common/tailscale-manual-rhel9.yml
   - from-file: common/dnf.yml
-  - from-file: common/tailscale-rhel9.yml
   - from-file: common/gnome-de.yml
   - from-file: common/gnome-extensions.yml
   - from-file: common/gschema-overrides.yml
