@@ -12,10 +12,10 @@ image-version: lts # latest is also supported if you want new updates ASAP
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  - from-file: EL10/common/dnf4.yml
   - type: containerfile
     snippets:
       - RUN dnf config-manager --set-enabled crb
-  - from-file: EL10/common/dnf4.yml
   - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/gnome-extensions.yml
   - from-file: EL10/common/gschema-overrides.yml
