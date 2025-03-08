@@ -1,7 +1,7 @@
-name: dnf
+name: dnf4
 shortdesc: The dnf module offers pseudo-declarative package and repository management using dnf.
 example: |
-  type: dnf
+  type: dnf4
   # Add repos, COPR repos, and repo keys
   repos:
     cleanup: false # (optional) Set to true to automatically remove added repos at the end of the module execution
@@ -71,7 +71,7 @@ example: |
       - development-tools
   ---
   # There's also another way to add/remove repos
-  type: dnf
+  type: dnf4
   repos:
     files:
       # Add repo files like the examples above

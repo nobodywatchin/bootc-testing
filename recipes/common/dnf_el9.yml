@@ -1,6 +1,5 @@
 ---
-type: dnf
-option: true
+type: dnf4
 install:
   packages:
   # CONTAINER TOOLS
