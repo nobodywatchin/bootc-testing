@@ -85,7 +85,7 @@ LOCAL_INSTALL=false
 # Install Package Groups
 if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
     echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
-    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}" --allowerasing
+    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}" --nobest --skip-broken --allowerasing
 fi
 
 #Remove Package Groups
