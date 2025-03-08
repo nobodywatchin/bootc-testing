@@ -20,6 +20,6 @@ modules:
       - RUN dnf install -y dnf5
   - from-file: common/tailscale-manual-centos10.yml
   - from-file: common/dnf.yml
-#  - from-file: common/services.yml
+  - from-file: common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   
