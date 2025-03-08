@@ -1,5 +1,5 @@
 ---
 type: containerfile
 snippets:
-  - dnf config-manager --add-repo https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
+  - RUN dnf config-manager --add-repo https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
   - RUN dnf install tailscale
