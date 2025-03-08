@@ -1,7 +1,7 @@
 ---
 type: gschema-overrides
 include:
-  - 02-global.gschema.override
+  - 02-EL10-global.gschema.override
   - 03-dash.gschema.override
   - 04-folders.gschema.override
   - 05-El10-extensions.gschema.override
