@@ -14,10 +14,8 @@ image-version: lts # latest is also supported if you want new updates ASAP
 modules:
   - type: containerfile
     snippets:
-      - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
-      - RUN dnf copr enable -y lucamagrone/epel-10-extra
-      - RUN dnf install -y dnf5
+  - from-file: EL10/common/dnf4.yml
   - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/gnome-extensions.yml
   - from-file: EL10/common/gschema-overrides.yml

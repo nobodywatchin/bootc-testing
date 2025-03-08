@@ -1,35 +1,9 @@
 ---
 type: dnf4
 source: local
-groupinstall:
-  - Server with GUI
+repos:
+  - https://copr.fedorainfracloud.org/coprs/lucamagrone/epel-10-extra/repo/epel-10/lucamagrone-epel-10-extra-epel-10.repo
 install:
-# CONTAINER TOOLS
-#  - podman-compose
-  - podman-docker
-#  - kubernetes
-#  - kubernetes-kubeadm
-#  - kubernetes-client
-#  - kubernetes-systemd
-# COCKPIT PACKAGES
-  - cockpit
-  - cockpit-selinux
-  - cockpit-machines
-  - cockpit-networkmanager
-  - cockpit-packagekit
-  - cockpit-ostree
-  - cockpit-podman
-  - cockpit-files
-  - cockpit-bridge
-  - cockpit-ws
-  - cockpit-storaged
-  - cockpit-system
-# VIRTUALIZATION
-#  - xen
-  - libvirt
-#  - libvirt-daemon-xen
-  - libvirt-daemon-config-network
-  - libvirt-daemon-driver-network
-# EXTRAS
-  - fastfetch
-  - libopenraw
+  - epel-release
+  - dnf-plugins-core
+  - dnf5
