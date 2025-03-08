@@ -81,6 +81,12 @@ CLASSIC_INSTALL=false
 HTTPS_INSTALL=false
 LOCAL_INSTALL=false
 
+#Install Package Groups
+if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
+    echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
+    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}"
+fi
+
 # Install and remove RPM packages
 # Sort classic, URL & local packages
 if [[ ${#INSTALL_PKGS[@]} -gt 0 ]]; then
