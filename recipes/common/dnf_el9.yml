@@ -1,6 +1,6 @@
 ---
 type: dnf
-source: ghcr.io/nobodywatchin/bootc-testing/modules/dnf
+option: true
 install:
   packages:
   # CONTAINER TOOLS
