@@ -84,16 +84,8 @@ LOCAL_INSTALL=false
 
 # Install Package Groups
 if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
-    echo "Checking for conflicts in package groups..."
-    CONFLICTS=$(dnf groupinstall --assumeno "${GROUPINSTALL_PKGS[@]}" 2>&1 | grep "conflicts with" | awk '{print $3}')
-
-    if [[ -n "$CONFLICTS" ]]; then
-        echo "Removing conflicting packages: $CONFLICTS"
-        dnf remove -y $CONFLICTS
-    fi
-
     echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
-    dnf groupinstall -y --skip-broken "${GROUPINSTALL_PKGS[@]}"
+    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}" --allowerasing
 fi
 
 #Remove Package Groups
