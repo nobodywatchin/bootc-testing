@@ -1,6 +1,6 @@
 ---
 type: dnf4
-option: true
+source: local
 install:
 # CONTAINER TOOLS
 #  - podman-compose
