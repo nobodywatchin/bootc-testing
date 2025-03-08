@@ -23,3 +23,5 @@ example: |
         - mutter
         - mutter-common
         - gdm
+  groupinstall:
+    - Server with GUI

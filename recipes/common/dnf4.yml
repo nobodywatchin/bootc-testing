@@ -1,6 +1,8 @@
 ---
 type: dnf4
 source: local
+groupinstall:
+  - Server with GUI
 install:
 # CONTAINER TOOLS
 #  - podman-compose

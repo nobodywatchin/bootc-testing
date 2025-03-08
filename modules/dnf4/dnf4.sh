@@ -75,6 +75,7 @@ fi
 
 get_json_array INSTALL_PKGS 'try .["install"][]' "$1"
 get_json_array REMOVE_PKGS 'try .["remove"][]' "$1"
+get_json_array GROUPINSTALL_PKGS 'try .["groupinstall"][]' "$1"
 
 CLASSIC_INSTALL=false
 HTTPS_INSTALL=false
@@ -204,4 +205,10 @@ if [[ ${#REPLACE[@]} -gt 0 ]]; then
         rm "/etc/yum.repos.d/${FILE_NAME}"
 
     done
+fi
+
+# Install Package Groups
+if [[ ${#GROUPINSTALL_PKGS[@]} -gt 0 ]]; then
+    echo "Installing package groups: ${GROUPINSTALL_PKGS[*]}"
+    dnf groupinstall -y "${GROUPINSTALL_PKGS[@]}"
 fi
