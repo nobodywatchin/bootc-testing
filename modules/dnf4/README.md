@@ -1,182 +1,26 @@
-# **`dnf` Module**
+# `dnf4`
 
-The `dnf` module offers pseudo-declarative package and repository management using `dnf5`.
+The [`dnf4`](https://coreos.github.io/dnf/) module offers pseudo-declarative package and repository management using `dnf`.
 
-## Package Installation
+The module first downloads the repository files from URLs declared under `repos:` into `/etc/yum.repos.d/`. The magic string `%OS_VERSION%` is substituted with the current VERSION_ID (major Fedora version), which can be used, for example, for pulling correct versions of repositories from [Fedora's Copr](https://copr.fedorainfracloud.org/).
 
-### Install Packages
+You can also add repository files directly into your git repository if URLs are not provided. For example:
+```yml
+repos:
+   - my-repository.repo # copies in .repo file from files/dnf/my-repository.repo to /etc/yum.repos.d/
+```
+If you use a repo that requires adding custom keys (eg. Brave Browser), you can import the keys by declaring the key URLs under `keys:`. The magic string acts the same as it does in `repos`.
 
-* Specify packages to install in the `install.packages` field
-* Use the `repo` parameter to specify a specific repository for installation
-* Use the `%OS_VERSION%` variable to automatically determine the operating system version
-* Use flags such as `skip-unavailable`, `install-weak-deps`, and `skip-broken` to customize package installation
+Then the module installs the packages declared under `install:` using `dnf install`, it removes the packages declared under `remove:` using `dnf override remove`. If there are packages declared under both `install:` and `remove:` a hybrid command `dnf remove <packages> --install <packages>` is used, which should allow you to switch required packages for other ones.
 
-Example:
-```yaml
-type: dnf
+Installing RPM packages directly from a `http(s)` url that points to the RPM file is also supported, you can just put the URLs under `install:` and they'll be installed along with the other packages. The magic string `%OS_VERSION%` is substituted with the current VERSION_ID (major Fedora version) like with the `repos:` property.
+
+If an RPM is not available in a repository or as an URL, you can also install it directly from a file in your git repository. For example:
+```yml
 install:
-  packages:
-    - repo: brave-browser
-      packages:
-        - brave-browser
-    - starship
+   - weird-package.rpm # tries to install files/dnf/weird-package.rpm
 ```
+The module can also replace base RPM packages with packages from COPR repo. Under `replace:`, the module finds every pair of keys `- from-repo:` and `packages:`. (Multiple pairs are supported.) The module downloads the COPR repository file declared by `- from-repo:` into `/etc/yum.repos.d/`, and from that repository replaces packages declared under `packages:` using the command `dnf override replace`. The COPR repository file is then deleted. The magic string `%OS_VERSION%` is substituted with the current VERSION_ID (major Fedora version) as already said above. At the moment, only COPR repo is supported.
 
-### Install Packages from URL or File
-
-* Specify a URL or file path in the `packages` field to install packages from a specific repository
-* Use the `%OS_VERSION%` variable to automatically determine the operating system version
-
-Example:
-```yaml
-type: dnf
-install:
-  packages:
-    - https://github.com/Eugeny/tabby/releases/download/v1.0.209/tabby-1.0.209-linux-x64.rpm
-```
-
-### Install Packages from Specific Repositories
-
-* Specify a repository in the `repo` field to install packages from that repository
-* Use the `%OS_VERSION%` variable to automatically determine the operating system version
-
-Example:
-```yaml
-type: dnf
-install:
-  packages:
-    - repo: copr:copr.fedorainfracloud.org:trixieua:mutter-patched
-      packages:
-        - mutter
-```
-
-## Package Removal
-
-### Remove Packages
-
-* Specify packages to remove in the `remove.packages` field
-* Use flags such as `auto-remove` to customize package removal
-
-Example:
-```yaml
-type: dnf
-remove:
-  packages:
-    - firefox
-    - firefox-langpacks
-```
-
-## Package Group Installation
-
-### Define Packages Groups
-
-* Specify a package group in the `group-install.packages` field
-* Use flags such as `skip-unavailable`, `install-weak-deps`, and `skip-broken` to customize package installation
-
-Example:
-```yaml
-type: dnf
-group-install:
-  packages:
-    - cosmic-desktop
-    - window-managers
-```
-
-## Package Group Removal
-
-### Remove Packages Groups
-
-* Specify a package group in the `group-remove.packages` field
-
-Example:
-```yaml
-type: dnf
-group-remove:
-  packages:
-    - development-tools
-```
-
-## Package Replacement
-
-### Replace Packages
-
-* Specify a replacement package in the `replace.from-repo` field
-* Use flags such as `skip-unavailable`, `install-weak-deps`, and `skip-broken` to customize package installation
-
-Example:
-```yaml
-type: dnf
-replace:
-  - from-repo: copr:copr.fedorainfracloud.org:trixieua:mutter-patched
-    packages:
-      - mutter
-```
-
-## Repository Management
-
-### Add COPR Repositories
-
-* Specify a list of COPR repositories in the `copr` field
-
-Example:
-```yaml
-type: dnf
-repos:
-  copr:
-    - atim/starship
-    - trixieua/mutter-patched
-```
-
-### Add Repository Files
-
-* Specify a URL or file path in the `files` field to add repository files
-* Use flags such as `cleanup` to customize repository management
-
-Example:
-```yaml
-type: dnf
-repos:
-  files:
-    - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-```
-
-### Disable Repositories
-
-* Specify a list of repositories to disable in the `enable` field
-
-Example:
-```yaml
-type: dnf
-repos:
-  enable:
-    - repo1
-    - repo2
-```
-
-### Add Repository Keys
-
-* Specify a list of repository keys in the `keys` field
-
-Example:
-```yaml
-type: dnf
-repos:
-  keys:
-    - key1
-    - key2
-```
-
-## Optfix
-
-### Fix Optfix
-
-* Specify a list of packages to fix optfix issues in the `optfix` field
-
-Example:
-```yaml
-type: dnf
-optfix:
-  packages:
-    - package1
-    - package2
+Additionally, the `dnf` module supports a temporary fix for packages that install into `/opt/`. Installation for packages that install into folder names declared under `optfix:` are fixed using some symlinks. Directory path in `/opt/` for those packages should be provided in recipe, like in Example Configuration.
 ```
