@@ -18,11 +18,10 @@ modules:
       - RUN dnf config-manager --set-enabled crb
       - RUN dnf copr enable -y lucamagrone/epel-10-extra
       - RUN dnf install -y dnf5
-  - from-file: EL10/common/tailscale-manual-centos10.yml
+  - from-file: EL10/common/tailscale-centos10.yml
   - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/gnome-de.yml
   - from-file: EL10/common/gnome-extensions.yml
   - from-file: EL10/common/gschema-overrides.yml
   - from-file: EL10/common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
-  
