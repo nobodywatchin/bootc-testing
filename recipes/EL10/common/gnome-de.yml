@@ -1,6 +1,6 @@
 ---
 type: dnf
 source: ghcr.io/blue-build/modules/dnf:dnf-module-gmpinder
-group-install --allow-erasing:
+group-install:
   packages: 
     - Server With GUI
