@@ -24,6 +24,7 @@ modules:
   - from-file: EL9/common/dnf4.yml
   - from-file: EL9/common/gnome-extensions.yml
   - from-file: EL9/common/gschema-overrides.yml
+  - from-file: EL9/common/logos.yml
   - from-file: EL9/common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
   
