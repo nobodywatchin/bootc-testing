@@ -4,6 +4,8 @@ source: local
 groupinstall:
   - Server with GUI
 install:
+# GUI Extras
+  - gnome-shell-extensions
 # CONTAINER TOOLS
 #  - podman-compose
   - podman-docker
@@ -33,3 +35,7 @@ install:
 # EXTRAS
   - fastfetch
   - libopenraw
+remove:
+  - yelp
+  - cheese
+  - gnome-system-monitor
