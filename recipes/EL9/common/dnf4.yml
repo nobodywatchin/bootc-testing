@@ -1,6 +1,6 @@
 ---
 type: dnf4
-source: local
+# source: local
 groupinstall:
   - Server with GUI
 install:
@@ -34,7 +34,7 @@ install:
   - libvirt-daemon-driver-network
 # EXTRAS
   - fastfetch
-#  - libopenraw
+  - libopenraw
 remove:
   - yelp
   - cheese
