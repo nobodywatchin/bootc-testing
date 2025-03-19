@@ -8,7 +8,7 @@ groupinstall:
 #  - cheese
 #  - gnome-system-monitor
 install:
-  - gnome-shell-extensions
+  - gnome-extensions-app
 #  - podman-compose
   - podman-docker
 #  - kubernetes
