@@ -34,7 +34,7 @@ install:
   - libvirt-daemon-driver-network
 # EXTRAS
   - fastfetch
-  - libopenraw
+#  - libopenraw
 remove:
   - yelp
   - cheese
