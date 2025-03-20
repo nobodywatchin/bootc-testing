@@ -3,12 +3,11 @@ type: dnf4
 source: local
 groupinstall:
   - Server with GUI
-remove:
-  - yelp
-  - cheese
-  - gnome-system-monitor
+#remove:
+#  - yelp
+#  - cheese
+#  - gnome-system-monitor
 install:
-  - gnome-extensions-app
 #  - podman-compose
   - podman-docker
 #  - kubernetes

@@ -22,7 +22,7 @@ modules:
       # - RUN dnf install -y dnf5
   - from-file: EL9/common/tailscale-centos9.yml
   - from-file: EL9/common/dnf4.yml
-  - from-file: EL9/common/flathub.yml
+  - from-file: shared/default-flatpaks.yml
   - from-file: EL9/common/gnome-extensions.yml
   - from-file: EL9/common/gschema-overrides.yml
   - from-file: EL9/common/logos.yml
