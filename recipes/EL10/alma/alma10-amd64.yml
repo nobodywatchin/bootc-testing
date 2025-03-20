@@ -22,6 +22,7 @@ modules:
   - from-file: EL10/common/tailscale-manual-centos10.yml
   - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/gnome-de.yml
+  - from-file: shared/default-flatpaks.yml
   - from-file: EL10/common/gnome-extensions.yml
   - from-file: EL10/common/gschema-overrides.yml
   - from-file: EL10/common/logos.yml
