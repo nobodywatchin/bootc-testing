@@ -1,8 +1,4 @@
 ---
 type: gschema-overrides
 include:
-  - 95-EL9-global.gschema.override
-  - 96-dash.gschema.override
-  - 97-folders.gschema.override
-  - 98-EL9-extensions.gschema.override
-  - 99-theme.gschema.override
+  - 99-EL9-global.gschema.override

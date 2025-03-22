@@ -25,12 +25,12 @@ modules:
     files:
       - source: dconf # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
         destination: /
-  - type: gschema-overrides # Overrides global gschema settings
-    include:
-      - 95-EL10-global.gschema.override # GNOME Keyboard Shortcuts and Settings
   - type: bling
     install:
       - dconf-update-service # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
+  - type: gschema-overrides # Overrides global gschema settings
+    include:
+      - 99-EL10-global.gschema.override # GNOME Keyboard Shortcuts and Settings
   - type: files # Replaces logos
     files:
       - source: logos
