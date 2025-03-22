@@ -27,3 +27,27 @@ numlock-state=true
 
 [org/gnome/desktop/peripherals/touchpad]
 tap-to-click=true
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Control><Alt>t'
+command='ptyxis --new-window'
+name='Ptyxis'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Control><Alt>KP_Delete'
+command='flatpak run net.nokyan.Resources'
+name='Resources'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+binding='<Control><Shift>Escape'
+command='flatpak run net.nokyan.Resources'
+name='Resources'
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/']
+
+[org/gnome/nautilus/preferences]
+show-create-link=true
+
+[org/gnome/mutter]
+experimental-features=['variable-refresh-rate', 'scale-monitor-framebuffer']
