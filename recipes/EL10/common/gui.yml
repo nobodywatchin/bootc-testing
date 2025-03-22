@@ -3,7 +3,7 @@ modules:
   - type: dnf
     source: ghcr.io/blue-build/modules/dnf:dnf-module-gmpinder
     group-install:
-    packages: 
+      packages: 
       - Server With GUI # Installs GNOME Desktop
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
@@ -21,6 +21,10 @@ modules:
       - 1460 # Vitals
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
+  - type: files # Replaces logos
+    files:
+      - source: dconf
+        destination: /
   - type: gschema-overrides # Overrides global gschema settings
     include:
       - 95-EL10-global.gschema.override # GNOME Keyboard Shortcuts and Settings
