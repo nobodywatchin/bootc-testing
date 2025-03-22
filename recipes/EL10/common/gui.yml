@@ -21,9 +21,9 @@ modules:
       - 1460 # Vitals
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
-  - type: files # Replaces logos
+  - type: files 
     files:
-      - source: dconf
+      - source: dconf # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
         destination: /
   - type: gschema-overrides # Overrides global gschema settings
     include:
