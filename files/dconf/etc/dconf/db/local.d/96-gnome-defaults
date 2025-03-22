@@ -3,16 +3,6 @@ allow-updates=false
 download-updates=false
 download-updates-notify=false
 
-[org/gnome/desktop/wm/preferences]
-button-layout='appmenu:minimize,close'
-action-double-click-titlebar='toggle-maximize'
-action-middle-click-titlebar='none'
-focus-mode='sloppy'
-auto-raise=true
-
-[org/gnome/mutter]
-center-new-windows=false
-
 [org/gnome/desktop/wm/keybindings]
 switch-applications=['<Super>Tab']
 switch-applications-backward=['<Shift><Super>Tab']
