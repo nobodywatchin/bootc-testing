@@ -1,12 +1,12 @@
 ---
 modules:
   - type: dnf
-    source: ghcr.io/blue-build/modules/dnf:dnf-module-gmpinder
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     group-install:
       packages: 
       - Server With GUI # Installs GNOME Desktop
   - type: dnf
-    source: ghcr.io/blue-build/modules/dnf:dnf-module
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages: 
       - gnome-tweaks
