@@ -16,7 +16,7 @@ modules:
       # SYSTEM
         - dnf-plugins-core
       # CONTAINER TOOLS
-        - podman-compose
+      #  - podman-compose
         - podman-docker
       #  - kubernetes
       #  - kubernetes-kubeadm
