@@ -11,8 +11,8 @@ modules:
       packages: 
       - gstreamer1-plugins-bad-free
       - gstreamer1-plugins-bad-free-libs
-      - gstreamer1-plugins-bad-good
-      - gstreamer1-plugins-bad-base
+      - gstreamer1-plugins-good
+      - gstreamer1-plugins-base
       - lame
       - lame-libs
       - libjxl
@@ -52,7 +52,7 @@ modules:
       - libcamera-gstreamer
       - libcamera-tools
       - ffmpegthumbnailer
-      - wl clipboard
+      - wl-clipboard
       - jetbrains-mono-fonts-all
       - gnome-disk-utility
       - gnome-tweaks
