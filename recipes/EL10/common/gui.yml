@@ -5,6 +5,11 @@ modules:
     group-install:
       packages: 
       - Server With GUI # Installs GNOME Desktop
+  - type: dnf
+    source: ghcr.io/blue-build/modules/dnf:dnf-module
+    install:
+      packages: 
+      - gnome-tweaks
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection
