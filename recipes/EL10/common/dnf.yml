@@ -1,34 +1,9 @@
 ---
-type: dnf
-source: ghcr.io/blue-build/modules/dnf:dnf-module
-install:
-  packages:
-  # CONTAINER TOOLS
-  #  - podman-compose
-    - podman-docker
-  #  - kubernetes
-  #  - kubernetes-kubeadm
-  #  - kubernetes-client
-  #  - kubernetes-systemd
-  # COCKPIT PACKAGES
-    - cockpit
-    - cockpit-selinux
-    - cockpit-machines
-    - cockpit-networkmanager
-    - cockpit-packagekit
-    - cockpit-ostree
-    - cockpit-podman
-    - cockpit-files
-    - cockpit-bridge
-    - cockpit-ws
-    - cockpit-storaged
-    - cockpit-system
-  # VIRTUALIZATION
-  #  - xen
-    - libvirt
-  #  - libvirt-daemon-xen
-    - libvirt-daemon-config-network
-    - libvirt-daemon-driver-network
-  # EXTRAS
-    - fastfetch
-    - libopenraw
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+        - repo: copr:copr.fedorainfracloud.org:lucamagrone:epel-10-extra
+          packages:
+            - dnf5

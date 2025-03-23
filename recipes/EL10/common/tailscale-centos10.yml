@@ -1,11 +1,9 @@
 ---
-modules:
-  - type: dnf4
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
-    repos:
-      files:
-        - https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
-  - type: dnf4
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
-    packages:
-      - tailscale
+type: dnf4
+source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+repos:
+  - https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
+install:
+  packages:
+    - tailscale
+

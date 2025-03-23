@@ -1,9 +1,25 @@
 ---
-type: dnf4
-source: local
-repos:
-  - https://copr.fedorainfracloud.org/coprs/lucamagrone/epel-10-extra/repo/epel-10/lucamagrone-epel-10-extra-epel-10.repo
-install:
-  - epel-release
-  - dnf-plugins-core
-  - dnf5
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+      # SYSTEM
+        - epel-release
+        - dnf-plugins-core
+      # CONTAINER TOOLS
+        - podman-compose
+        - podman-docker
+      #  - kubernetes
+      #  - kubernetes-kubeadm
+      #  - kubernetes-client
+      #  - kubernetes-systemd
+      # VIRTUALIZATION
+      #  - xen
+        - libvirt
+      #  - libvirt-daemon-xen
+        - libvirt-daemon-config-network
+        - libvirt-daemon-driver-network
+      # EXTRAS
+        - fastfetch
+        - libopenraw
