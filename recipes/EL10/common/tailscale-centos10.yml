@@ -5,5 +5,7 @@ modules:
     repos:
       files:
         - https://pkgs.tailscale.com/stable/centos/10/tailscale.repo
-    packages: 
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    packages:
       - tailscale
