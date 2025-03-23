@@ -1,11 +1,11 @@
 ---
 modules:
-  - type: dnf
+  - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     group-install:
       packages: 
       - Server With GUI # Installs GNOME Desktop
-  - type: dnf
+  - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages: 
