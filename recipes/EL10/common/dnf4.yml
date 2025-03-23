@@ -6,6 +6,14 @@ modules:
       packages:
       # SYSTEM
         - epel-release
+  - type: containerfile
+    snippets:
+      - RUN dnf config-manager --set-enabled crb
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+      # SYSTEM
         - dnf-plugins-core
       # CONTAINER TOOLS
         - podman-compose
