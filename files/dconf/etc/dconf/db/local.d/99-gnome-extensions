@@ -71,6 +71,18 @@ height=36.0
 margin=3.0
 cust-margin-wmax=false
 isalpha=0.4
+iscolor=['0', '0', '0']
 balpha=0.0
 bgalpha=0.0
 boxalpha=0.0
+
+[org/gnome/shell/extensions/clipboard-indicator]
+cache-size=2
+clear-on-boot=true
+confirm-clear=true
+disable-down-arrow=true
+display-mode=0
+enable-deletion=true
+enable-keybindings=false
+history-size=30
+preview-size=30
