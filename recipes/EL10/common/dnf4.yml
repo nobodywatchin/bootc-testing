@@ -16,6 +16,8 @@ modules:
       # SYSTEM
         - dnf-plugins-core
         - system-reinstall-bootc 
+      # CLI Essentials
+        - unzip
       # CONTAINER TOOLS
         - distrobox
         - buildah
