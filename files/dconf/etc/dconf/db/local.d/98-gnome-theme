@@ -20,3 +20,20 @@ auto-raise=true
 [org/gnome/mutter]
 center-new-windows=false
 
+[org/gnome/Ptyxis]
+cursor-blink-mode='on'
+cursor-shape='ibeam'
+use-system-font=false
+font-name='Monospace 12'
+restore-session=false
+restore-window-size=false
+audible-bell=false
+
+[com/github/stunkymonkey/nautilus-open-any-terminal]
+terminal='ptyxis'
+keybindings=''
+new-tab=true
+flatpak='off'
+
+[org/gtk/settings/file-chooser]
+sort-directories-first=true
