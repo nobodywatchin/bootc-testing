@@ -15,7 +15,10 @@ modules:
       packages:
       # SYSTEM
         - dnf-plugins-core
+        - system-reinstall-bootc 
       # CONTAINER TOOLS
+        - distrobox
+        - buildah
       #  - podman-compose
         - podman-docker
       #  - kubernetes
@@ -31,3 +34,4 @@ modules:
       # EXTRAS
         - fastfetch
         - libopenraw
+        - just

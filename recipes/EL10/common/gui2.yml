@@ -1,0 +1,89 @@
+---
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    group-install:
+      packages: 
+      - Multimedia
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages: 
+      - gstreamer1-plugins-bad-free
+      - gstreamer1-plugins-bad-free-libs
+      - gstreamer1-plugins-bad-good
+      - gstreamer1-plugins-bad-base
+      - lame
+      - lame-libs
+      - libjxl
+      - NetworkManager-adsl
+      - gdm
+      - gnome-bluetooth
+      - gnome-color-manager
+      - gnome-control-center
+      - gnome-initial-setup
+      - gnome-remote-desktop
+      - gnome-session-wayland-session
+      - gnome-settings-daemon
+      - gnome-shell
+      - gnome-software
+      - gnome-user-docs
+      - gvfs-fuse
+      - gvfs-goa
+      - gvfs-gphoto2
+      - gvfs-mtp
+      - gvfs-smb
+      - libsane-hpaio
+      - nautilus
+      - orca
+      - ptyxis
+      - sane-backends-drivers-scanners
+      - xdg-desktop-portal-gnome
+      - xdg-user-dirs-gtk
+      - yelp-tools
+      - plymouth
+      - plymouth-system-theme
+      - fwupd
+      - systemd-resolved
+      - systemd-container
+      - systemd-oomd
+      - libcamera
+      - libcamera-v4l2
+      - libcamera-gstreamer
+      - libcamera-tools
+      - ffmpegthumbnailer
+      - wl clipboard
+      - jetbrains-mono-fonts-all
+      - gnome-disk-utility
+      - gnome-tweaks
+
+  - type: gnome-extensions # Installs extensions for GNOME Desktop
+    install:
+      - 3843 # Just Perfection
+      - 615 # AppIndicator and KStatusNotifierItem Support
+      - 517 # Caffeine
+      # - 3088 # Extension List
+      - 7 # Removable Drive Menu
+      - 6139 # Tailscale QS
+      - 3193 # Blur my Shell
+      - 7065 # Tiling Shell
+      # - 7535 # Accent Icons
+      - 19 # User Themes
+      # - 779 # Clipboard Indicator
+      - 1460 # Vitals
+      - 6580 # Open Bar
+      - 1401 # Bluetooth Quick Connect
+  - type: files 
+    files:
+      - source: dconf # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
+        destination: /
+  - type: bling
+    install:
+      - dconf-update-service # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
+  - type: gschema-overrides # Overrides global gschema settings
+    include:
+      - 99-EL10-global.gschema.override # GNOME Keyboard Shortcuts and Settings
+  - type: files # Replaces logos
+    files:
+      - source: logos
+        destination: /
