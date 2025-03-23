@@ -17,9 +17,9 @@ modules:
       - 7065 # Tiling Shell
       # - 7535 # Accent Icons
       - 19 # User Themes
-      - 779 # Clipboard Indicator
+      # - 779 # Clipboard Indicator
       - 1460 # Vitals
-      # - 6580 # Open Bar
+      - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
   - type: files 
     files:
