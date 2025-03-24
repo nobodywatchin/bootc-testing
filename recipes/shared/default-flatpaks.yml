@@ -1,17 +1,46 @@
-type: default-flatpaks
-notify: true
-user:
-  repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-  repo-name: flathub
-  repo-title: "Flathub" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
-  install:
-  - io.github.dvlv.boxbuddyrs
-  - io.github.flattool.Warehouse
-  - com.github.tchx84.Flatseal
-  - it.mijorus.gearlever
-  - com.usebottles.bottles
-  - com.github.marhkb.Pods
-  - dev.skynomads.Seabird
-  - net.nokyan.Resources
-  - com.mattjakeman.ExtensionManager
-  - dev.deedles.Trayscale
+---
+modules:
+  - type: default-flatpaks
+    notify: true # Send notification after install/uninstall is finished (true/false)
+    user:
+    # If no repo information is specified, Flathub will be used by default
+      repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+      repo-name: flathub
+      repo-title: "User Flatpaks" # Optional; User-facing name in graphical frontends like GNOME Software
+      remove:
+      - io.github.dvlv.boxbuddyrs
+      - io.github.flattool.Warehouse
+      - com.github.tchx84.Flatseal
+      - it.mijorus.gearlever
+      - com.usebottles.bottles
+      - com.github.marhkb.Pods
+      - dev.skynomads.Seabird
+      - net.nokyan.Resources
+      - com.mattjakeman.ExtensionManager
+      - dev.deedles.Trayscale
+  - type: default-flatpaks
+    notify: true 
+    system:
+      repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+      repo-name: flathub
+      repo-title: "System Flatpaks" # Optional; User-facing name in graphical frontends like GNOME Software
+      install:
+      - io.github.dvlv.boxbuddyrs
+      - io.github.flattool.Warehouse
+      - com.github.tchx84.Flatseal
+      - io.github.giantpinkrobots.flatsweep
+      - it.mijorus.gearlever
+      - com.usebottles.bottles
+      - com.github.marhkb.Pods
+      - net.nokyan.Resources
+      - org.gnome.TextEditor
+      - com.mattjakeman.ExtensionManager
+      - org.gnome.Decibels
+      - org.gnome.FileRoller
+      - io.github.realmazharhussain.GdmSettings
+      - page.codeberg.libre_menu_editor.LibreMenuEditor
+      - ca.desrt.dconf-editor.desktop
+  - type: files 
+    files:
+      - source: flatpak # Sets flatpak config files
+        destination: /

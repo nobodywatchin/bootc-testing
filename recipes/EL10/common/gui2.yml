@@ -73,6 +73,7 @@ modules:
       - 1460 # Vitals
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
+      - 1319 # GSConnect (KDE Connect Integration)
   - type: files 
     files:
       - source: dconf # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
