@@ -1,29 +1,29 @@
-[org/Settings/desktop/app-folders]
+[org/gnome/desktop/app-folders]
 folder-children=['Web', 'Office', 'Social', 'Work', 'Games', 'GamingUtilities', 'Emulators', 'Utilities', 'Accessories', 'Video', 'Waydroid', 'System', 'Applications', 'Settings', 'Graphics', 'Audio', 'Programming', 'Religion', 'Downloads']
 
-[org/Settings/desktop/app-folders/folders/GamingUtilities]
+[org/gnome/desktop/app-folders/folders/GamingUtilities]
 apps=['com.github.Matoking.protontricks.desktop', 'io.github.trigg.discover_overlay.desktop', 'com.vysp3r.ProtonPlus.desktop', 'io.github.benjamimgois.goverlay.desktop', 'com.gerbilsoft.rom-properties.rp-config.desktop', 'input-remapper-gtk.desktop', 'steamos-nested-desktop.desktop', 'io.github.philipk.boilr.desktop', 'io.github.Foldex.AdwSteamGtk.desktop', 'com.steamgriddb.steam-rom-manager.desktop', 'io.github.loot.loot.desktop', 'io.github.Adda0.Stardrop.desktop', 'com.vysp3r.RetroPlus.desktop']
 name='Gaming Utilities'
 translate=false
 
-[org/Settings/desktop/app-folders/folders/Applications]
+[org/gnome/desktop/app-folders/folders/Applications]
 apps=['it.mijorus.gearlever.desktop', 'com.github.tchx84.Flatseal.desktop', 'io.github.flattool.Warehouse.desktop', 'io.github.giantpinkrobots.flatsweep.desktop']
 name='Application Tools'
 translate=false
 
-[org/Settings/desktop/app-folders/folders/Containers]
+[org/gnome/desktop/app-folders/folders/Containers]
 apps=['com.github.marhkb.Pods.desktop', 'io.podman_desktop.PodmanDesktop.desktop', 'dev.skynomads.Seabird.desktop', 'io.github.dvlv.boxbuddyrs.desktop']
 categories=['Distrobox']
 name='Containers'
 translate=false
 
-[org/Settings/desktop/app-folders/folders/Waydroid]
+[org/gnome/desktop/app-folders/folders/Waydroid]
 apps=['Waydroid.desktop']
 categories=['X-WayDroid-App']
 name='Android'
 translate=false
 
-[org/Settings/desktop/app-folders/folders/Games]
+[org/gnome/desktop/app-folders/folders/Games]
 apps=['com.valvesoftware.Steam.desktop', 'org.prismlauncher.PrismLauncher.desktop', 'com.heroicgameslauncher.hgl.desktop', 'com.pokemmo.PokeMMO.desktop', 'io.github.benjamimgois.goverlay.desktop']
 excluded-apps=['org.mamedev.MAME.desktop', 'io.github.stella_emu.Stella.desktop', 'io.github.dosbox-staging.desktop', 'org.scummvm.ScummVM.desktop', 'com.retrodev.blastem.desktop', 'org.flycast.Flycast.desktop', 'app.xemu.xemu.desktop', 'org.duckstation.DuckStation.desktop', 'net.pcsx2.PCSX2.desktop', 'org.ppsspp.PPSSPP.desktop', 'net.rpcs3.RPCS3.desktop', 'ca._0ldsk00l.Nestopia.desktop', 'dev.bsnes.bsnes.desktop', 'com.github.Rosalie241.RMG.desktop', 'io.mgba.mGBA.desktop', 'org.DolphinEmu.dolphin-emu.desktop', 'net.kuribo64.melonDS.desktop', 'org.desmume.DeSmuME.desktop', 'info.cemu.Cemu.desktop', 'io.github.lime3ds.Lime3DS.desktop', 'org.ryujinx.Ryujinx.desktop']
 excluded-apps=['com.usebottles.bottles.desktop', 'com.vysp3r.ProtonPlus.desktop', 'com.vysp3r.RetroPlus.desktop', 'org.mamedev.MAME.desktop', 'io.github.stella_emu.Stella.desktop', 'io.github.dosbox-staging.desktop', 'org.scummvm.ScummVM.desktop', 'com.retrodev.blastem.desktop', 'org.flycast.Flycast.desktop', 'app.xemu.xemu.desktop', 'org.duckstation.DuckStation.desktop', 'net.pcsx2.PCSX2.desktop', 'org.ppsspp.PPSSPP.desktop', 'net.rpcs3.RPCS3.desktop', 'ca._0ldsk00l.Nestopia.desktop', 'dev.bsnes.bsnes.desktop', 'com.github.Rosalie241.RMG.desktop', 'io.mgba.mGBA.desktop', 'org.DolphinEmu.dolphin-emu.desktop', 'net.kuribo64.melonDS.desktop', 'org.desmume.DeSmuME.desktop', 'info.cemu.Cemu.desktop', 'io.github.lime3ds.Lime3DS.desktop', 'org.ryujinx.Ryujinx.desktop', 'rs.ruffle.Ruffle.desktop']
@@ -31,74 +31,74 @@ categories=['Game']
 name='Games'
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Emulators]
+[org/gnome/desktop/app-folders/folders/Emulators]
 apps=['rs.ruffle.Ruffle.desktop', 'net._86box._86Box', 'org.mamedev.MAME.desktop', 'io.github.stella_emu.Stella.desktop', 'io.github.dosbox-staging.desktop', 'org.scummvm.ScummVM.desktop', 'com.retrodev.blastem.desktop', 'org.flycast.Flycast.desktop', 'app.xemu.xemu.desktop', 'org.duckstation.DuckStation.desktop', 'net.pcsx2.PCSX2.desktop', 'org.ppsspp.PPSSPP.desktop', 'net.rpcs3.RPCS3.desktop', 'ca._0ldsk00l.Nestopia.desktop', 'dev.bsnes.bsnes.desktop', 'com.github.Rosalie241.RMG.desktop', 'io.mgba.mGBA.desktop', 'org.DolphinEmu.dolphin-emu.desktop', 'net.kuribo64.melonDS.desktop', 'org.desmume.DeSmuME.desktop', 'info.cemu.Cemu.desktop', 'io.github.lime3ds.Lime3DS.desktop', 'org.ryujinx.Ryujinx.desktop']
 name='Emulators'
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Office]
+[org/gnome/desktop/app-folders/folders/Office]
 categories=['Office']
 excluded-apps=['com.github.marhkb.Pods.desktop']
 name='Office'
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Accessories]
+[org/gnome/desktop/app-folders/folders/Accessories]
 name='Accessories'
 categories=['Accessories']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Graphics]
+[org/gnome/desktop/app-folders/folders/Graphics]
 name='Graphics'
 apps=['org.gimp.GIMP.desktop', 'org.inkscape.Inkscape.desktop', 'com.boxy_svg.BoxySVG.desktop', 'org.kde.krita', 'com.xnview.XnViewMP.desktop']
 excluded-apps=['com.usebottles.bottles.desktop', 'nl.emphisia.icon.desktop']
 categories=['Graphics']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Video]
+[org/gnome/desktop/app-folders/folders/Video]
 name='Video'
 apps=['org.nickvision.tubeconverter.desktop', 'org.kde.kdenlive.desktop', 'com.obsproject.Studio.desktop', 'com.dec05eba.gpu_screen_recorder.desktop', 'org.videolan.VLC.desktop', 'io.gitlab.adhami3310.Footage.desktop']
 categories=['Video']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Audio]
+[org/gnome/desktop/app-folders/folders/Audio]
 name='Audio'
 apps=['org.nickvision.cavalier.desktop']
 categories=['Audio']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Web]
+[org/gnome/desktop/app-folders/folders/Web]
 name='Web'
 apps=['com.brave.Browser.desktop', 'com.google.Chrome.desktop', 'io.github.ungoogled_software.ungoogled_chromium.desktop', 'com.microsoft.Edge.desktop', 'org.mozilla.firefox.desktop', 'io.gitlab.librewolf-community.desktop', 'one.ablaze.floorp.desktop', 'com.opera.Opera.desktop', 'com.vivaldi.Vivaldi.desktop', 'io.github.zen_browser.zen.desktop', 'org.torproject.torbrowser-launcher.desktop', 'io.github.OkuBrowser.oku.desktop']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Social]
+[org/gnome/desktop/app-folders/folders/Social]
 name='Social'
-apps=['com.discordapp.Discord.desktop', 'io.github.milkshiift.GoofCord.desktop', 'com.slack.Slack.desktop', 'us.zoom.Zoom.desktop', 'com.github.IsmaelMartinez.teams_for_linux.desktop', 'com.rtosta.zapzap.desktop', 'com.sindresorhus.Caprine.desktop', 'org.telegram.desktop.desktop', 'org.signal.Signal.desktop', 'org.Settings.Fractal.desktop', 'org.ferdium.Ferdium.desktop']
+apps=['com.discordapp.Discord.desktop', 'io.github.milkshiift.GoofCord.desktop', 'com.slack.Slack.desktop', 'us.zoom.Zoom.desktop', 'com.github.IsmaelMartinez.teams_for_linux.desktop', 'com.rtosta.zapzap.desktop', 'com.sindresorhus.Caprine.desktop', 'org.telegram.desktop.desktop', 'org.signal.Signal.desktop', 'org.gnome.Fractal.desktop', 'org.ferdium.Ferdium.desktop']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/System]
+[org/gnome/desktop/app-folders/folders/System]
 name='System'
-apps=['net.nokyan.Resources.desktop', 'com.leinardi.gst.desktop', 'io.github.lact-linux.desktop', 'org.Settings.DiskUtility.desktop',  'org.Settings.baobab.desktop', 'org.openrgb.OpenRGB.desktop']
+apps=['net.nokyan.Resources.desktop', 'com.leinardi.gst.desktop', 'io.github.lact-linux.desktop', 'org.gnome.DiskUtility.desktop',  'org.gnome.baobab.desktop', 'org.openrgb.OpenRGB.desktop']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Programming]
+[org/gnome/desktop/app-folders/folders/Programming]
 name='Programming'
-apps=['org.raspberrypi.rpi-imager.desktop', 'io.github.shiftey.Desktop.desktop', 'org.Settings.Builder.desktop', 're.sonny.Workbench.desktop', 'com.vscodium.codium.desktop']
-categories=['X-Settings-Programming']
+apps=['org.raspberrypi.rpi-imager.desktop', 'io.github.shiftey.Desktop.desktop', 'org.gnome.Builder.desktop', 're.sonny.Workbench.desktop', 'com.vscodium.codium.desktop']
+categories=['X-GNOME-Programming']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Religion]
+[org/gnome/desktop/app-folders/folders/Religion]
 name='Religion'
 apps=['net.lugsole.bible_gui.desktop', 'io.github.kovzol.bibref.desktop', 'sh.shuriken.Eeman.desktop', 'io.github.adenlall.salatok-gtk.desktop']
 categories=['Religion']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Settings]
+[org/gnome/desktop/app-folders/folders/Settings]
 name='Settings'
-apps=['org.Settings.Settings.desktop', 'org.Settings.tweaks.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.Settings.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
+apps=['org.gnome.Settings.desktop', 'org.gnome.tweaks.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.gnome.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
 translate=true
 
-[org/Settings/desktop/app-folders/folders/Downloads]
+[org/gnome/desktop/app-folders/folders/Downloads]
 name='Downloads'
 apps=['de.haeckerfelix.Fragments.desktop', 'io.github.giantpinkrobots.varia.desktop', 'com.github.gabutakut.gabutdm.desktop', 'com.ktechpit.torrhunt.desktop', 'org.qbittorrent.qBittorrent.desktop', 'com.transmissionbt.Transmission.desktop', 'com.ktechpit.orion.desktop']
 categories=['Downloads']
