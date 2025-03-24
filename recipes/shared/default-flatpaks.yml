@@ -33,6 +33,7 @@ modules:
         - net.nokyan.Resources
         - com.mattjakeman.ExtensionManager
         - org.gnome.Decibels
+        - org.gnome.Showtime
         - org.gnome.FileRoller
         - io.github.realmazharhussain.GdmSettings
         - page.codeberg.libre_menu_editor.LibreMenuEditor
