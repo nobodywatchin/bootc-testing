@@ -95,7 +95,7 @@ translate=true
 
 [org/Settings/desktop/app-folders/folders/Settings]
 name='Settings'
-apps=['org.Settings.Settings.desktop', 'org.Settings.tweaks.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.Settings.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
+apps=['org.Settings.Settings.desktop', 'org.Settings.tweaks.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.Settings.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
 translate=true
 
 [org/Settings/desktop/app-folders/folders/Downloads]
