@@ -4,7 +4,9 @@ modules:
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages:
-      # SYSTEM
+      # Cockpit
+        - cockpit*
+      # Extra Packages for Enterprise Linux
         - epel-release
   - type: containerfile
     snippets:
@@ -18,8 +20,6 @@ modules:
         - system-reinstall-bootc 
       # CLI Essentials
         - unzip
-      # Cockpit
-        - cockpit*
       # CONTAINER TOOLS
         - distrobox
         - buildah
