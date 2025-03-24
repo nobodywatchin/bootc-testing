@@ -39,7 +39,7 @@ modules:
       - org.gnome.FileRoller
       - io.github.realmazharhussain.GdmSettings
       - page.codeberg.libre_menu_editor.LibreMenuEditor
-      - ca.desrt.dconf-editor.desktop
+      - ca.desrt.dconf-editor
   - type: files 
     files:
       - source: flatpak # Sets flatpak config files
