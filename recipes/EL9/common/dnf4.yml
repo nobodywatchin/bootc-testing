@@ -15,9 +15,10 @@ modules:
       packages:
       # SYSTEM
         - dnf-plugins-core
-        - system-reinstall-bootc 
       # CLI Essentials
         - unzip
+      # Cockpit
+        - cockpit*
       # CONTAINER TOOLS
         - distrobox
         - buildah
@@ -36,4 +37,3 @@ modules:
       # EXTRAS
         - fastfetch
         - libopenraw
-        - just

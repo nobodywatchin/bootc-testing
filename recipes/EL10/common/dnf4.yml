@@ -18,6 +18,8 @@ modules:
         - system-reinstall-bootc 
       # CLI Essentials
         - unzip
+      # Cockpit
+        - cockpit*
       # CONTAINER TOOLS
         - distrobox
         - buildah
