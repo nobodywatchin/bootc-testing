@@ -5,6 +5,7 @@ modules:
     install:
       packages:
       # Cockpit
+        - cockpit-bridge-333-1.el10.x86_64
         - cockpit*
       # Extra Packages for Enterprise Linux
         - epel-release
