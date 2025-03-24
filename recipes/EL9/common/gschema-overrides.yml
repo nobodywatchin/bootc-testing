@@ -1,4 +1,0 @@
----
-type: gschema-overrides
-include:
-  - 99-EL9-global.gschema.override

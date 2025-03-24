@@ -1,37 +1,39 @@
 ---
-type: dnf4
-source: ghcr.io/certifiedfoolio/modules/dnf4:v1
-group-install:
-  packages:
-    - Server with GUI
-#remove:
-#  - yelp
-#  - cheese
-#  - gnome-system-monitor
-install:
-  packages:
-  #  - podman-compose
-    - podman-docker
-  #  - kubernetes
-  #  - kubernetes-kubeadm
-  #  - kubernetes-client
-  #  - kubernetes-systemd
-    - cockpit
-    - cockpit-selinux
-    - cockpit-machines
-    - cockpit-networkmanager
-    - cockpit-packagekit
-    - cockpit-ostree
-    - cockpit-podman
-    - cockpit-files
-    - cockpit-bridge
-    - cockpit-ws
-    - cockpit-storaged
-    - cockpit-system
-  #  - xen
-    - libvirt
-  #  - libvirt-daemon-xen
-    - libvirt-daemon-config-network
-    - libvirt-daemon-driver-network
-    - fastfetch
-    - libopenraw
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+      # SYSTEM
+        - epel-release
+  - type: containerfile
+    snippets:
+      - RUN dnf config-manager --set-enabled crb
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+      # SYSTEM
+        - dnf-plugins-core
+        - system-reinstall-bootc 
+      # CLI Essentials
+        - unzip
+      # CONTAINER TOOLS
+        - distrobox
+        - buildah
+      #  - podman-compose
+        - podman-docker
+      #  - kubernetes
+      #  - kubernetes-kubeadm
+      #  - kubernetes-client
+      #  - kubernetes-systemd
+      # VIRTUALIZATION
+      #  - xen
+        - libvirt
+      #  - libvirt-daemon-xen
+        - libvirt-daemon-config-network
+        - libvirt-daemon-driver-network
+      # EXTRAS
+        - fastfetch
+        - libopenraw
+        - just

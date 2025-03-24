@@ -18,4 +18,3 @@ modules:
   - from-file: shared/default-flatpaks.yml
   - from-file: EL10/common/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
-  
