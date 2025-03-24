@@ -17,7 +17,7 @@ modules:
       - RUN dnf install -y epel-release
       - RUN dnf config-manager --set-enabled crb
       - RUN dnf install -y dnf-plugins-core
-  - from-file: EL9/common/tailscale-centos9.yml
+  - from-file: EL9/common/tailscale-manual-centos9.yml
   - from-file: EL9/common/dnf4.yml
   - from-file: shared/default-flatpaks.yml
   - from-file: EL9/common/gnome-extensions.yml
