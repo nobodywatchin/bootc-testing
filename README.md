@@ -19,23 +19,23 @@ cosign verify --key cosign.pub ghcr.io/nobodywatchin/bootc-testing
 # Building
 
 Currently, the ISO file installs to the first hard drive it finds automatically.
+
 I am not responsible if you format the wrong hard drive!
 
 To Build the ISO file, run:
 
 ```bash
-sudo podman pull ghcr.io/nobodywatchin/alma9-testing:latest && \
+sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
 sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run \
   --rm \
   -it \
   --privileged \
   --pull=never \
-  --network host \
   --security-opt label=type:unconfined_t \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
   -v $(pwd)/output:/output \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type anaconda-iso \
-  ghcr.io/nobodywatchin/alma9-testing:latest
+  ghcr.io/nobodywatchin/alma10-testing:latest
 ```
