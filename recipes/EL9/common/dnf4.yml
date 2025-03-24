@@ -1,35 +1,37 @@
 ---
 type: dnf4
-source: local
-groupinstall:
-  - Server with GUI
+source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+group-install:
+  packages:
+    - Server with GUI
 #remove:
 #  - yelp
 #  - cheese
 #  - gnome-system-monitor
 install:
-#  - podman-compose
-  - podman-docker
-#  - kubernetes
-#  - kubernetes-kubeadm
-#  - kubernetes-client
-#  - kubernetes-systemd
-  - cockpit
-  - cockpit-selinux
-  - cockpit-machines
-  - cockpit-networkmanager
-  - cockpit-packagekit
-  - cockpit-ostree
-  - cockpit-podman
-  - cockpit-files
-  - cockpit-bridge
-  - cockpit-ws
-  - cockpit-storaged
-  - cockpit-system
-#  - xen
-  - libvirt
-#  - libvirt-daemon-xen
-  - libvirt-daemon-config-network
-  - libvirt-daemon-driver-network
-  - fastfetch
-  - libopenraw
+  packages:
+  #  - podman-compose
+    - podman-docker
+  #  - kubernetes
+  #  - kubernetes-kubeadm
+  #  - kubernetes-client
+  #  - kubernetes-systemd
+    - cockpit
+    - cockpit-selinux
+    - cockpit-machines
+    - cockpit-networkmanager
+    - cockpit-packagekit
+    - cockpit-ostree
+    - cockpit-podman
+    - cockpit-files
+    - cockpit-bridge
+    - cockpit-ws
+    - cockpit-storaged
+    - cockpit-system
+  #  - xen
+    - libvirt
+  #  - libvirt-daemon-xen
+    - libvirt-daemon-config-network
+    - libvirt-daemon-driver-network
+    - fastfetch
+    - libopenraw
