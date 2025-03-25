@@ -11,6 +11,14 @@ modules:
       - RUN dnf config-manager --set-enabled crb
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    group-install:
+      packages: 
+      - Core
+      - Standard
+      - Hardware Support
+      - Common NetworkManager submodules
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages:
       # SYSTEM

@@ -5,14 +5,10 @@ modules:
     group-install:
       packages: 
       - Multimedia
-      - Common NetworkManager submodules 
-	    - Core 
-	    - Fonts 
-	    - Guest Desktop Agents 
-	    - Hardware Support 
-	    - Printing Client 
-	    - Standard 
-	    - Workstation product core
+      - Fonts
+      - Guest Desktop Agents
+      - Printing Client
+      - Workstation product core
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
