@@ -22,8 +22,6 @@ modules:
       packages:
       # SYSTEM
         - dnf-plugins-core
-      # CLI Essentials
-        - unzip
       # CONTAINER TOOLS
         - distrobox
         - buildah
