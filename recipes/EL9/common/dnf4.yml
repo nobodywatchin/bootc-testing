@@ -25,6 +25,12 @@ modules:
       packages:
       # SYSTEM
         - dnf-plugins-core
+      # Cockpit Extensions
+        - cockpit-files
+        - cockpit-machines
+        - cockpit-podman
+        - cockpit-storaged
+        - cockpit-ostree
       # CONTAINER TOOLS
         - distrobox
         - buildah

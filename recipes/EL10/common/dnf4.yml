@@ -26,6 +26,12 @@ modules:
       # SYSTEM
         - dnf-plugins-core
         - system-reinstall-bootc 
+      # Cockpit Extensions
+        - cockpit-files
+        - cockpit-machines
+        - cockpit-podman
+        - cockpit-storaged
+        - cockpit-ostree
       # CONTAINER TOOLS
         - distrobox
         - buildah
