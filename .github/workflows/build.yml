@@ -28,7 +28,7 @@ jobs:
         recipe:
           # !! Add your recipes here
           - /EL10/alma/alma10-amd64.yml
-          - /EL10/alma/alma10-github-amd64.yml
+        #  - /EL10/alma/alma10-github-amd64.yml
           - /EL10/centos/centos10-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
@@ -55,8 +55,8 @@ jobs:
         recipe:
           # !! Add your recipes here
           - /EL9/alma/alma9-amd64.yml
-          - /EL9/alma/alma9-github-amd64.yml
-          - /EL9/alma/rocky9-github-amd64.yml
+        #  - /EL9/alma/alma9-github-amd64.yml
+        #  - /EL9/rocky/rocky9-github-amd64.yml
           - /EL9/centos/centos9-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
