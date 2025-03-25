@@ -1,6 +1,11 @@
 modules:
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+        - dnf-command(config-manager)
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     repos:
       disable:
         - baseos
