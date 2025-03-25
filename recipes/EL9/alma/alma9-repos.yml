@@ -16,3 +16,6 @@ modules:
     repos:
       files:
         - alma9.repo
+      enable:
+        - new-baseos
+        - new-appstream

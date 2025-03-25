@@ -16,3 +16,6 @@ modules:
     repos:
       files:
         - alma10.repo
+      enable:
+        - new-baseos
+        - new-appstream
