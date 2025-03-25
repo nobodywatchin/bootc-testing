@@ -16,7 +16,6 @@ modules:
       - Core
       - Standard
       - Hardware Support
-      - Common NetworkManager submodules
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:

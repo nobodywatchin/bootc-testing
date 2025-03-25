@@ -9,6 +9,7 @@ modules:
       - Guest Desktop Agents
       - Printing Client
       - Workstation product core
+      - Common NetworkManager submodules
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:

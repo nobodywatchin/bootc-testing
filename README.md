@@ -16,11 +16,33 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 cosign verify --key cosign.pub ghcr.io/nobodywatchin/bootc-testing
 ```
 
-# Building
+The [Red Hat](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_image_mode_for_rhel_to_build_deploy_and_manage_operating_systems/deploying-the-rhel-bootc-images_using-image-mode-for-rhel-to-build-deploy-and-manage-operating-systems#building-and-launching-configured-images_deploying-the-rhel-bootc-images) and [OSBuild](https://osbuild.org/docs/bootc/) documentation on building bootc images is quite in-depth if you want to tinker. 
 
-Currently, the ISO file installs to the first hard drive it finds automatically.
+In the meantime, here are some simple commands to get up and running:
 
-I am not responsible if you format the wrong hard drive!
+# Building as a VM:
+
+```bash
+sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
+sudo podman run \
+  --rm \
+  -it \
+  --privileged \
+  --pull=never \
+  --security-opt label=type:unconfined_t \
+  -v /var/lib/containers/storage:/var/lib/containers/storage \
+  -v $(pwd)/output:/output \
+  quay.io/centos-bootc/bootc-image-builder:latest \
+  --type qcow2 \
+  ghcr.io/nobodywatchin/alma10-testing:latest
+```
+
+# Building ISO File:
+
+When you boot this ISO, it will automatically install the operating system to the first hard drive it detects — without asking for confirmation.
+
+Use with caution! I am not responsible if the installer formats the wrong hard drive. Double-check before proceeding!
 
 To Build the ISO file, run:
 
@@ -36,6 +58,6 @@ sudo podman run \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
   -v $(pwd)/output:/output \
   quay.io/centos-bootc/bootc-image-builder:latest \
-  --type anaconda-iso \
+  --type iso \
   ghcr.io/nobodywatchin/alma10-testing:latest
 ```
