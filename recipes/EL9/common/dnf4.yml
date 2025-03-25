@@ -17,8 +17,6 @@ modules:
         - dnf-plugins-core
       # CLI Essentials
         - unzip
-      # Cockpit
-        - cockpit*
       # CONTAINER TOOLS
         - distrobox
         - buildah

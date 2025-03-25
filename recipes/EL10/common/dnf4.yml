@@ -4,9 +4,6 @@ modules:
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages:
-      # Cockpit
-        - cockpit-bridge-333-1.el10.x86_64
-        - cockpit*
       # Extra Packages for Enterprise Linux
         - epel-release
   - type: containerfile
