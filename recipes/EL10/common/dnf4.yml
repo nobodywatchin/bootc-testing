@@ -2,6 +2,9 @@
 modules:
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    remove:
+      packages:
+        - subscription-manager
     install:
       packages:
       # Extra Packages for Enterprise Linux
