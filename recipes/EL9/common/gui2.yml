@@ -6,7 +6,7 @@ modules:
       packages: 
       - Multimedia
       - Fonts
-      - Guest Desktop Agents
+      #- Guest Desktop Agents
       #- Printing Client
       #- Workstation product core
       #- Common NetworkManager submodules
