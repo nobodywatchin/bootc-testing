@@ -1,0 +1,30 @@
+[rt]
+name=AlmaLinux Kitten $releasever - RT
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/rt
+# baseurl=https://kitten.repo.almalinux.org/$releasever-kitten/RT/$basearch/os/
+enabled=0
+gpgcheck=1
+countme=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=1
+
+[rt-debuginfo]
+name=AlmaLinux Kitten $releasever - RT - Debug
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/rt-debug
+# baseurl=https://kitten.vault.almalinux.org/$releasever-kitten/RT/debug/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=0
+
+[rt-source]
+name=AlmaLinux Kitten $releasever - RT - Source
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/rt-source
+# baseurl=https://kitten.vault.almalinux.org/$releasever-kitten/RT/Source/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=0

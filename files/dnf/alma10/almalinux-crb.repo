@@ -1,0 +1,30 @@
+[crb]
+name=AlmaLinux Kitten $releasever - CRB
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/crb
+# baseurl=https://kitten.repo.almalinux.org/$releasever-kitten/CRB/$basearch/os/
+enabled=1
+gpgcheck=1
+countme=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=1
+
+[crb-debuginfo]
+name=AlmaLinux Kitten $releasever - CRB - Debug
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/crb-debug
+# baseurl=https://kitten.vault.almalinux.org/$releasever-kitten/CRB/debug/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=0
+
+[crb-source]
+name=AlmaLinux Kitten $releasever - CRB - Source
+mirrorlist=https://kitten.mirrors.almalinux.org/mirrorlist/$releasever-kitten/crb-source
+# baseurl=https://kitten.vault.almalinux.org/$releasever-kitten/CRB/Source/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-AlmaLinux-10
+metadata_expire=86400
+enabled_metadata=0
