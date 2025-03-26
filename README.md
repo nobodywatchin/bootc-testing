@@ -6,7 +6,7 @@ There are currently both CentOS and Almalinux images.
 
 The GNOME Desktop is included with some extensions added as well.
 
-A custom 'dnf4" module has been created to allow for easy installation of packages on the EL9 images.
+These images are built strictly for testing -- they are NOT production-ready, use at your own risk!
 
 ## Verification
 
@@ -20,7 +20,7 @@ The [Red Hat](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/
 
 In the meantime, here are some simple commands to get up and running:
 
-# Building as a VM:
+# Building as a VM
 
 ```bash
 sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
@@ -38,7 +38,7 @@ sudo podman run \
   ghcr.io/nobodywatchin/alma10-testing:latest
 ```
 
-# Building ISO File:
+# Building ISO File
 
 When you boot this ISO, it will automatically install the operating system to the first hard drive it detects — without asking for confirmation.
 

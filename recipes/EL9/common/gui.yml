@@ -6,10 +6,10 @@ modules:
       packages: 
       - Multimedia
       - Fonts
-      #- Guest Desktop Agents
-      #- Printing Client
-      #- Workstation product core
-      #- Common NetworkManager submodules
+      - Guest Agents
+      - print-client
+      - Workstation product core
+      - networkmanager-submodules
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
