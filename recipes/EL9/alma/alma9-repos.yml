@@ -3,3 +3,6 @@ modules:
     files:
       - source: dnf/alma9 # Adds the proper repos
         destination: /etc/yum.repos.d/
+  - type: containerfile
+    snippets:
+      - RUN dnf -y update

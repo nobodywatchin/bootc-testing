@@ -1,0 +1,22 @@
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    repos:
+      files:
+        - /dnf/alma9/almalinux-appstream.repo
+        - /dnf/alma9/almalinux-baseos.repo
+        - /dnf/alma9/almalinux-crb.repo
+        - /dnf/alma9/almalinux-extras.repo
+        - /dnf/alma9/almalinux-highavailability.repo
+        - /dnf/alma9/almalinux-nfv.repo
+        - /dnf/alma9/almalinux-plus.repo
+        - /dnf/alma9/almalinux-resilientstorage.repo
+        - /dnf/alma9/almalinux-rt.repo
+        - /dnf/alma9/almalinux-sap.repo
+        - /dnf/alma9/almalinux-saphana.repo
+        - /dnf/alma9/epel-cisco-openh264.repo
+        - /dnf/alma9/epel-testing.repo
+        - /dnf/alma9/epel.repo
+  - type: containerfile
+    snippets:
+      - RUN dnf -y update
