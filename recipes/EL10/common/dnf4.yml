@@ -18,7 +18,7 @@ modules:
       packages: 
       - Core
       - Standard
-      - Hardware Support
+      #- Hardware Support
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
