@@ -38,11 +38,11 @@ modules:
         - io.github.realmazharhussain.GdmSettings
         - page.codeberg.libre_menu_editor.LibreMenuEditor
         - ca.desrt.dconf-editor
-  - type: files # Adds a polkit rule to stop non-root users from installing system-wide flatpaks
+  - type: files # Adds a polkit rule to stop non-root users from running "flatpak --system" commands
     files:
       - source: flatpak
         destination: /
-  - type: systemd # Disables system-wide Flathub remote for users
+  - type: systemd # Hides system-wide Flathub remote from users
     system:
       enabled:
         - hide-system-flatpak-remote.service

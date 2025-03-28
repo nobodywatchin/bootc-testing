@@ -1,7 +1,12 @@
 polkit.addRule(function(action, subject) {
-    // Allow systemd services to modify system Flatpaks
-    if (subject.isSystemBus() || subject.user == "root") {
+    // Allow system services to modify system Flatpaks without authentication
+    if (subject.isSystemBus()) {
         return polkit.Result.YES;
+    }
+
+    // Require authentication for root and sudo users with a custom message
+    if (subject.user == "root" || subject.isInGroup("sudo")) {
+        return polkit.Result.AUTH_ADMIN_WITH_MESSAGE("System-wide Flatpak modifications require admin approval.");
     }
 
     // Block system-wide install, uninstall, and update for regular users
@@ -9,6 +14,8 @@ polkit.addRule(function(action, subject) {
         action.id == "org.freedesktop.Flatpak.uninstall" ||
         action.id == "org.freedesktop.Flatpak.update") {
         if (action.lookup("flatpak.installation") == "system") {
+            // Log a message and deny the action
+            polkit.log("flatpak --system commands are disabled for regular users.");
             return polkit.Result.NO;
         }
     }
