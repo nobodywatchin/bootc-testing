@@ -41,6 +41,7 @@ modules:
       #  - kubernetes-client
       #  - kubernetes-systemd
       # VIRTUALIZATION
+        - xe-guest-utilities-latest
       #  - xen
         - libvirt
       #  - libvirt-daemon-xen
