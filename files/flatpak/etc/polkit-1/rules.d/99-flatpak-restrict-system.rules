@@ -9,14 +9,12 @@ polkit.addRule(function(action, subject) {
         return polkit.Result.AUTH_ADMIN_WITH_MESSAGE("System-wide Flatpak modifications require admin approval.");
     }
 
-    // Block system-wide install, uninstall, and update for regular users
-    if (action.id == "org.freedesktop.Flatpak.install" ||
-        action.id == "org.freedesktop.Flatpak.uninstall" ||
-        action.id == "org.freedesktop.Flatpak.update") {
-        if (action.lookup("flatpak.installation") == "system") {
-            // Log a message and deny the action
-            polkit.log("flatpak --system commands are disabled for regular users.");
-            return polkit.Result.NO;
-        }
+    // Check if the action contains the --system flag
+    if (action.lookup("flatpak.args") && action.lookup("flatpak.args").some(arg => arg == "--system")) {
+        // Log the action attempt (for auditing)
+        polkit.log("flatpak --system commands are disabled for regular users.");
+
+        // Deny the action with a custom message for the user
+        return polkit.Result.NO;
     }
 });
