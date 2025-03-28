@@ -45,4 +45,4 @@ modules:
   - type: systemd # Disables system-wide Flathub remote for users
     system:
       enabled:
-        - disable-system-flatpak-remote.service
+        - hide-system-flatpak-remote.service

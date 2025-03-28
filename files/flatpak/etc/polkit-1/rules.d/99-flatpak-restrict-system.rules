@@ -1,9 +1,13 @@
 polkit.addRule(function(action, subject) {
-    // Block system-wide install, uninstall, and update
+    // Allow systemd services to modify system Flatpaks
+    if (subject.isSystemBus() || subject.user == "root") {
+        return polkit.Result.YES;
+    }
+
+    // Block system-wide install, uninstall, and update for regular users
     if (action.id == "org.freedesktop.Flatpak.install" ||
         action.id == "org.freedesktop.Flatpak.uninstall" ||
         action.id == "org.freedesktop.Flatpak.update") {
-        // If it's a system-wide action, deny permission
         if (action.lookup("flatpak.installation") == "system") {
             return polkit.Result.NO;
         }

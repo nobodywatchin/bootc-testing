@@ -1,0 +1,11 @@
+[Unit]
+Description=Hide system-wide Flatpak remote
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flatpak --system remote-modify --no-enumerate flathub
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
