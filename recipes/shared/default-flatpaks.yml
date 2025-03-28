@@ -6,7 +6,7 @@ modules:
     # If no repo information is specified, Flathub will be used by default
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
-      repo-title: "user-flatpaks" # Optional; User-facing name in graphical frontends like GNOME Software
+      repo-title: "Flathub (User)" # Optional; User-facing name in graphical frontends like GNOME Software
       remove:
         - io.github.dvlv.boxbuddyrs
         - io.github.flattool.Warehouse
@@ -21,7 +21,7 @@ modules:
     system:
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
-      repo-title: "system-flatpaks" # Optional; User-facing name in graphical frontends like GNOME Software
+      repo-title: "Flathub (System)" # Optional; User-facing name in graphical frontends like GNOME Software
       install:
         - io.github.dvlv.boxbuddyrs
         - io.github.flattool.Warehouse
@@ -38,3 +38,7 @@ modules:
         - io.github.realmazharhussain.GdmSettings
         - page.codeberg.libre_menu_editor.LibreMenuEditor
         - ca.desrt.dconf-editor
+  - type: files # Replaces logos
+    files:
+      - source: flatpak
+        destination: /

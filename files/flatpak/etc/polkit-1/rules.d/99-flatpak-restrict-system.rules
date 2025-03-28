@@ -1,0 +1,11 @@
+polkit.addRule(function(action, subject) {
+    // Block system-wide install, uninstall, and update
+    if (action.id == "org.freedesktop.Flatpak.install" ||
+        action.id == "org.freedesktop.Flatpak.uninstall" ||
+        action.id == "org.freedesktop.Flatpak.update") {
+        // If it's a system-wide action, deny permission
+        if (action.lookup("flatpak.installation") == "system") {
+            return polkit.Result.NO;
+        }
+    }
+});
