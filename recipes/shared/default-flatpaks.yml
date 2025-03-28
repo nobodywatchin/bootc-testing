@@ -42,6 +42,6 @@ modules:
     files:
       - source: flatpak
         destination: /
-  - type: script # Replaces /usr/bin/flatpak with a wrapper to hide system Flathub remote from non-root users
-    scripts:
-      - setup-flatpak-wrapper.sh
+  - type: script # Disables system-wide Flathub remote for users
+    snippets:
+      - "flatpak remote-modify --disable flathub"
