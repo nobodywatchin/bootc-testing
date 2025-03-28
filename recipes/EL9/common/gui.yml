@@ -1,6 +1,6 @@
 ---
 modules:
-  - type: dnf4
+  - type: dnf4 # Installs Core Groups for GUI
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     group-install:
       packages: 
@@ -10,7 +10,7 @@ modules:
       - print-client
       - Workstation product core
       - networkmanager-submodules
-  - type: dnf4
+  - type: dnf4 # Installs Individual Packages for GUI
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages: 
@@ -69,13 +69,13 @@ modules:
       - 1460 # Vitals
       - 1401 # Bluetooth Quick Connect
       - 1319 # GSConnect (KDE Connect Integration)
-  - type: files 
+  - type: files # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
-      - source: dconf # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
+      - source: dconf 
         destination: /
-  - type: bling
+  - type: bling # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
     install:
-      - dconf-update-service # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
+      - dconf-update-service 
   - type: files # Replaces logos
     files:
       - source: logos
