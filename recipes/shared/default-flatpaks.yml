@@ -38,7 +38,10 @@ modules:
         - io.github.realmazharhussain.GdmSettings
         - page.codeberg.libre_menu_editor.LibreMenuEditor
         - ca.desrt.dconf-editor
-  - type: files # Replaces logos
+  - type: files # Adds a polkit rule to stop non-root users from installing system-wide flatpaks
     files:
       - source: flatpak
         destination: /
+  - type: script # Replaces /usr/bin/flatpak with a wrapper to hide system Flathub remote from non-root users
+    scripts:
+      - setup-flatpak-wrapper.sh
