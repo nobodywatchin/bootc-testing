@@ -6,7 +6,7 @@ modules:
     # If no repo information is specified, Flathub will be used by default
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
-      repo-title: "Flathub (User)" # Optional; User-facing name in graphical frontends like GNOME Software
+      repo-title: "Flathub" # Optional; User-facing name in graphical frontends like GNOME Software
       remove:
         - io.github.dvlv.boxbuddyrs
         - io.github.flattool.Warehouse
@@ -21,7 +21,7 @@ modules:
     system:
       repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
       repo-name: flathub
-      repo-title: "Flathub (System)" # Optional; User-facing name in graphical frontends like GNOME Software
+      repo-title: "System Flatpaks" # Optional; User-facing name in graphical frontends like GNOME Software
       install:
         - io.github.dvlv.boxbuddyrs
         - io.github.flattool.Warehouse
@@ -42,6 +42,7 @@ modules:
     files:
       - source: flatpak
         destination: /
-  - type: script # Disables system-wide Flathub remote for users
-    snippets:
-      - "flatpak remote-modify --disable flathub"
+  - type: systemd # Disables system-wide Flathub remote for users
+    system:
+      enabled:
+        - disable-system-flatpak-remote.service
