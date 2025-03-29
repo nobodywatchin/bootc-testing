@@ -7,7 +7,7 @@ name='Gaming Utilities'
 translate=false
 
 [org/gnome/desktop/app-folders/folders/Applications]
-apps=['it.mijorus.gearlever.desktop', 'com.github.tchx84.Flatseal.desktop', 'io.github.flattool.Warehouse.desktop', 'io.github.giantpinkrobots.flatsweep.desktop']
+apps=['com.usebottles.bottles.desktop', 'it.mijorus.gearlever.desktop', 'com.github.tchx84.Flatseal.desktop', 'io.github.flattool.Warehouse.desktop', 'io.github.giantpinkrobots.flatsweep.desktop']
 name='Application Tools'
 translate=false
 
@@ -78,7 +78,7 @@ translate=true
 
 [org/gnome/desktop/app-folders/folders/System]
 name='System'
-apps=['net.nokyan.Resources.desktop', 'com.leinardi.gst.desktop', 'io.github.lact-linux.desktop', 'org.gnome.DiskUtility.desktop',  'org.gnome.baobab.desktop', 'org.openrgb.OpenRGB.desktop']
+apps=['net.nokyan.Resources.desktop', 'com.leinardi.gst.desktop', 'io.github.lact-linux.desktop', 'org.gnome.DiskUtility.desktop',  'setroubleshoot.desktop', 'org.gnome.baobab.desktop', 'org.openrgb.OpenRGB.desktop', 'org.gnome.FileRoller.desktop']
 translate=true
 
 [org/gnome/desktop/app-folders/folders/Programming]
