@@ -80,7 +80,7 @@ modules:
       - 1319 # GSConnect (KDE Connect Integration)
   - type: files # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
-      - source: dconf 
+      - source: gnome 
         destination: /
   - type: bling # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
     install:
