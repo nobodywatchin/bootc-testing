@@ -38,6 +38,7 @@ modules:
         - io.github.realmazharhussain.GdmSettings
         - page.codeberg.libre_menu_editor.LibreMenuEditor
         - ca.desrt.dconf-editor
+        - page.tesk.Refine
   - type: files # Adds a polkit rule to stop non-root users from running "flatpak --system" commands
     files:
       - source: flatpak

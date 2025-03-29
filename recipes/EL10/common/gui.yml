@@ -60,7 +60,6 @@ modules:
       - wl-clipboard
       - jetbrains-mono-fonts-all
       - gnome-disk-utility
-      - gnome-tweaks
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection

@@ -13,7 +13,7 @@ translate=false
 
 [org/gnome/desktop/app-folders/folders/Containers]
 apps=['com.github.marhkb.Pods.desktop', 'io.podman_desktop.PodmanDesktop.desktop', 'dev.skynomads.Seabird.desktop', 'io.github.dvlv.boxbuddyrs.desktop']
-categories=['Distrobox']
+categories=['Distrobox', 'Toolbox']
 name='Containers'
 translate=false
 
@@ -95,7 +95,7 @@ translate=true
 
 [org/gnome/desktop/app-folders/folders/Settings]
 name='Settings'
-apps=['org.gnome.Settings.desktop', 'org.gnome.tweaks.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.gnome.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
+apps=['org.gnome.Settings.desktop', 'org.gnome.tweaks.desktop', 'page.tesk.Refine.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.gnome.Logs.desktop', 'io.github.andreibachim.shortcut.desktop', 'nl.emphisia.icon.desktop']
 translate=true
 
 [org/gnome/desktop/app-folders/folders/Downloads]
