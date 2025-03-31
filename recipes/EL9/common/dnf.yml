@@ -95,15 +95,13 @@ modules:
         - python3-libselinux  # Python bindings for SELinux policy management
         - sg3_utils  # Utilities for managing SCSI devices
         - sg3_utils-libs  # Libraries for SCSI utilities
-
-      # Core default packages:
         - dracut-config-generic  # Generic Dracut configuration
         - dracut-network  # Network support for Dracut
         - initial-setup  # First-time system setup tool
         - rdma-core  # Remote Direct Memory Access libraries
         - selinux-policy-mls  # Multi-Level Security (MLS) SELinux policy
         - tboot  # Trusted Boot (tboot) support for Intel TXT
-
+      
       # Standard mandatory packages:
         - acl  # Access control list utilities for managing file permissions
         - almalinux-release  # Provides AlmaLinux-specific branding and release info
@@ -165,8 +163,6 @@ modules:
         - nano  # Simple, user-friendly text editor
         - nmap-ncat  # Netcat replacement for network debugging
         - nvme-cli  # Tools for managing NVMe SSDs
-        - pinfo  # Alternative to "info" command with colorized output
-        - plymouth  # Boot splash screen and graphical startup animations
         - realmd  # System integration for Active Directory and other realms
         - rsync  # Fast file transfer and synchronization tool
         - smartmontools  # Hard drive health monitoring (S.M.A.R.T.)
@@ -197,25 +193,14 @@ modules:
         - traceroute  # Network diagnostic tool for tracing packet routes
         - vdo-support  # Additional support utilities for VDO
         - zsh  # Powerful and customizable shell
-
+      
       # hardware-support default packages:
         - bolt  # Thunderbolt security level management daemon
-        - iwl100-firmware  # Intel WiFi firmware for 100 series
-        - iwl1000-firmware  # Intel WiFi firmware for 1000 series
-        - iwl105-firmware  # Intel WiFi firmware for 105 series
-        - iwl135-firmware  # Intel WiFi firmware for 135 series
-        - iwl2000-firmware  # Intel WiFi firmware for 2000 series
-        - iwl2030-firmware  # Intel WiFi firmware for 2030 series
-        - iwl3160-firmware  # Intel WiFi firmware for 3160 series
-        - iwl5000-firmware  # Intel WiFi firmware for 5000 series
-        - iwl5150-firmware  # Intel WiFi firmware for 5150 series
-        - iwl6000g2a-firmware  # Intel WiFi firmware for 6000G2A series
         - iwl6000g2b-firmware  # Intel WiFi firmware for 6000G2B series
-        - iwl6050-firmware  # Intel WiFi firmware for 6050 series
-        - iwl7260-firmware  # Intel WiFi firmware for 7260 series
         - libertas-sd8787-firmware  # Firmware for Marvell Libertas SD8787 WiFi chipset
         - netronome-firmware  # Firmware for Netronome network accelerators
         - usb_modeswitch  # Switches USB devices between different operating modes (e.g., modem vs storage)
+      
       # hardware-support optional packages:
         - lsscsi  # Lists and queries SCSI devices
         - opensc  # Smart card utilities for authentication and security
@@ -225,12 +210,14 @@ modules:
       
       # SYSTEM
         - dnf-plugins-core
+      
       # Cockpit Extensions
         - cockpit-files
         - cockpit-machines
         - cockpit-podman
         - cockpit-storaged
         - cockpit-ostree
+      
       # CONTAINER TOOLS
         - distrobox
         - buildah
@@ -240,6 +227,7 @@ modules:
       #  - kubernetes-kubeadm
       #  - kubernetes-client
       #  - kubernetes-systemd
+      
       # VIRTUALIZATION
         - xe-guest-utilities-latest
       #  - xen
@@ -247,6 +235,7 @@ modules:
       #  - libvirt-daemon-xen
         - libvirt-daemon-config-network
         - libvirt-daemon-driver-network
+      
       # EXTRAS
         - fastfetch
         - libopenraw
