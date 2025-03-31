@@ -13,8 +13,8 @@ image-version: a10s # latest is also supported if you want new updates ASAP
 # you can include multiple instances of the same module
 modules:
   #- from-file: EL10/alma/alma10-repos.yml
-  - from-file: EL10/common/dnf4.yml
   - from-file: shared/brew.yml
+  - from-file: EL10/common/dnf4.yml
   - from-file: EL10/common/tailscale-manual-centos10.yml
   - from-file: EL10/common/gui.yml
   - from-file: shared/default-flatpaks.yml
