@@ -1,0 +1,253 @@
+---
+modules:
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    remove:
+      packages:
+        - subscription-manager
+    install:
+      packages:
+      # Extra Packages for Enterprise Linux
+        - epel-release
+  - type: containerfile
+    snippets:
+      - RUN dnf config-manager --set-enabled crb
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+      # Core mandatory packages:
+        - audit  # Event auditing daemon
+        - basesystem  # Base package defining system layout
+        - bash  # GNU Bourne-Again Shell
+        - coreutils  # Basic file, shell, and text manipulation utilities
+        - cronie  # Daemon for scheduled commands (cron jobs)
+        - crypto-policies  # System-wide cryptographic policies
+        - crypto-policies-scripts  # Helper scripts for crypto policies
+        - curl  # Command-line tool for transferring data with URLs
+        - dnf  # Package manager for RPM-based distributions
+        - e2fsprogs  # Utilities for managing ext2/ext3/ext4 filesystems
+        - filesystem  # Base directory structure for the system
+        - firewalld  # Firewall management daemon
+        - glibc  # GNU C Library, essential for running Linux programs
+        - grubby  # Tool for managing GRUB bootloader configurations
+        - hostname  # Utility for setting/getting system hostname
+        - iproute  # Tools for IP networking and routing
+        - iproute-tc  # Traffic control utilities for networking
+        - iputils  # Networking utilities like ping, tracepath
+        - irqbalance  # Balances interrupts across multiple CPUs
+        - kbd  # Keyboard utilities and console fonts
+        - kexec-tools  # Tools for fast kernel reboot without hardware reset
+        - less  # Pager program for viewing text files
+        - logrotate  # Rotates and compresses log files
+        - man-db  # Utilities for managing manual pages
+        - ncurses  # Library for terminal-based user interfaces
+        - openssh-clients  # SSH client for remote access
+        - openssh-server  # SSH server for secure remote access
+        - p11-kit  # PKCS#11 module manager for cryptographic keys
+        - parted  # Partition management tool
+        - passwd  # Command for managing user passwords
+        - policycoreutils  # Core SELinux utilities
+        - procps-ng  # System monitoring utilities (e.g., ps, top)
+        - rootfiles  # Miscellaneous user admin files
+        - rpm  # RPM package manager
+        - rpm-plugin-audit  # RPM audit plugin for logging package changes
+        - rsyslog  # System log management daemon
+        - selinux-policy-targeted  # Default SELinux policy for targeted security
+        - setup  # Basic system setup files
+        - shadow-utils  # User and group management utilities
+        - sssd-common  # System Security Services Daemon for identity management
+        - sssd-kcm  # Key caching daemon for SSSD
+        - sudo  # Privilege escalation tool
+        - systemd  # System and service manager for Linux
+        - util-linux  # Essential system utilities (e.g., fdisk, mount)
+        - vim-minimal  # Minimal version of Vim editor
+        - xfsprogs  # XFS filesystem utilities
+        - yum  # Legacy package manager (replaced by DNF)
+
+      # Core default packages:
+        - NetworkManager  # Network configuration and management
+        - NetworkManager-team  # NetworkManager plugin for team interfaces
+        - NetworkManager-tui  # Text-based NetworkManager interface
+        - authselect  # Tool for managing authentication methods
+        - dnf-plugins-core  # Additional plugins for DNF package manager
+        - dracut-config-rescue  # Dracut configuration for rescue boot
+        - initscripts-rename-device  # Legacy network interface renaming scripts
+        - iwl100-firmware  # Intel WiFi firmware for 100 series
+        - iwl1000-firmware  # Intel WiFi firmware for 1000 series
+        - iwl105-firmware  # Intel WiFi firmware for 105 series
+        - iwl135-firmware  # Intel WiFi firmware for 135 series
+        - iwl2000-firmware  # Intel WiFi firmware for 2000 series
+        - iwl2030-firmware  # Intel WiFi firmware for 2030 series
+        - iwl3160-firmware  # Intel WiFi firmware for 3160 series
+        - iwl5000-firmware  # Intel WiFi firmware for 5000 series
+        - iwl5150-firmware  # Intel WiFi firmware for 5150 series
+        - iwl6000g2a-firmware  # Intel WiFi firmware for 6000G2A series
+        - iwl6050-firmware  # Intel WiFi firmware for 6050 series
+        - iwl7260-firmware  # Intel WiFi firmware for 7260 series
+        - kernel-tools  # Additional tools for managing the Linux kernel
+        - libsysfs  # Library for interacting with sysfs
+        - linux-firmware  # Firmware package for various hardware devices
+        - lshw  # Hardware information tool
+        - lsscsi  # List SCSI devices and attributes
+        - microcode_ctl  # CPU microcode update utility
+        - prefixdevname  # Persistent network interface naming utility
+        - python3-libselinux  # Python bindings for SELinux policy management
+        - sg3_utils  # Utilities for managing SCSI devices
+        - sg3_utils-libs  # Libraries for SCSI utilities
+
+      # Core default packages:
+        - dracut-config-generic  # Generic Dracut configuration
+        - dracut-network  # Network support for Dracut
+        - initial-setup  # First-time system setup tool
+        - rdma-core  # Remote Direct Memory Access libraries
+        - selinux-policy-mls  # Multi-Level Security (MLS) SELinux policy
+        - tboot  # Trusted Boot (tboot) support for Intel TXT
+
+      # Standard mandatory packages:
+        - acl  # Access control list utilities for managing file permissions
+        - almalinux-release  # Provides AlmaLinux-specific branding and release info
+        - at  # Schedules one-time tasks for later execution
+        - attr  # Manipulates extended attributes on filesystem objects
+        - bash-completion  # Tab completion support for Bash shell
+        - bc  # Command-line calculator with scripting support
+        - cpio  # Archiving tool for copying files to/from archives
+        - crontabs  # Default system crontab files for scheduling jobs
+        - cyrus-sasl-plain  # Simple Authentication and Security Layer (SASL) plaintext plugin
+        - dbus  # Message bus for system-wide communication between processes
+        - ed  # Line-based text editor (historically used in UNIX)
+        - file  # Determines file types based on magic numbers
+        - irqbalance  # Distributes hardware interrupts across multiple CPUs
+        - kpatch  # Live kernel patching tool
+        - kpatch-dnf  # DNF integration for kpatch live updates
+        - logrotate  # Automatically rotates and manages log files
+        - lsof  # Lists open files and their associated processes
+        - mcelog  # Machine Check Exception logger for detecting hardware errors
+        - microcode_ctl  # Loads updated CPU microcode for security and stability
+        - net-tools  # Legacy networking tools (ifconfig, route, etc.)
+        - pciutils  # Utilities for inspecting and managing PCI devices
+        - psacct  # Process accounting tool for monitoring resource usage
+        - quota  # Disk quota management tools
+        - rsyslog-gnutls  # TLS support for rsyslog
+        - rsyslog-gssapi  # GSSAPI authentication for rsyslog
+        - rsyslog-relp  # RELP protocol support for reliable rsyslog communication
+        - sudo  # Privilege escalation tool for executing commands as another user
+        - symlinks  # Utility to manage and check symbolic links
+        - systemd-udev  # Manages dynamic device nodes in /dev
+        - tar  # Archiving tool for creating and extracting tarballs
+        - tree  # Displays directory structure in a tree-like format
+        - tuned  # Performance tuning tool for system optimization
+        - util-linux-user  # User-specific utilities from util-linux (e.g., chsh, chfn)
+      
+      # Standard default packages:
+        - blktrace  # Block layer I/O tracing tool
+        - bluez  # Bluetooth protocol stack for Linux
+        - bpftool  # Tool for inspecting and managing BPF programs
+        - bzip2  # Compression utility using Burrows-Wheeler algorithm
+        - chrony  # NTP client and server for time synchronization
+        - cockpit  # Web-based system administration interface
+        - cryptsetup  # LUKS disk encryption tool
+        - dos2unix  # Converts DOS-style line endings to UNIX format
+        - dosfstools  # Utilities for creating and checking FAT filesystems
+        - ethtool  # Utility for managing network interface settings
+        - fprintd-pam  # PAM module for fingerprint authentication
+        - gnupg2  # GPG encryption and signing tools
+        - iprutils  # IBM Power RAID utilities
+        - kmod-kvdo  # Kernel module for Virtual Data Optimizer (VDO)
+        - ledmon  # LED management tool for storage devices
+        - libstoragemgmt  # Storage management tools and libraries
+        - lvm2  # Logical Volume Manager for disk partitions
+        - mailcap  # Defines programs for handling different MIME types
+        - man-pages  # Collection of manual pages for Linux commands and APIs
+        - mdadm  # RAID management tool for software RAID arrays
+        - mlocate  # Fast file-searching utility
+        - mtr  # Network diagnostic tool combining traceroute and ping
+        - nano  # Simple, user-friendly text editor
+        - nmap-ncat  # Netcat replacement for network debugging
+        - nvme-cli  # Tools for managing NVMe SSDs
+        - pinfo  # Alternative to "info" command with colorized output
+        - plymouth  # Boot splash screen and graphical startup animations
+        - realmd  # System integration for Active Directory and other realms
+        - rsync  # Fast file transfer and synchronization tool
+        - smartmontools  # Hard drive health monitoring (S.M.A.R.T.)
+        - sos  # System analysis and troubleshooting tool
+        - sssd  # System Security Services Daemon for authentication
+        - strace  # Traces system calls made by a process
+        - tcpdump  # Packet capture tool for network debugging
+        - teamd  # Network Teaming daemon for load balancing
+        - time  # Measures execution time of programs
+        - unzip  # Extracts ZIP archives
+        - usbutils  # Utilities for managing USB devices
+        - vdo  # Virtual Data Optimizer for deduplication and compression
+        - vim-enhanced  # Enhanced version of the Vim text editor
+        - virt-what  # Detects if the system is running inside a virtual machine
+        - wget  # Command-line tool for downloading files via HTTP/FTP
+        - which  # Locates the executable path of a command
+        - words  # Word list dictionary for spell checking and text processing
+        - xfsdump  # Backup tool for XFS filesystems
+        - zip  # Creates ZIP archives
+      
+      # Standard optional packages:
+        - cifs-utils  # Mount and manage CIFS/SMB network shares
+        - cockpit-doc  # Documentation package for Cockpit web interface
+        - fwupd  # Firmware update tool for Linux
+        - ima-evm-utils  # Integrity Measurement Architecture tools
+        - nfs-utils  # NFS client and server utilities
+        - nvmetcli  # NVMe over Fabrics target configuration tool
+        - traceroute  # Network diagnostic tool for tracing packet routes
+        - vdo-support  # Additional support utilities for VDO
+        - zsh  # Powerful and customizable shell
+
+      # hardware-support default packages:
+        - bolt  # Thunderbolt security level management daemon
+        - iwl100-firmware  # Intel WiFi firmware for 100 series
+        - iwl1000-firmware  # Intel WiFi firmware for 1000 series
+        - iwl105-firmware  # Intel WiFi firmware for 105 series
+        - iwl135-firmware  # Intel WiFi firmware for 135 series
+        - iwl2000-firmware  # Intel WiFi firmware for 2000 series
+        - iwl2030-firmware  # Intel WiFi firmware for 2030 series
+        - iwl3160-firmware  # Intel WiFi firmware for 3160 series
+        - iwl5000-firmware  # Intel WiFi firmware for 5000 series
+        - iwl5150-firmware  # Intel WiFi firmware for 5150 series
+        - iwl6000g2a-firmware  # Intel WiFi firmware for 6000G2A series
+        - iwl6000g2b-firmware  # Intel WiFi firmware for 6000G2B series
+        - iwl6050-firmware  # Intel WiFi firmware for 6050 series
+        - iwl7260-firmware  # Intel WiFi firmware for 7260 series
+        - libertas-sd8787-firmware  # Firmware for Marvell Libertas SD8787 WiFi chipset
+        - netronome-firmware  # Firmware for Netronome network accelerators
+        - usb_modeswitch  # Switches USB devices between different operating modes (e.g., modem vs storage)
+      # hardware-support optional packages:
+        - lsscsi  # Lists and queries SCSI devices
+        - opensc  # Smart card utilities for authentication and security
+        - openssl-pkcs11  # OpenSSL PKCS#11 engine for smart cards and hardware tokens
+        - pcsc-lite  # Middleware to access smart cards
+        - pcsc-lite-ccid  # Driver for USB CCID smart card readers    
+      
+      # SYSTEM
+        - dnf-plugins-core
+      # Cockpit Extensions
+        - cockpit-files
+        - cockpit-machines
+        - cockpit-podman
+        - cockpit-storaged
+        - cockpit-ostree
+      # CONTAINER TOOLS
+        - distrobox
+        - buildah
+      #  - podman-compose
+        - podman-docker
+      #  - kubernetes
+      #  - kubernetes-kubeadm
+      #  - kubernetes-client
+      #  - kubernetes-systemd
+      # VIRTUALIZATION
+        - xe-guest-utilities-latest
+      #  - xen
+        - libvirt
+      #  - libvirt-daemon-xen
+        - libvirt-daemon-config-network
+        - libvirt-daemon-driver-network
+      # EXTRAS
+        - fastfetch
+        - libopenraw
+        - fish

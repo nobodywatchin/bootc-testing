@@ -1,0 +1,211 @@
+---
+modules:
+  - type: dnf4 # Installs Core Groups for GUI
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    group-install:
+      packages: 
+      - Fonts
+  - type: dnf4 # Installs Individual Packages for GUI
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages: 
+      # Workstation Product Core Packages
+      - acl  # Access control list utilities for managing file permissions
+      - adwaita-qt5  # Adwaita theme integration for Qt5 applications
+      - almalinux-release  # Provides AlmaLinux branding and release info
+      - alsa-sof-firmware  # Sound Open Firmware (SOF) for Intel audio devices
+      - attr  # Manipulates extended attributes on filesystem objects
+      - bash-completion  # Tab completion support for Bash shell
+      - bc  # Command-line calculator with scripting support
+      - bind-utils  # DNS tools like dig and nslookup
+      - bzip2  # Compression utility using Burrows-Wheeler algorithm
+      - chrony  # NTP client and server for time synchronization
+      - cifs-utils  # Mount and manage CIFS/SMB network shares
+      - cpio  # Archiving tool for copying files to/from archives
+      - crontabs  # Default system crontab files for scheduling jobs
+      - cryptsetup  # LUKS disk encryption tool
+      - cyrus-sasl-plain  # Simple Authentication and Security Layer (SASL) plaintext plugin
+      - dnf  # Package manager for installing and updating software
+      - dnf-plugins-core  # Core plugins for DNF package manager
+      - dos2unix  # Converts DOS-style line endings to UNIX format
+      - dosfstools  # Utilities for creating and checking FAT filesystems
+      - ethtool  # Utility for managing network interface settings
+      - evolution  # Email and calendar application for GNOME
+      - evolution-ews  # Exchange Web Services support for Evolution
+      - evolution-help  # Documentation for Evolution email client
+      - file  # Determines file types based on magic numbers
+      - git  # Distributed version control system
+      - glibc-all-langpacks  # All language packs for GNU C Library
+      - gnupg2  # GPG encryption and signing tools
+      - google-noto-emoji-fonts  # Noto Emoji fonts for better emoji support
+      - hunspell  # Spell checker library and command-line tool
+      - ibus-anthy  # Japanese input method for IBus
+      - ibus-gtk2  # GTK2 support for IBus input framework
+      - ibus-gtk3  # GTK3 support for IBus input framework
+      - ibus-hangul  # Korean input method for IBus
+      - ibus-libpinyin  # Pinyin input method for Chinese
+      - ibus-libzhuyin  # Zhuyin input method for Chinese
+      - ibus-m17n  # Multilingual input methods for IBus
+      - ibus-typing-booster  # Predictive typing support for IBus
+      - logrotate  # Automatically rotates and manages log files
+      - lrzsz  # Tools for X/Y/ZMODEM file transfers
+      - lsof  # Lists open files and their associated processes
+      - mailcap  # Defines programs for handling different MIME types
+      - man-pages  # Collection of manual pages for Linux commands and APIs
+      - mcelog  # Machine Check Exception logger for detecting hardware errors
+      - mdadm  # RAID management tool for software RAID arrays
+      - microcode_ctl  # Loads updated CPU microcode for security and stability
+      - mlocate  # Fast file-searching utility
+      - mtr  # Network diagnostic tool combining traceroute and ping
+      - net-tools  # Legacy networking tools (ifconfig, route, etc.)
+      - nfs-utils  # NFS client and server utilities
+      - nmap-ncat  # Netcat replacement for network debugging
+      - pciutils  # Utilities for inspecting and managing PCI devices
+      - pinentry-gnome3  # GNOME3 frontend for GPG passphrase entry
+      - pinfo  # Alternative to "info" command with colorized output
+      - plymouth  # Boot splash screen and graphical startup animations
+      - polkit  # Policy framework for privilege escalation
+      - psacct  # Process accounting tool for monitoring resource usage
+      - qgnomeplatform  # Improves Qt app integration with GNOME
+      - qt5-qtbase  # Qt5 core libraries for GUI applications
+      - qt5-qtbase-gui  # GUI components for Qt5 applications
+      - qt5-qtdeclarative  # Qt5 module for QML-based applications
+      - qt5-qtxmlpatterns  # Qt5 module for XML pattern matching
+      - quota  # Disk quota management tools
+      - realmd  # System integration for Active Directory and other realms
+      - rsync  # Fast file transfer and synchronization tool
+      - setroubleshoot  # SELinux troubleshooting tool
+      - sos  # System analysis and troubleshooting tool
+      - sssd  # System Security Services Daemon for authentication
+      - sudo  # Privilege escalation tool for executing commands as another user
+      - symlinks  # Utility to manage and check symbolic links
+      - systemd-udev  # Manages dynamic device nodes in /dev
+      - tar  # Archiving tool for creating and extracting tarballs
+      - telnet  # Remote login protocol (deprecated but still included)
+      - thermald  # CPU thermal management daemon
+      - time  # Measures execution time of programs
+      - traceroute  # Network diagnostic tool for tracing packet routes
+      - tree  # Displays directory structure in a tree-like format
+      - unzip  # Extracts ZIP archives
+      - usbutils  # Utilities for managing USB devices
+      - which  # Locates the executable path of a command
+      - words  # Word list dictionary for spell checking and text processing
+      - xorg-x11-drv-libinput  # Input driver for touchpads and mice on Xorg
+      - zip  # Creates ZIP archives
+
+      # Multimedia Packages
+      - PackageKit-gstreamer-plugin  # Enables automatic installation of GStreamer codecs via PackageKit
+      - alsa-ucm  # ALSA Use Case Manager profiles for audio hardware
+      - alsa-utils  # ALSA command-line utilities for sound control
+      - gstreamer1-plugins-bad-free  # GStreamer plugins with experimental or less stable features
+      - gstreamer1-plugins-good  # High-quality GStreamer plugins for common media formats
+      - gstreamer1-plugins-ugly-free  # GStreamer plugins with potential licensing issues but good quality
+      - pipewire  # Low-latency audio/video framework replacing PulseAudio and JACK
+      - pipewire-alsa  # ALSA compatibility layer for PipeWire
+      - pipewire-gstreamer  # GStreamer plugin for PipeWire integration
+      - pipewire-jack-audio-connection-kit  # JACK API emulation via PipeWire for pro audio users
+      - pipewire-pulseaudio  # PulseAudio replacement using PipeWire
+      - pipewire-utils  # Utilities for managing PipeWire
+      - pavucontrol  # GUI volume control for PulseAudio (useful with PipeWire)
+
+      # Additional Packages
+      - gstreamer1-plugins-base # Essential GStreamer plugins for basic media playback
+      - lame  # MP3 encoder for audio compression
+      - lame-libs  # Libraries for MP3 encoding and decoding
+      - libjxl  # JPEG XL image format support
+      - NetworkManager-adsl # ADSL (PPP over Ethernet) support for NetworkManager
+    
+      # GNOME Desktop
+      - gdm  # GNOME Display Manager for graphical login
+      - gnome-bluetooth  # Bluetooth integration for GNOME
+      - gnome-color-manager  # Color profile management tool for GNOME
+      - gnome-control-center  # GNOME settings application
+      - gnome-initial-setup  # First-time setup tool for GNOME
+      - gnome-remote-desktop  # Remote desktop support for GNOME (RDP/VNC)
+      - gnome-session-wayland-session  # Wayland session support for GNOME
+      - gnome-settings-daemon  # Background services for GNOME settings
+      - gnome-shell  # Core GNOME desktop environment
+      - gnome-software  # GUI software management tool for GNOME
+      - gnome-user-docs  # GNOME user documentation
+      - gnome-terminal  # Terminal emulator for GNOME
+      - gnome-disk-utility  # GUI tool for disk and partition management
+      - gvfs-fuse  # FUSE support for GVFS (allows mounting virtual file systems)
+      - gvfs-goa  # GNOME Online Accounts integration for GVFS
+      - gvfs-gphoto2  # Support for accessing digital cameras via GVFS
+      - gvfs-mtp  # MTP protocol support for mobile device access via GVFS
+      - gvfs-smb  # SMB/CIFS file sharing support for GVFS
+      - libsane-hpaio  # SANE drivers for HP scanners
+      - nautilus  # GNOME file manager
+      - orca  # Screen reader for visually impaired users
+      - sane-backends-drivers-scanners  # Drivers for various scanners
+      - xdg-desktop-portal-gnome  # GNOME-specific portal implementation for sandboxed apps
+      - xdg-user-dirs-gtk  # GTK frontend for managing user directories
+      - yelp-tools  # Documentation and help viewer for GNOME
+
+      # Boot  
+      - plymouth  # Boot splash screen system
+      - plymouth-system-theme  # Default system theme for Plymouth
+
+      # Guest Agents 
+      - hyperv-daemons  # Hyper-V guest tools for better integration with Microsoft Hyper-V
+      - open-vm-tools  # VMware guest utilities for improved performance and integration
+      - qemu-guest-agent  # QEMU guest agent for better communication between host and guest VM
+      
+      # print-client mandatory packages
+      - cups  # Common UNIX Printing System for managing printers
+      - cups-pk-helper  # Helper for integrating cups with PolicyKit for print jobs
+      - enscript  # Converts text files to PostScript or HTML for printing
+
+      # print-client default packages
+      - colord  # Color management system for Linux, used for printer profiles
+      - gutenprint  # High-quality printer drivers for CUPS
+      - gutenprint-cups  # CUPS integration for Gutenprint drivers
+      - gutenprint-doc  # Documentation for Gutenprint drivers
+      - paps  # Converts text to PostScript for printing with CUPS
+      - pnm2ppa  # Converts PNM (Portable AnyMap) images to PPA (Printer Protocol Architecture) format
+      - system-config-printer-udev  # Printer configuration tool for UDEV-based devices
+
+      # print-client optional packages
+      - bluez-cups  # Bluetooth support for CUPS printing
+      - hplip  # HP Linux Imaging and Printing software for HP printers
+      
+      # networkmanager-submodules
+      - NetworkManager-bluetooth  # NetworkManager plugin for managing Bluetooth network devices
+      - NetworkManager-wifi  # NetworkManager plugin for managing WiFi network connections
+      - NetworkManager-wwan  # NetworkManager plugin for managing WWAN (mobile broadband) connections
+      - dnsmasq  # Lightweight DNS forwarder and DHCP server
+      - iptables-nft  # iptables framework using the nftables backend for firewall rules
+
+      # More Packages
+      - fwupd # Firmware update daemon for Linux
+      - systemd-resolved  # Systemd component for DNS resolution
+      - systemd-container  # Tools for running and managing systemd in containers
+      - systemd-oomd  # Systemd service for out-of-memory handling
+      - libcamera  # Camera support library for modern Linux devices
+      - libcamera-gstreamer  # GStreamer plugin for libcamera
+      - libcamera-tools  # Command-line tools for libcamera
+      - wl-clipboard  # Clipboard utilities for Wayland
+
+  - type: gnome-extensions # Installs extensions for GNOME Desktop
+    install:
+      - 3843 # Just Perfection
+      - 615 # AppIndicator and KStatusNotifierItem Support
+      # - 3088 # Extension List
+      - 7 # Removable Drive Menu
+      - 3193 # Blur my Shell
+      - 19 # User Themes
+      - 779 # Clipboard Indicator
+      - 1460 # Vitals
+      - 1401 # Bluetooth Quick Connect
+      - 1319 # GSConnect (KDE Connect Integration)
+  - type: files # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
+    files:
+      - source: gnome 
+        destination: /
+  - type: bling # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
+    install:
+      - dconf-update-service 
+  - type: files # Replaces logos
+    files:
+      - source: logos
+        destination: /
