@@ -1,0 +1,15 @@
+---
+modules:
+  - type: brew
+    nofile-limits: true # increase nofile limits
+    brew-analytics: false # disable telemetry
+    update-interval: 1d
+    update-wait-after-boot: 10min
+  - type: files # Adds Brewfile and "Brew Bundle" Service
+    files:
+      - source: brew
+        destination: /
+  - type: systemd
+    system:
+      enabled:
+        - brew-bundle.service
