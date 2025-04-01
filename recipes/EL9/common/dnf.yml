@@ -104,7 +104,7 @@ modules:
       
       # Standard mandatory packages:
         - acl  # Access control list utilities for managing file permissions
-        - almalinux-release  # Provides AlmaLinux-specific branding and release info
+        #- almalinux-release  # Provides AlmaLinux-specific branding and release info
         - at  # Schedules one-time tasks for later execution
         - attr  # Manipulates extended attributes on filesystem objects
         - bash-completion  # Tab completion support for Bash shell

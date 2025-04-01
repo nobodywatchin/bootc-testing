@@ -11,7 +11,6 @@ modules:
       packages: 
       # Workstation Product Core Packages
       - adwaita-qt5  # Adwaita theme integration for Qt5 applications
-      - almalinux-release  # Provides AlmaLinux branding and release info
       - alsa-sof-firmware  # Sound Open Firmware (SOF) for Intel audio devices
       - bind-utils  # DNS tools like dig and nslookup
       - cifs-utils  # Mount and manage CIFS/SMB network shares
