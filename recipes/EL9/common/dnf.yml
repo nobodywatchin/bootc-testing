@@ -16,7 +16,7 @@ modules:
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages:
-      # Core mandatory packages:
+        # Core Mandatory Packages
         - audit  # Event auditing daemon
         - basesystem  # Base package defining system layout
         - bash  # GNU Bourne-Again Shell
@@ -56,8 +56,8 @@ modules:
         - selinux-policy-targeted  # Default SELinux policy for targeted security
         - setup  # Basic system setup files
         - shadow-utils  # User and group management utilities
-        - sssd-common  # System Security Services Daemon for identity management
-        - sssd-kcm  # Key caching daemon for SSSD
+        - sssd-common  # Common libraries for SSSD identity services
+        - sssd-kcm  # Kerberos Credential Manager daemon for SSSD
         - sudo  # Privilege escalation tool
         - systemd  # System and service manager for Linux
         - util-linux  # Essential system utilities (e.g., fdisk, mount)
@@ -65,7 +65,7 @@ modules:
         - xfsprogs  # XFS filesystem utilities
         - yum  # Legacy package manager (replaced by DNF)
 
-      # Core default packages:
+        # Core Default Packages
         - NetworkManager  # Network configuration and management
         - NetworkManager-team  # NetworkManager plugin for team interfaces
         - NetworkManager-tui  # Text-based NetworkManager interface
@@ -86,7 +86,7 @@ modules:
         - iwl6050-firmware  # Intel WiFi firmware for 6050 series
         - iwl7260-firmware  # Intel WiFi firmware for 7260 series
         - kernel-tools  # Additional tools for managing the Linux kernel
-        - libsysfs  # Library for interacting with sysfs
+        - libsysfs  # Library interface to sysfs kernel file system
         - linux-firmware  # Firmware package for various hardware devices
         - lshw  # Hardware information tool
         - lsscsi  # List SCSI devices and attributes
@@ -101,17 +101,16 @@ modules:
         - rdma-core  # Remote Direct Memory Access libraries
         - selinux-policy-mls  # Multi-Level Security (MLS) SELinux policy
         - tboot  # Trusted Boot (tboot) support for Intel TXT
-      
-      # Standard mandatory packages:
+
+        # Standard Mandatory Packages
         - acl  # Access control list utilities for managing file permissions
-        #- almalinux-release  # Provides AlmaLinux-specific branding and release info
         - at  # Schedules one-time tasks for later execution
         - attr  # Manipulates extended attributes on filesystem objects
         - bash-completion  # Tab completion support for Bash shell
         - bc  # Command-line calculator with scripting support
         - cpio  # Archiving tool for copying files to/from archives
         - crontabs  # Default system crontab files for scheduling jobs
-        - cyrus-sasl-plain  # Simple Authentication and Security Layer (SASL) plaintext plugin
+        - cyrus-sasl-plain  # SASL plaintext authentication plugin
         - dbus  # Message bus for system-wide communication between processes
         - ed  # Line-based text editor (historically used in UNIX)
         - file  # Determines file types based on magic numbers
@@ -121,7 +120,7 @@ modules:
         - logrotate  # Automatically rotates and manages log files
         - lsof  # Lists open files and their associated processes
         - mcelog  # Machine Check Exception logger for detecting hardware errors
-        - microcode_ctl  # Loads updated CPU microcode for security and stability
+        - microcode_ctl  # Loads updated CPU microcode
         - net-tools  # Legacy networking tools (ifconfig, route, etc.)
         - pciutils  # Utilities for inspecting and managing PCI devices
         - psacct  # Process accounting tool for monitoring resource usage
@@ -129,114 +128,107 @@ modules:
         - rsyslog-gnutls  # TLS support for rsyslog
         - rsyslog-gssapi  # GSSAPI authentication for rsyslog
         - rsyslog-relp  # RELP protocol support for reliable rsyslog communication
-        - sudo  # Privilege escalation tool for executing commands as another user
+        - sudo  # Privilege escalation tool
         - symlinks  # Utility to manage and check symbolic links
         - systemd-udev  # Manages dynamic device nodes in /dev
         - tar  # Archiving tool for creating and extracting tarballs
         - tree  # Displays directory structure in a tree-like format
         - tuned  # Performance tuning tool for system optimization
-        - util-linux-user  # User-specific utilities from util-linux (e.g., chsh, chfn)
-      
-      # Standard default packages:
+        - util-linux-user  # User-specific util-linux tools (e.g., chsh, chfn)
+
+        # Standard Default Packages
         - blktrace  # Block layer I/O tracing tool
         - bluez  # Bluetooth protocol stack for Linux
-        - bpftool  # Tool for inspecting and managing BPF programs
-        - bzip2  # Compression utility using Burrows-Wheeler algorithm
-        - chrony  # NTP client and server for time synchronization
+        - bpftool  # Tool for managing BPF programs
+        - bzip2  # Compression utility
+        - chrony  # NTP client and server
         - cockpit  # Web-based system administration interface
         - cryptsetup  # LUKS disk encryption tool
         - dos2unix  # Converts DOS-style line endings to UNIX format
-        - dosfstools  # Utilities for creating and checking FAT filesystems
-        - ethtool  # Utility for managing network interface settings
+        - dosfstools  # FAT filesystem utilities
+        - ethtool  # Manage network interface settings
         - fprintd-pam  # PAM module for fingerprint authentication
         - gnupg2  # GPG encryption and signing tools
         - iprutils  # IBM Power RAID utilities
-        - kmod-kvdo  # Kernel module for Virtual Data Optimizer (VDO)
-        - ledmon  # LED management tool for storage devices
-        - libstoragemgmt  # Storage management tools and libraries
-        - lvm2  # Logical Volume Manager for disk partitions
-        - mailcap  # Defines programs for handling different MIME types
-        - man-pages  # Collection of manual pages for Linux commands and APIs
-        - mdadm  # RAID management tool for software RAID arrays
-        - mlocate  # Fast file-searching utility
-        - mtr  # Network diagnostic tool combining traceroute and ping
-        - nano  # Simple, user-friendly text editor
-        - nmap-ncat  # Netcat replacement for network debugging
-        - nvme-cli  # Tools for managing NVMe SSDs
-        - realmd  # System integration for Active Directory and other realms
-        - rsync  # Fast file transfer and synchronization tool
-        - smartmontools  # Hard drive health monitoring (S.M.A.R.T.)
-        - sos  # System analysis and troubleshooting tool
-        - sssd  # System Security Services Daemon for authentication
-        - strace  # Traces system calls made by a process
-        - tcpdump  # Packet capture tool for network debugging
-        - teamd  # Network Teaming daemon for load balancing
-        - time  # Measures execution time of programs
-        - unzip  # Extracts ZIP archives
-        - usbutils  # Utilities for managing USB devices
-        - vdo  # Virtual Data Optimizer for deduplication and compression
-        - vim-enhanced  # Enhanced version of the Vim text editor
-        - virt-what  # Detects if the system is running inside a virtual machine
-        - wget  # Command-line tool for downloading files via HTTP/FTP
-        - which  # Locates the executable path of a command
-        - words  # Word list dictionary for spell checking and text processing
-        - xfsdump  # Backup tool for XFS filesystems
-        - zip  # Creates ZIP archives
-      
-      # Standard optional packages:
-        - cifs-utils  # Mount and manage CIFS/SMB network shares
-        - cockpit-doc  # Documentation package for Cockpit web interface
-        - fwupd  # Firmware update tool for Linux
+        - kmod-kvdo  # Kernel module for VDO (Virtual Data Optimizer)
+        - ledmon  # LED management tool for Intel storage devices
+        - libstoragemgmt  # Storage management tools with plugin support
+        - lvm2  # Logical Volume Manager
+        - mailcap  # MIME type handler config
+        - man-pages  # Linux man pages collection
+        - mdadm  # Software RAID management tool
+        - mlocate  # File locating tool
+        - mtr  # Traceroute + ping diagnostic tool
+        - nano  # User-friendly text editor
+        - nmap-ncat  # Netcat replacement from the Nmap suite
+        - nvme-cli  # NVMe SSD management
+        - realmd  # Active Directory integration
+        - rsync  # File synchronization tool
+        - smartmontools  # S.M.A.R.T. disk health monitor
+        - sos  # System diagnostics
+        - sssd  # System Security Services Daemon
+        - strace  # System call tracer
+        - tcpdump  # Packet capture tool
+        - teamd  # Network Teaming daemon
+        - time  # Execution time measurement
+        - unzip  # ZIP archive extractor
+        - usbutils  # USB device utilities
+        - vdo  # Virtual Data Optimizer
+        - vim-enhanced  # Enhanced Vim editor
+        - virt-what  # Virtualization detection tool
+        - wget  # Download tool
+        - which  # Finds path of commands
+        - words  # Word list dictionary
+        - xfsdump  # XFS filesystem backup tool
+        - zip  # ZIP archive creation
+
+        # Standard Optional Packages
+        - cifs-utils  # Manage CIFS/SMB network shares
+        - cockpit-doc  # Cockpit documentation
+        - fwupd  # Firmware updater
         - ima-evm-utils  # Integrity Measurement Architecture tools
-        - nfs-utils  # NFS client and server utilities
-        - nvmetcli  # NVMe over Fabrics target configuration tool
-        - traceroute  # Network diagnostic tool for tracing packet routes
-        - vdo-support  # Additional support utilities for VDO
-        - zsh  # Powerful and customizable shell
-      
-      # hardware-support default packages:
-        - bolt  # Thunderbolt security level management daemon
-        - iwl6000g2b-firmware  # Intel WiFi firmware for 6000G2B series
-        - libertas-sd8787-firmware  # Firmware for Marvell Libertas SD8787 WiFi chipset
-        - netronome-firmware  # Firmware for Netronome network accelerators
-        - usb_modeswitch  # Switches USB devices between different operating modes (e.g., modem vs storage)
-      
-      # hardware-support optional packages:
-        - lsscsi  # Lists and queries SCSI devices
-        - opensc  # Smart card utilities for authentication and security
-        - openssl-pkcs11  # OpenSSL PKCS#11 engine for smart cards and hardware tokens
-        - pcsc-lite  # Middleware to access smart cards
-        - pcsc-lite-ccid  # Driver for USB CCID smart card readers    
-      
-      # SYSTEM
-        - dnf-plugins-core
-      
-      # Cockpit Extensions
-        - cockpit-files
-        - cockpit-machines
-        - cockpit-podman
-        - cockpit-storaged
-        - cockpit-ostree
-      
-      # CONTAINER TOOLS
-        - distrobox
-        - buildah
-      #  - podman-compose
-        - podman-docker
-      #  - kubernetes
-      #  - kubernetes-kubeadm
-      #  - kubernetes-client
-      #  - kubernetes-systemd
-      
-      # VIRTUALIZATION
-        - xe-guest-utilities-latest
-      #  - xen
-        - libvirt
-      #  - libvirt-daemon-xen
-        - libvirt-daemon-config-network
-        - libvirt-daemon-driver-network
-      
-      # EXTRAS
-        - fastfetch
-        - libopenraw
-        - fish
+        - nfs-utils  # NFS client/server utilities
+        - nvmetcli  # NVMe-over-Fabrics target tool
+        - traceroute  # Packet route tracing
+        - vdo-support  # Extra VDO utilities
+        - zsh  # Advanced shell
+
+        # Hardware Support (Default)
+        - bolt  # Thunderbolt security daemon
+        - iwl6000g2b-firmware  # Intel WiFi firmware
+        - libertas-sd8787-firmware  # Marvell Libertas firmware
+        - netronome-firmware  # Netronome accelerator firmware
+        - usb_modeswitch  # Switch USB device modes
+
+        # Hardware Support (Optional)
+        - lsscsi  # SCSI device tools
+        - opensc  # Smart card utilities
+        - openssl-pkcs11  # OpenSSL PKCS#11 engine
+        - pcsc-lite  # Smart card middleware
+        - pcsc-lite-ccid  # USB CCID driver
+
+        # System
+        - dnf-plugins-core  # Core plugins for DNF package manager
+
+        # Cockpit Extensions
+        - cockpit-files  # Cockpit interface for browsing and managing files
+        - cockpit-machines  # Cockpit UI for virtual machine management
+        - cockpit-podman  # Cockpit UI for managing Podman containers
+        - cockpit-storaged  # Cockpit interface for storage management
+        - cockpit-ostree  # Cockpit interface for managing ostree systems
+
+        # Container Tools
+        - distrobox  # Tool for managing containerized development environments
+        - buildah  # Tool for building OCI/Docker images
+        - podman-docker  # Docker-compatible CLI wrapper for Podman
+
+        # Virtualization
+        - xe-guest-utilities-latest  # Latest XCP-ng guest tools for Xen VMs
+        - libvirt  # Virtualization API for managing KVM/QEMU, Xen, etc.
+        - libvirt-daemon-config-network  # Default network configuration for libvirt
+        - libvirt-daemon-driver-network  # Network driver for libvirt daemon
+
+        # Extras
+        - fastfetch  # System information tool with rich ASCII logo output
+        - libopenraw  # Library for parsing RAW image formats
+        - fish  # Friendly interactive shell with smart suggestions

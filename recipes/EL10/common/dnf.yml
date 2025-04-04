@@ -2,8 +2,210 @@
 modules:
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    remove:
+      packages:
+        - subscription-manager
     install:
       packages:
-        - repo: copr:copr.fedorainfracloud.org:lucamagrone:epel-10-extra
-          packages:
-            - dnf5
+      # Extra Packages for Enterprise Linux
+        - epel-release
+  - type: containerfile
+    snippets:
+      - RUN dnf config-manager --set-enabled crb
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
+        # CORE SYSTEM - MANDATORY
+        - audit  # Auditing framework
+        - basesystem  # Base package defining system layout
+        - bash  # GNU Bourne-Again Shell
+        - coreutils  # Basic file, shell, and text manipulation utilities
+        - cronie  # Daemon for running scheduled tasks
+        - crypto-policies  # System-wide cryptographic policies
+        - crypto-policies-scripts  # Helper scripts for crypto policies
+        - dnf  # Package manager for RPM-based distributions
+        - e2fsprogs  # Utilities for managing ext2/ext3/ext4 filesystems
+        - filesystem  # Base directory structure
+        - glibc  # GNU C Library
+        - grubby  # Bootloader configuration utility
+        - hostname  # Get or set system hostname
+        - irqbalance  # Balances hardware interrupts across CPUs
+        - kbd  # Keyboard utilities
+        - kexec-tools  # Fast reboot into a new kernel
+        - less  # Pager program for viewing text
+        - logrotate  # Rotates and compresses log files
+        - man-db  # Manual page utilities
+        - ncurses  # Library for terminal UI
+        - parted  # Disk partitioning tool
+        - policycoreutils  # Core SELinux utilities
+        - procps-ng  # System monitoring utilities (ps, top, etc.)
+        - rootfiles  # Miscellaneous admin files
+        - rpm  # RPM Package Manager
+        - rpm-plugin-audit  # RPM auditing plugin
+        - selinux-policy-targeted  # Default SELinux policy
+        - setup  # Basic system configuration
+        - shadow-utils  # Tools for managing users/groups
+        - sudo  # Privilege escalation tool
+        - systemd  # System and service manager
+        - util-linux  # Miscellaneous essential utilities
+        - vim-minimal  # Minimal version of Vim editor
+        - xfsprogs  # XFS filesystem utilities
+        - yum  # Backward-compatible wrapper for DNF
+
+        # CORE SYSTEM - DEFAULT
+        - authselect  # Manages authentication profiles
+        - dnf-plugins-core  # Additional DNF plugins
+        - dracut-config-rescue  # Generates rescue initramfs
+        - initscripts-rename-device  # Legacy network rename support
+        - kernel-tools  # Kernel utilities (cpupower, etc.)
+        - libsysfs  # Interface to sysfs
+        - linux-firmware  # Firmware for various hardware devices
+        - lshw  # Hardware information tool
+        - lsscsi  # Lists SCSI devices
+        - microcode_ctl  # CPU microcode update utility
+        - prefixdevname  # Persistent device naming support
+        - python3-libselinux  # Python bindings for SELinux
+
+        # CORE SYSTEM - OPTIONAL
+        - dracut-config-generic  # Generic dracut config
+        - selinux-policy-mls  # Multi-Level Security SELinux policy
+        - tboot  # Trusted Boot support
+
+        # CORE NETWORKING
+        - curl  # Tool for transferring data via URLs
+        - firewalld  # Dynamic firewall manager
+        - iproute  # IP routing utilities
+        - iproute-tc  # Traffic control support
+        - iputils  # Network tools like ping
+        - openssh-clients  # SSH client
+        - openssh-server  # SSH server
+        - p11-kit  # PKCS#11 module manager
+        - NetworkManager  # Network configuration manager
+        - NetworkManager-tui  # Text-based interface for NetworkManager
+        - dracut-network  # Networking support in initramfs
+        - rdma-core  # Remote Direct Memory Access support
+
+        # SECURITY & AUTHENTICATION
+        - sssd-common  # System Security Services Daemon (common)
+        - sssd-kcm  # Kerberos credential manager for SSSD
+        - cyrus-sasl-plain  # SASL authentication plugin
+        - fprintd-pam  # Fingerprint authentication
+        - realmd  # Realm discovery and domain joining
+        - sssd  # System Security Services Daemon
+
+        # STORAGE & FILESYSTEMS
+        - sg3_utils  # SCSI device utilities
+        - sg3_utils-libs  # Libraries for SCSI utilities
+        - quota  # Disk quota utilities
+        - cryptsetup  # Disk encryption setup
+        - dosfstools  # Tools for FAT filesystems
+        - lvm2  # Logical Volume Management
+        - mdadm  # Software RAID management
+        - xfsdump  # Backup utility for XFS
+
+        # FIRMWARE
+        - amd-gpu-firmware  # AMD GPU firmware
+        - intel-gpu-firmware  # Intel GPU firmware
+        - iwlwifi-dvm-firmware  # Intel DVM WiFi firmware
+        - iwlwifi-mvm-firmware  # Intel MVM WiFi firmware
+        - nvidia-gpu-firmware  # NVIDIA GPU firmware
+        - libertas-firmware  # Marvell Libertas firmware
+        - netronome-firmware  # Netronome network card firmware
+
+        # MONITORING & SYSTEM UTILITIES
+        - lshw  # Lists hardware configuration
+        - lsscsi  # Lists SCSI devices
+        - microcode_ctl  # Loads CPU microcode
+        - mcelog  # Machine check event logger
+        - lsof  # List open files
+        - psacct  # Process accounting
+        - sos  # System diagnostics and support data collection
+        - smartmontools  # Disk health monitoring
+        - strace  # Trace system calls and signals
+        - time  # Measure command execution time
+        - tree  # Display directory structure
+        - tuned  # Dynamic system tuning daemon
+
+        # NETWORKING TOOLS
+        - mtr  # Network diagnostics tool (ping/traceroute hybrid)
+        - tcpdump  # Network packet analyzer
+        - cifs-utils  # SMB file share utilities
+        - nfs-utils  # NFS client/server utilities
+        - nvmetcli  # NVMe target management
+        - traceroute  # Network route diagnostics
+
+        # SYSTEM ADMIN & MANAGEMENT
+        - dbus  # Message bus system
+        - rsyslog-gnutls  # Secure rsyslog via GnuTLS
+        - rsyslog-gssapi  # Secure rsyslog via GSSAPI
+        - rsyslog-relp  # Reliable event logging protocol for rsyslog
+        - symlinks  # Maintain symbolic links
+        - systemd-udev  # Device manager for the Linux kernel
+        - tar  # Archiving utility
+        - rsync  # Fast file copy/sync
+        - cockpit  # Web-based system management
+        - cockpit-doc  # Documentation for Cockpit
+
+        # USER ENVIRONMENT & UTILITIES
+        - bash-color-prompt  # Color-enhanced Bash prompt
+        - bash-completion  # Tab completion for Bash
+        - bzip2  # Compression tool
+        - dos2unix  # Convert DOS line endings to Unix
+        - ed  # Line-oriented text editor
+        - file  # File type identification
+        - gnupg2  # GPG encryption tools
+        - mailcap  # MIME type mapping
+        - man-pages  # Manual pages
+        - nano  # Terminal text editor
+        - plocate  # Fast locate alternative
+        - plymouth  # Graphical boot animation and logger
+        - unzip  # Extract ZIP archives
+        - vim-enhanced  # Full version of Vim editor
+        - virt-what  # Detects if running in a VM
+        - wget  # Network file downloader
+        - which  # Shows path to commands
+        - words  # Word list
+        - zip  # Create ZIP archives
+        - zsh  # Z Shell
+
+        # VIRTUALIZATION & LOW-LEVEL TOOLS
+        - kpatch  # Live kernel patching
+        - kpatch-dnf  # DNF plugin for live patching
+        - blktrace  # Block I/O tracing
+        - bpftool  # eBPF introspection
+        - ledmon  # LED management for RAID
+
+        # HARDWARE SUPPORT
+        - bolt  # Thunderbolt device manager
+        - opensc  # Smart card utilities
+        - pcsc-lite  # PC/SC smart card daemon
+        - pcsc-lite-ccid  # USB smart card reader driver
+        - pkcs11-provider  # PKCS#11 provider for crypto frameworks
+
+        # SYSTEM MANAGEMENT EXTRAS
+        - system-reinstall-bootc  # BootC reinstall command
+
+        # COCKPIT EXTENSIONS
+        - cockpit-files  # File browser for Cockpit
+        - cockpit-machines  # Manage virtual machines via Cockpit
+        - cockpit-podman  # Podman container management via Cockpit
+        - cockpit-storaged  # Storage configuration via Cockpit
+        - cockpit-ostree  # OSTree management via Cockpit
+
+        # CONTAINER TOOLS
+        - distrobox  # Containerized development environments
+        - buildah  # Tool to build OCI and Docker containers
+        - podman-docker  # Docker CLI compatibility for Podman
+
+        # VIRTUALIZATION SUPPORT
+        - libvirt  # Virtualization API and management daemon
+        - libvirt-daemon-config-network  # Network defaults for libvirt
+        - libvirt-daemon-driver-network  # Network backend for libvirt
+
+        # EXTRAS
+        - fastfetch  # Fast system info fetch tool
+        - libopenraw  # Library for reading RAW photo files
+        - just  # Command runner like `make`
+        - fish  # Friendly Interactive Shell
+        - almalinux-kitten-release  # EL10 branding package (Kitten release)

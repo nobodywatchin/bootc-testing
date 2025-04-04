@@ -14,7 +14,7 @@ image-version: 10-kitten # latest is also supported if you want new updates ASAP
 modules:
   #- from-file: EL10/alma/alma10-repos.yml
   - from-file: shared/brew.yml
-  - from-file: EL10/common/dnf4.yml
+  - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/tailscale-manual-centos10.yml
   - from-file: EL10/common/gui.yml
   - from-file: shared/default-flatpaks.yml
