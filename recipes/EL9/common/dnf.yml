@@ -29,7 +29,6 @@ modules:
         - e2fsprogs  # Utilities for managing ext2/ext3/ext4 filesystems
         - filesystem  # Base directory structure for the system
         - firewalld  # Firewall management daemon
-        - glibc  # GNU C Library, essential for running Linux programs
         - grubby  # Tool for managing GRUB bootloader configurations
         - hostname  # Utility for setting/getting system hostname
         - iproute  # Tools for IP networking and routing

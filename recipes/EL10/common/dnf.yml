@@ -170,8 +170,6 @@ modules:
         - zsh  # Z Shell
 
         # VIRTUALIZATION & LOW-LEVEL TOOLS
-        - kpatch  # Live kernel patching
-        - kpatch-dnf  # DNF plugin for live patching
         - blktrace  # Block I/O tracing
         - bpftool  # eBPF introspection
         - ledmon  # LED management for RAID
@@ -208,4 +206,3 @@ modules:
         - libopenraw  # Library for reading RAW photo files
         - just  # Command runner like `make`
         - fish  # Friendly Interactive Shell
-        - almalinux-kitten-release  # EL10 branding package (Kitten release)
