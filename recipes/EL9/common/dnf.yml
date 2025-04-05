@@ -17,7 +17,7 @@ modules:
     install:
       packages:
         - glibc
-        - libgonf
+        - libgomp
         # Core Mandatory Packages
         - audit  # Event auditing daemon
         - basesystem  # Base package defining system layout
