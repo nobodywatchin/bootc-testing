@@ -16,6 +16,8 @@ modules:
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
       packages:
+        - glibc
+        - libgonf
         # Core Mandatory Packages
         - audit  # Event auditing daemon
         - basesystem  # Base package defining system layout
