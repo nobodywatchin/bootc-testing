@@ -15,9 +15,14 @@ modules:
   - type: dnf4
     source: ghcr.io/certifiedfoolio/modules/dnf4:v1
     install:
+      allow-erasing: true
       packages:
         - glibc
         - libgomp
+  - type: dnf4
+    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+    install:
+      packages:
         # Core Mandatory Packages
         - audit  # Event auditing daemon
         - basesystem  # Base package defining system layout
