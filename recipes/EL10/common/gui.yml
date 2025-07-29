@@ -54,7 +54,6 @@ modules:
       - libcamera-v4l2
       - libcamera-gstreamer
       - libcamera-tools
-      - ffmpegthumbnailer
       - wl-clipboard
       - jetbrains-mono-fonts-all
       - gnome-disk-utility
