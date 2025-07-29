@@ -1,0 +1,5 @@
+---
+type: containerfile
+snippets:
+  # Ensure dnf4 is available for the BlueBuild dnf module
+  - RUN ln -s /usr/bin/dnf /usr/bin/dnf4 || true
