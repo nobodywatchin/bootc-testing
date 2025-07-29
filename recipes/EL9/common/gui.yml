@@ -1,7 +1,6 @@
 ---
 modules:
-  - type: dnf4 # Installs Core Groups for GUI
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf # Installs Core Groups for GUI
     group-install:
       packages: 
       - Multimedia
@@ -10,8 +9,7 @@ modules:
       - print-client
       - Workstation product core
       - networkmanager-submodules
-  - type: dnf4 # Installs Individual Packages for GUI
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf # Installs Individual Packages for GUI
     install:
       packages: 
       - gstreamer1-plugins-bad-free

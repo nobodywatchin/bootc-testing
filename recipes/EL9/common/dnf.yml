@@ -1,7 +1,6 @@
 ---
 modules:
-  - type: dnf4
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf
     remove:
       packages:
         - subscription-manager
@@ -12,15 +11,13 @@ modules:
   - type: containerfile
     snippets:
       - RUN dnf config-manager --set-enabled crb
-  - type: dnf4
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf
     install:
       allow-erasing: true
       packages:
         - glibc
         - libgomp
-  - type: dnf4
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf
     install:
       packages:
         # Core Mandatory Packages

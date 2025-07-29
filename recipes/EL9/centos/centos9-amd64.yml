@@ -13,7 +13,6 @@ image-version: c9s # latest is also supported if you want new updates ASAP
 # you can include multiple instances of the same module
 modules:
   - from-file: EL9/common/dnf.yml
-  - from-file: shared/brew.yml
   - from-file: EL9/common/tailscale-manual-rhel9.yml
   - from-file: EL9/common/gui2.yml
   - from-file: shared/default-flatpaks.yml

@@ -1,12 +1,10 @@
 ---
 modules:
-  - type: dnf4 # Installs Core Groups for GUI
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf # Installs Core Groups for GUI
     group-install:
       packages: 
       - Fonts
-  - type: dnf4 # Installs Individual Packages for GUI
-    source: ghcr.io/certifiedfoolio/modules/dnf4:v1
+  - type: dnf # Installs Individual Packages for GUI
     install:
       packages: 
       # Workstation Product Core Packages
