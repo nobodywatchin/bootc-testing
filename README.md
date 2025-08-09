@@ -23,7 +23,7 @@ In the meantime, here are some simple commands to get up and running:
 # Building as a VM
 
 ```bash
-sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull ghcr.io/nobodywatchin/centos10-testing:latest && \
 sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run \
   --rm \
@@ -35,7 +35,7 @@ sudo podman run \
   -v $(pwd)/output:/output \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type qcow2 \
-  ghcr.io/nobodywatchin/alma10-testing:latest
+  ghcr.io/nobodywatchin/centos10-testing:latest
 ```
 
 # Building ISO File
@@ -47,7 +47,7 @@ Use with caution! I am not responsible if the installer formats the wrong hard d
 To Build the ISO file, run:
 
 ```bash
-sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull ghcr.io/nobodywatchin/centos10-testing:latest && \
 sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run \
   --rm \
@@ -59,5 +59,6 @@ sudo podman run \
   -v $(pwd)/output:/output \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type iso \
-  ghcr.io/nobodywatchin/alma10-testing:latest
+  --config /config.toml \
+  ghcr.io/nobodywatchin/centos10-testing:latest
 ```
