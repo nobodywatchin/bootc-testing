@@ -1,24 +1,26 @@
 [customizations.installer.kickstart]
 contents = """
-# --- Locale & input (prevents your UTF-8 crash) ---
+# --- Locale & input (prevents the UTF-8 crash) ---
 lang en_US.UTF-8
 keyboard us
-timezone Etc/UTC --utc
 
-# --- Bring up basic networking (optional but handy for logs/remote) ---
+# --- Timezone & time sync (Vancouver, with NTP) ---
+timezone America/Vancouver --utc
+timesource --ntp-server=0.pool.ntp.org --ntp-server=1.pool.ntp.org
+services --enabled=chronyd
+
+# --- Networking (DHCP up front so logs/remote work) ---
 network --bootproto=dhcp --device=link --activate
 
-# --- Make the installer UI appear so you can pick the disk ---
-# Use text UI by default (works in a serial/virt console); remove 'text' and use 'graphical' if you prefer VNC.
+# --- Installer UI so you can choose the target disk ---
+# Use 'text' for a reliable TTY experience in Nutanix console.
+# (Swap to 'graphical' if you prefer the GUI/VNC flow.)
 text
 interactive
 
-# IMPORTANT:
-# Do NOT include 'clearpart' or 'autopart' here.
-# With no storage directives, Anaconda will stop on the STORAGE spoke
-# and let you choose the disk and (auto) partitioning, then continue.
+# No storage directives here on purpose:
+# leaving out clearpart/autopart forces the STORAGE screen and lets you pick the drive.
 
 # --- Finish up normally ---
 reboot
 """
-
