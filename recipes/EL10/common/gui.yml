@@ -3,15 +3,101 @@ modules:
   - type: dnf # Installs Core Groups for GUI
     group-install:
       packages: 
-      - Multimedia
-      - Fonts
-      - Guest Desktop Agents
-      - Printing Client
       - Workstation product core
-      - Common NetworkManager submodules
   - type: dnf # Installs Individual Packages for GUI
     install:
       packages: 
+      # Multimedia Group
+      - PackageKit-gstreamer-plugin
+      - alsa-ucm
+      - alsa-utils
+      - gstreamer1-plugins-bad-free
+      - gstreamer1-plugins-good
+      - gstreamer1-plugins-ugly-free
+      - pipewire
+      - pipewire-alsa
+      - pipewire-gstreamer
+      - pipewire-jack-audio-connection-kit
+      - pipewire-pulseaudio
+      - pipewire-utils
+      - pavucontrol #OPTIONAL
+      # Fonts Group
+      - default-fonts-cjk-mono
+      - default-fonts-cjk-sans
+      - default-fonts-cjk-serif
+      - default-fonts-core-emoji
+      - default-fonts-core-math
+      - default-fonts-core-mono
+      - default-fonts-core-sans
+      - default-fonts-core-serif
+      - default-fonts-other-mono
+      - default-fonts-other-sans
+      - default-fonts-other-serif
+      - dejavu-sans-fonts
+      - dejavu-sans-mono-fonts
+      - dejavu-serif-fonts
+      - pt-sans-fonts
+      - redhat-display-vf-fonts
+      - redhat-mono-vf-fonts
+      - redhat-text-vf-fonts
+      # Optional Fonts
+      - default-fonts
+      - default-fonts-cjk
+      - default-fonts-core
+      - default-fonts-other
+      - fontawesome4-fonts
+      - google-carlito-fonts
+      - google-crosextra-caladea-fonts
+      - google-droid-sans-fonts
+      - google-droid-sans-mono-fonts
+      - google-droid-serif-fonts
+      - google-noto-emoji-fonts
+      - google-noto-fonts-all
+      - google-noto-sans-cjk-fonts
+      - google-roboto-slab-fonts
+      - lato-fonts
+      - open-sans-fonts
+      - xorg-x11-fonts-100dpi
+      - xorg-x11-fonts-75dpi
+      - xorg-x11-fonts-ISO8859-1-100dpi
+      - xorg-x11-fonts-ISO8859-1-75dpi
+      - xorg-x11-fonts-ISO8859-14-100dpi
+      - xorg-x11-fonts-ISO8859-14-75dpi
+      - xorg-x11-fonts-ISO8859-15-100dpi
+      - xorg-x11-fonts-ISO8859-15-75dpi
+      - xorg-x11-fonts-ISO8859-2-100dpi
+      - xorg-x11-fonts-ISO8859-2-75dpi
+      - xorg-x11-fonts-ISO8859-9-100dpi
+      - xorg-x11-fonts-ISO8859-9-75dpi
+      - xorg-x11-fonts-Type1
+      - xorg-x11-fonts-cyrillic
+      - xorg-x11-fonts-ethiopic
+      - xorg-x11-fonts-misc
+      # Guest Desktop Agents Group
+      - hyperv-daemons
+      - open-vm-tools-desktop
+      - qemu-guest-agent
+      - spice-vdagent
+      # Printing Client Group
+      - cups
+      - cups-pk-helper
+      - enscript
+      - colord
+      - gutenprint
+      - gutenprint-cups
+      - gutenprint-doc
+      - paps
+      - pnm2ppa
+      - system-config-printer-udev
+      - bluez-cups #OPTIONAL
+      - hplip #OPTIONAL
+      # Common NetworkManager submodules Group
+      - NetworkManager-bluetooth
+      - NetworkManager-wifi
+      - NetworkManager-wwan
+      - dnsmasq
+      - nftables
+      # REMAINING PACKAGES
       - gstreamer1-plugins-bad-free
       - gstreamer1-plugins-bad-free-libs
       - gstreamer1-plugins-good
