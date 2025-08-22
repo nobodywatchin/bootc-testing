@@ -50,6 +50,3 @@ modules:
     system:
       enabled:
         - myos-hide-org-system.service
-    user:
-      enabled:
-        - myos-flatpak-setup.service
