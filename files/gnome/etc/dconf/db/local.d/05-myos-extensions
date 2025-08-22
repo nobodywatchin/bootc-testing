@@ -23,7 +23,79 @@ clear-on-boot=false
 enable-snap-assist=false
 enable-span-multiple-tiles=true
 inner-gaps=uint32 8
-layouts-json='[{"id":"285949","tiles":[{"x":0,"y":0,"width":0.6333333333333333,"height":1,"groups":[1]},{"x":0.6333333333333333,"y":0,"width":0.3666666666666666,"height":0.5,"groups":[2,1]},{"x":0.6333333333333333,"y":0.5,"width":0.3666666666666666,"height":0.49999999999999994,"groups":[2,1]}]},{"id":"1606973","tiles":[{"x":0,"y":0,"width":0.36666666666666664,"height":0.5,"groups":[1,2]},{"x":0.36666666666666664,"y":0,"width":0.6333333333333357,"height":1,"groups":[1]},{"x":0,"y":0.5,"width":0.36666666666666664,"height":0.5,"groups":[2,1]}]},{"id":"10932354","tiles":[{"x":0,"y":0,"width":0.33541666666666664,"height":1,"groups":[1]},{"x":0.33541666666666664,"y":0,"width":0.3317708333333334,"height":0.5,"groups":[3,2,1]},{"x":0.33541666666666664,"y":0.5,"width":0.3317708333333334,"height":0.49999999999999994,"groups":[2,4,1]},{"x":0.6671875,"y":0,"width":0.33281250000000123,"height":0.5,"groups":[2,3]},{"x":0.6671875,"y":0.5,"width":0.33281250000000123,"height":0.49999999999999994,"groups":[2,4]}]},{"id":"11375696","tiles":[{"x":0,"y":0,"width":0.3328125,"height":0.5,"groups":[2,4]},{"x":0.6645833333333333,"y":0,"width":0.3354166666666666,"height":1,"groups":[1]},{"x":0.3328125,"y":0,"width":0.3317708333333333,"height":0.5,"groups":[1,3,2]},{"x":0.3328125,"y":0.5,"width":0.3317708333333333,"height":0.49999999999999994,"groups":[3,1,2]},{"x":0,"y":0.5,"width":0.3328125,"height":0.5,"groups":[4,2]}]},{"id":"19270138","tiles":[{"x":0,"y":0,"width":0.3,"height":1,"groups":[1]},{"x":0.3,"y":0,"width":0.39999999999999997,"height":1,"groups":[2,1]},{"x":0.7,"y":0,"width":0.3,"height":1,"groups":[2]}]},{"id":"19296979","tiles":[{"x":0,"y":0,"width":1,"height":0.5,"groups":[1]},{"x":0,"y":0.5,"width":0.5,"height":0.5000000000000003,"groups":[1,2]},{"x":0.5,"y":0.5,"width":0.49999999999999994,"height":0.5000000000000003,"groups":[1,2]}]},{"id":"19366561","tiles":[{"x":0,"y":0,"width":1,"height":0.5,"groups":[1]},{"x":0,"y":0.5,"width":0.25052083333333336,"height":0.49999999999999994,"groups":[1,4]},{"x":0.5,"y":0.5,"width":0.2494791666666667,"height":0.49999999999999994,"groups":[1,3,2]},{"x":0.7494791666666667,"y":0.5,"width":0.25052083333333325,"height":0.49999999999999994,"groups":[1,3]},{"x":0.25052083333333336,"y":0.5,"width":0.2494791666666666,"height":0.49999999999999994,"groups":[1,2,4]}]},{"id":"19419140","tiles":[{"x":0,"y":0,"width":1,"height":0.5,"groups":[1]},{"x":0,"y":0.5,"width":0.3333333333333333,"height":0.49999999999999994,"groups":[1,2]},{"x":0.3333333333333333,"y":0.5,"width":0.3333333333333333,"height":0.49999999999999994,"groups":[1,3,2]},{"x":0.6666666666666666,"y":0.5,"width":0.33333333333333337,"height":0.49999999999999994,"groups":[1,3]}]}]'
+layouts-json='[
+  {
+    "id": "285949",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 0.633333, "height": 1, "groups": [1]},
+      {"x": 0.633333, "y": 0, "width": 0.366667, "height": 0.5, "groups": [2,1]},
+      {"x": 0.633333, "y": 0.5, "width": 0.366667, "height": 0.5, "groups": [2,1]}
+    ]
+  },
+  {
+    "id": "1606973",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 0.366667, "height": 0.5, "groups": [1,2]},
+      {"x": 0.366667, "y": 0, "width": 0.633333, "height": 1, "groups": [1]},
+      {"x": 0, "y": 0.5, "width": 0.366667, "height": 0.5, "groups": [2,1]}
+    ]
+  },
+  {
+    "id": "10932354",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 0.333333, "height": 1, "groups": [1]},
+      {"x": 0.333333, "y": 0, "width": 0.333333, "height": 0.5, "groups": [3,2,1]},
+      {"x": 0.333333, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [2,4,1]},
+      {"x": 0.666667, "y": 0, "width": 0.333333, "height": 0.5, "groups": [2,3]},
+      {"x": 0.666667, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [2,4]}
+    ]
+  },
+  {
+    "id": "11375696",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 0.333333, "height": 0.5, "groups": [2,4]},
+      {"x": 0.666667, "y": 0, "width": 0.333333, "height": 1, "groups": [1]},
+      {"x": 0.333333, "y": 0, "width": 0.333333, "height": 0.5, "groups": [1,3,2]},
+      {"x": 0.333333, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [3,1,2]},
+      {"x": 0, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [4,2]}
+    ]
+  },
+  {
+    "id": "19270138",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 0.3, "height": 1, "groups": [1]},
+      {"x": 0.3, "y": 0, "width": 0.4, "height": 1, "groups": [2,1]},
+      {"x": 0.7, "y": 0, "width": 0.3, "height": 1, "groups": [2]}
+    ]
+  },
+  {
+    "id": "19296979",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 1, "height": 0.5, "groups": [1]},
+      {"x": 0, "y": 0.5, "width": 0.5, "height": 0.5, "groups": [1,2]},
+      {"x": 0.5, "y": 0.5, "width": 0.5, "height": 0.5, "groups": [1,2]}
+    ]
+  },
+  {
+    "id": "19366561",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 1, "height": 0.5, "groups": [1]},
+      {"x": 0, "y": 0.5, "width": 0.25, "height": 0.5, "groups": [1,4]},
+      {"x": 0.5, "y": 0.5, "width": 0.25, "height": 0.5, "groups": [1,3,2]},
+      {"x": 0.75, "y": 0.5, "width": 0.25, "height": 0.5, "groups": [1,3]},
+      {"x": 0.25, "y": 0.5, "width": 0.25, "height": 0.5, "groups": [1,2,4]}
+    ]
+  },
+  {
+    "id": "19419140",
+    "tiles": [
+      {"x": 0, "y": 0, "width": 1, "height": 0.5, "groups": [1]},
+      {"x": 0, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [1,2]},
+      {"x": 0.333333, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [1,3,2]},
+      {"x": 0.666667, "y": 0.5, "width": 0.333333, "height": 0.5, "groups": [1,3]}
+    ]
+  }
+]'
 outer-gaps=uint32 6
 tiling-system-activation-key=['2']
 
@@ -38,7 +110,7 @@ noise-lightness=0.0
 sigma=30
 [org/gnome/shell/extensions/blur-my-shell/appfolder]
 blur=true
-brightness=0.80000000000000004
+brightness=0.8
 color=(0.0, 0.0, 0.0, 0.0)
 customize=true
 noise-amount=0.0
@@ -47,7 +119,7 @@ sigma=40
 style-dialogs=2
 [org/gnome/shell/extensions/blur-my-shell/lockscreen]
 blur=true
-brightness=0.59999999999999998
+brightness=0.6
 color=(0.0, 0.0, 0.0, 0.0)
 customize=true
 noise-amount=0.0
@@ -55,7 +127,7 @@ noise-lightness=0.0
 sigma=30
 [org/gnome/shell/extensions/blur-my-shell/overview]
 blur=true
-brightness=0.59999999999999998
+brightness=0.6
 color=(0.0, 0.0, 0.0, 0.0)
 customize=false
 noise-amount=0.0
@@ -66,21 +138,61 @@ style-components=3
 blur=false
 
 [org/gnome/shell/extensions/openbar]
-bartype='Trilands'
-shadow=false
-height=36.0
-margin=3.0
-cust-margin-wmax=false
-isalpha=0.4
-iscolor=['0', '0', '0']
+autotheme-dark='Color'
+autotheme-light='Color'
 balpha=0.0
+bartype='Trilands'
+bcolor=[0.878, 0.369, 0.016]
+bg-change=false
 bgalpha=0.0
-boxalpha=0.0
-dashdock-style='Bar'
-dbgalpha=0.4
-dbradius=32.0
-dborder=false
-dshadow=false
+bgcolor=[0.161, 0.141, 0.204]
+bgcolor-wmax=[0.118, 0.118, 0.118]
+bgcolor2=[0.247, 0.141, 0.259]
+bgpalette=false
+boxcolor=[0.161, 0.141, 0.204]
+dark-bcolor=[0.878, 0.369, 0.016]
+dark-bgcolor=[0.161, 0.141, 0.204]
+dark-bgcolor-wmax=[0.118, 0.118, 0.118]
+dark-bgcolor2=[0.247, 0.141, 0.259]
+dark-iscolor=[0.0, 0.0, 0.0]
+dark-mbcolor=[0.627, 0.137, 0.251]
+dark-mbgcolor=[0.141, 0.110, 0.204]
+dark-mfgcolor=[1.0, 1.0, 1.0]
+dark-mhcolor=[0.0, 0.7, 0.9]
+dark-mscolor=[0.741, 0.208, 0.133]
+dark-mshcolor=[0.0, 0.0, 0.0]
+dark-smbgcolor=[0.247, 0.141, 0.259]
+dark-winbcolor=[0.741, 0.208, 0.133]
+height=36.0
+isalpha=0.4
+iscolor=[0.0, 0.0, 0.0]
+light-bcolor=[0.886, 0.408, 0.016]
+light-bgcolor=[0.204, 0.161, 0.235]
+light-bgcolor-wmax=[0.922, 0.922, 0.922]
+light-bgcolor2=[0.278, 0.169, 0.314]
+light-boxcolor=[0.204, 0.161, 0.235]
+light-iscolor=[0.204, 0.161, 0.235]
+light-mbcolor=[0.173, 0.157, 0.251]
+light-mbgcolor=[0.173, 0.145, 0.235]
+light-mscolor=[0.733, 0.188, 0.286]
+light-mshcolor=[0.0, 0.0, 0.0]
+light-smbgcolor=[0.278, 0.169, 0.314]
+light-winbcolor=[0.733, 0.188, 0.286]
+margin=3.0
+mbcolor=[0.627, 0.137, 0.251]
+mbgcolor=[0.141, 0.110, 0.204]
+menustyle=false
+mhcolor=[0.0, 0.7, 0.9]
+mscolor=[0.741, 0.208, 0.133]
+mshcolor=[0.0, 0.0, 0.0]
+neon=false
+pause-reload=false
+set-fullscreen=false
+set-overview=true
+smbgcolor=[0.247, 0.141, 0.259]
+smbgoverride=true
+trigger-reload=true
+winbcolor=[0.741, 0.208, 0.133]
 
 [org/gnome/shell/extensions/clipboard-indicator]
 cache-size=2
