@@ -1,41 +1,61 @@
 ---
 modules:
+  # 0) Nuke any vendor system remotes so we fully control names/scope
+  - type: containerfile
+    snippets:
+      - RUN rm -f /usr/share/flatpak/remotes.d/*.flatpakrepo || true
+      - RUN rm -f /etc/flatpak/remotes.d/*.flatpakrepo || true
+
+  # 1) Default Flatpaks: user-visible Flathub + hidden system remote (different name)
   - type: default-flatpaks
-    configurations: 
-      - notify: true # Send notification after install/uninstall is finished (true/false)
-        scope: user
+    configurations:
+      # User repo (visible) → GUI/CLI default to per-user without prompts
+      - scope: user
+        notify: true
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: flathub
-          title: User Flatpaks # Optional; User-facing name in graphical frontends like GNOME Software
-      - notify: true # Send notification after install/uninstall is finished (true/false)
-        scope: system
+          title: Flathub (user)
+
+      # System repo (managed) → different name; we’ll hide it after boot
+      - scope: system
+        notify: true
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
-          name: flathub
-          title: System Flatpaks # Optional; User-facing name in graphical frontends like GNOME Software
+          name: org-system
+          title: Flathub (system, managed)
         install:
+          # Runtimes (kept explicit so install succeeds even if the remote is hidden early)
+          - org.freedesktop.Platform//23.08
+          - org.freedesktop.Platform.GL.default//23.08
+          - org.freedesktop.Platform.openh264//2.2.0
+          - org.gnome.Platform//46
+          # System apps you listed (plus Brave + Pods)
+          - com.github.marhkb.Pods
           - io.github.dvlv.boxbuddyrs
-          - io.github.flattool.Warehouse
           - com.github.tchx84.Flatseal
           - io.github.giantpinkrobots.flatsweep
           - it.mijorus.gearlever
           - com.usebottles.bottles
-          - com.github.marhkb.Pods
           - net.nokyan.Resources
           - com.mattjakeman.ExtensionManager
           - org.gnome.Decibels
           - org.gnome.Showtime
           - org.gnome.FileRoller
-          - io.github.realmazharhussain.GdmSettings
-          - page.codeberg.libre_menu_editor.LibreMenuEditor
-          - ca.desrt.dconf-editor
-          - page.tesk.Refine
-  - type: files # Adds a polkit rule to stop non-root users from running "flatpak --system" commands
+
+  # 2) Copy your whole flatpak/ tree (polkit rule, tmpfiles, overrides, units, scripts, Brave policy)
+  - type: files
     files:
       - source: flatpak
         destination: /
-  - type: systemd # Hides system-wide Flathub remote from users
+
+  # 3) Enable the units we shipped:
+  #    - myos-hide-org-system.service → marks system remote no-enumerate after boot
+  #    - myos-flatpak-setup.service  → adds user "flathub" on first login per-user
+  - type: systemd
     system:
       enabled:
-        - hide-system-flatpak-remote.service
+        - myos-hide-org-system.service
+    user:
+      enabled:
+        - myos-flatpak-setup.service

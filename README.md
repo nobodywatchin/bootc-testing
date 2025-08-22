@@ -2,7 +2,7 @@
 
 These are some custom bootc-based images based around EL9 and EL10 distributions.
 
-There are currently both CentOS and Almalinux images.
+There are currently only Almalinux 9 and 10 images with plans to add more distros in the future.
 
 The GNOME Desktop is included with some extensions added as well.
 

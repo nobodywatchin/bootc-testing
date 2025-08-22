@@ -1,0 +1,10 @@
+[Unit]
+Description=One-time per-user Flatpak setup
+ConditionPathExists=!%h/.config/myos/flatpak-setup-done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/myos-flatpak-setup.sh
+
+[Install]
+WantedBy=default.target

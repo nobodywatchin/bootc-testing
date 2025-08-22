@@ -1,0 +1,11 @@
+[Unit]
+Description=Hide the org-system Flatpak remote from enumeration
+After=network-online.target
+ConditionPathExists=!/var/lib/myos/org-system-hidden
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/myos-hide-org-system.sh
+
+[Install]
+WantedBy=multi-user.target
