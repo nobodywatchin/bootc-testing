@@ -23,19 +23,18 @@ In the meantime, here are some simple commands to get up and running:
 # Building as a VM
 
 ```bash
-sudo podman pull ghcr.io/nobodywatchin/centos10-testing:latest && \
-sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
-sudo podman run \
-  --rm \
-  -it \
-  --privileged \
-  --pull=never \
+sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
+sudo podman run --rm -it --privileged --pull=newer \
   --security-opt label=type:unconfined_t \
+  --network=host \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
-  -v $(pwd)/output:/output \
+  -v "$(pwd)/output:/output" \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type qcow2 \
-  ghcr.io/nobodywatchin/centos10-testing:latest
+  --progress verbose \
+  --use-librepo=false \
+  ghcr.io/nobodywatchin/alma10-testing:latest
 ```
 
 # Building ISO File
@@ -47,18 +46,16 @@ Use with caution! I am not responsible if the installer formats the wrong hard d
 To Build the ISO file, run:
 
 ```bash
-sudo podman pull ghcr.io/nobodywatchin/centos10-testing:latest && \
-sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
-sudo podman run \
-  --rm \
-  -it \
-  --privileged \
-  --pull=never \
+sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
+sudo podman run --rm -it --privileged --pull=newer \
   --security-opt label=type:unconfined_t \
+  --network=host \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
-  -v $(pwd)/output:/output \
+  -v "$(pwd)/output:/output" \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type iso \
-  --config /config.toml \
-  ghcr.io/nobodywatchin/centos10-testing:latest
+  --progress verbose \
+  --use-librepo=false \
+  ghcr.io/nobodywatchin/alma10-testing:latest
 ```

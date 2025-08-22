@@ -27,7 +27,6 @@ jobs:
       matrix:
         recipe:
           - /EL10/alma/alma10-amd64.yml
-          # - /EL10/centos/centos10-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL10 Images
@@ -53,7 +52,6 @@ jobs:
       matrix:
         recipe:
           - /EL9/alma/alma9-amd64.yml
-          # - /EL9/centos/centos9-amd64.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL9 Images
