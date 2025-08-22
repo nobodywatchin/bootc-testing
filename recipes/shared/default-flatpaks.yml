@@ -25,12 +25,6 @@ modules:
           name: org-system
           title: Flathub (system, managed)
         install:
-          # Runtimes (kept explicit so install succeeds even if the remote is hidden early)
-          - org.freedesktop.Platform//23.08
-          - org.freedesktop.Platform.GL.default//23.08
-          - org.freedesktop.Platform.openh264//2.2.0
-          - org.gnome.Platform//46
-          # System apps you listed (plus Brave + Pods)
           - com.github.marhkb.Pods
           - io.github.dvlv.boxbuddyrs
           - com.github.tchx84.Flatseal
