@@ -160,7 +160,7 @@ modules:
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
       - 1319 # GSConnect (KDE Connect Integration)
-  - type: files # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
+  - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
       - source: gnome 
         destination: /
