@@ -1,0 +1,17 @@
+// Require a remembered admin auth for power actions in GNOME (logind)
+polkit.addRule(function (action, subject) {
+  const ok = subject.isInGroup("wheel") && subject.active && subject.local;
+  // Common logind actions used by GNOME Settings "Power"
+  const acts = new Set([
+    "org.freedesktop.login1.power-off",
+    "org.freedesktop.login1.power-off-multiple-sessions",
+    "org.freedesktop.login1.reboot",
+    "org.freedesktop.login1.reboot-multiple-sessions",
+    "org.freedesktop.login1.suspend",
+    "org.freedesktop.login1.hibernate",
+    "org.freedesktop.login1.handle-lid-switch",
+    "org.freedesktop.login1.inhibit-block",
+    "org.freedesktop.login1.inhibit-delay",
+  ]);
+  if (acts.has(action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+});
