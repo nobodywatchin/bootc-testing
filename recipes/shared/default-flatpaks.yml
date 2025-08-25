@@ -1,23 +1,17 @@
 ---
 modules:
-  # 0) Nuke any vendor system remotes so we fully control names/scope
   - type: containerfile
     snippets:
       - RUN rm -f /usr/share/flatpak/remotes.d/*.flatpakrepo || true
       - RUN rm -f /etc/flatpak/remotes.d/*.flatpakrepo || true
-
-  # 1) Default Flatpaks: user-visible Flathub + hidden system remote (different name)
   - type: default-flatpaks
     configurations:
-      # User repo (visible) → GUI/CLI default to per-user without prompts
       - scope: user
         notify: true
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: flathub
           title: Flathub (user)
-
-      # System repo (managed) → different name; we’ll hide it after boot
       - scope: system
         notify: true
         repo:
@@ -36,17 +30,11 @@ modules:
           - org.gnome.Decibels
           - org.gnome.Showtime
           - org.gnome.FileRoller
-
-  # 2) Copy your whole flatpak/ tree (polkit rule, tmpfiles, overrides, units, scripts, Brave policy)
   - type: files
     files:
       - source: flatpak
         destination: /
-
-  # 3) Enable the units we shipped:
-  #    - myos-hide-org-system.service → marks system remote no-enumerate after boot
-  #    - myos-flatpak-setup.service  → adds user "flathub" on first login per-user
-  - type: systemd
+- type: systemd
     system:
       enabled:
-        - myos-hide-org-system.service
+        - flatpak-hide-org-system.service

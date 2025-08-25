@@ -97,6 +97,9 @@ modules:
       - NetworkManager-wwan
       - dnsmasq
       - nftables
+      # GNOME Colors
+      - gnome-color-manager
+      - colord
       # REMAINING PACKAGES
       - gstreamer1-plugins-bad-free
       - gstreamer1-plugins-bad-free-libs
