@@ -23,6 +23,8 @@ In the meantime, here are some simple commands to get up and running:
 # Building as a VM
 
 ```bash
+TMP=$(mktemp) && \
+curl -fsSL https://raw.githubusercontent.com/nobodywatchin/bootc-testing/main/image.toml -o "$TMP" && \
 sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
 sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run --rm -it --privileged --pull=newer \
@@ -30,22 +32,24 @@ sudo podman run --rm -it --privileged --pull=newer \
   --network=host \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
   -v "$(pwd)/output:/output" \
+  -v "$TMP:/config.toml:ro" \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type qcow2 \
   --progress verbose \
   --use-librepo=false \
+  --config /config.toml \
   ghcr.io/nobodywatchin/alma10-testing:latest
+rm -f "$TMP"
+
 ```
 
 # Building ISO File
 
-When you boot this ISO, it will automatically install the operating system to the first hard drive it detects — without asking for confirmation.
-
-Use with caution! I am not responsible if the installer formats the wrong hard drive. Double-check before proceeding!
-
 To Build the ISO file, run:
 
 ```bash
+TMP=$(mktemp) && \
+curl -fsSL https://raw.githubusercontent.com/nobodywatchin/bootc-testing/main/iso.toml -o "$TMP" && \
 sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
 sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run --rm -it --privileged --pull=newer \
@@ -53,9 +57,12 @@ sudo podman run --rm -it --privileged --pull=newer \
   --network=host \
   -v /var/lib/containers/storage:/var/lib/containers/storage \
   -v "$(pwd)/output:/output" \
+  -v "$TMP:/config.toml:ro" \
   quay.io/centos-bootc/bootc-image-builder:latest \
   --type iso \
   --progress verbose \
   --use-librepo=false \
+  --config /config.toml \
   ghcr.io/nobodywatchin/alma10-testing:latest
+rm -f "$TMP"
 ```
