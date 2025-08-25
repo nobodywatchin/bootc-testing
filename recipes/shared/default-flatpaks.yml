@@ -34,7 +34,7 @@ modules:
     files:
       - source: flatpak
         destination: /
-- type: systemd
+  - type: systemd
     system:
       enabled:
         - flatpak-hide-org-system.service
