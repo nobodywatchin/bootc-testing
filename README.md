@@ -25,8 +25,8 @@ In the meantime, here are some simple commands to get up and running:
 ```bash
 TMP=$(mktemp) && \
 curl -fsSL https://raw.githubusercontent.com/nobodywatchin/bootc-testing/main/image.toml -o "$TMP" && \
-sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
-sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
+sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run --rm -it --privileged --pull=newer \
   --security-opt label=type:unconfined_t \
   --network=host \
@@ -45,13 +45,11 @@ rm -f "$TMP"
 
 # Building ISO File
 
-To Build the ISO file, run:
-
 ```bash
 TMP=$(mktemp) && \
 curl -fsSL https://raw.githubusercontent.com/nobodywatchin/bootc-testing/main/iso.toml -o "$TMP" && \
-sudo podman pull --quiet ghcr.io/nobodywatchin/alma10-testing:latest && \
-sudo podman pull --quiet quay.io/centos-bootc/bootc-image-builder:latest && \
+sudo podman pull ghcr.io/nobodywatchin/alma10-testing:latest && \
+sudo podman pull quay.io/centos-bootc/bootc-image-builder:latest && \
 sudo podman run --rm -it --privileged --pull=newer \
   --security-opt label=type:unconfined_t \
   --network=host \
