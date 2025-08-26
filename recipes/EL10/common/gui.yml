@@ -145,6 +145,7 @@ modules:
       - wl-clipboard
       - jetbrains-mono-fonts-all
       - gnome-disk-utility
+      - flatpak
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection
