@@ -23,5 +23,5 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.udisks2.loop-setup",
     "org.freedesktop.udisks2.loop-delete-others",
   ]);
-  if (acts.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+  if (acts.has(action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
 });

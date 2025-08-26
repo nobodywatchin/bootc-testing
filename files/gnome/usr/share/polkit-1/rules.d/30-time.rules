@@ -7,5 +7,5 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.timedate1.set-local-rtc",
     "org.freedesktop.timedate1.set-ntp",
   ]);
-  if (acts.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+  if (acts.has(action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
 });
