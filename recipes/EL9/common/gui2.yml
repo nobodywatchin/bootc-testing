@@ -76,7 +76,6 @@ modules:
       - gnome-session-wayland-session  # Wayland session support for GNOME
       - gnome-settings-daemon  # Background services for GNOME settings
       - gnome-shell  # Core GNOME desktop environment
-      - gnome-software  # GUI software management tool for GNOME
       - gnome-user-docs  # GNOME user documentation
       - gnome-terminal  # Terminal emulator for GNOME
       - gnome-disk-utility  # GUI tool for disk and partition management

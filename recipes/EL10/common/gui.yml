@@ -118,7 +118,6 @@ modules:
       - gnome-session-wayland-session
       - gnome-settings-daemon
       - gnome-shell
-      - gnome-software
       - gnome-user-docs
       - gvfs-fuse
       - gvfs-goa

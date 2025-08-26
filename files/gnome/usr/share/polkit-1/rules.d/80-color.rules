@@ -1,6 +1,0 @@
-// Color profiles & device actions (colord / gnome-color-manager)
-polkit.addRule(function (action, subject) {
-  const ok = subject.isInGroup("wheel") && subject.active && subject.local;
-  if (action.id.startsWith("org.freedesktop.color-manager."))
-    return ok ? polkit.Result.YES : polkit.Result.NO;
-});

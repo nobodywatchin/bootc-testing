@@ -13,12 +13,13 @@ modules:
           name: flathub
           title: Flathub (user)
       - scope: system
-        notify: true
+        notify: false
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: org-system
           title: Flathub (system, managed)
         install:
+          - io.github.kolunmi.Bazaar
           - com.github.marhkb.Pods
           - io.github.dvlv.boxbuddyrs
           - com.github.tchx84.Flatseal

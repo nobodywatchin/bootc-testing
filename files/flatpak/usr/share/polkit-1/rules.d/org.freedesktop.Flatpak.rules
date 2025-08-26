@@ -1,0 +1,36 @@
+polkit.addAdminRule(function (action, subject) {
+    // Treat members of unix group "wheel" as admins for auth prompts
+    return [ "unix-group:wheel" ];
+});
+
+polkit.addRule(function (action, subject) {
+    // Flatpak system-level actions governed by this policy
+    const sysActs = new Set([
+        "org.freedesktop.Flatpak.app-install",
+        "org.freedesktop.Flatpak.runtime-install",
+        "org.freedesktop.Flatpak.app-uninstall",
+        "org.freedesktop.Flatpak.runtime-uninstall",
+        "org.freedesktop.Flatpak.install-bundle",
+        "org.freedesktop.Flatpak.modify-repo",
+        "org.freedesktop.Flatpak.configure-remote"
+    ]);
+
+    // Require wheel + authentication for system-level changes
+    if (sysActs.has(action.id)) {
+        if (!subject.isInGroup("wheel")) {
+            return polkit.Result.NO;
+        }
+        return polkit.Result.AUTH_ADMIN;
+    }
+
+    // Parental controls override is admin-only with authentication
+    if (action.id == "org.freedesktop.Flatpak.override-parental-controls") {
+        if (!subject.isInGroup("wheel")) {
+            return polkit.Result.NO;
+        }
+        return polkit.Result.AUTH_ADMIN;
+    }
+
+    // Anything else falls through to other rules (if any)
+    return polkit.Result.NOT_HANDLED;
+});

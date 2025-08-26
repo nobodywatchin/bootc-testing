@@ -1,6 +1,0 @@
-// Firmware updates (fwupd)
-polkit.addRule(function (action, subject) {
-  const ok = subject.isInGroup("wheel") && subject.active && subject.local;
-  if (action.id.startsWith("org.freedesktop.fwupd."))
-    return ok ? polkit.Result.YES : polkit.Result.NO;
-});

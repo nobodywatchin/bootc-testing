@@ -1,0 +1,66 @@
+polkit.addRule(function (action, subject) {
+  const ok = subject.isInGroup("wheel") && subject.active && subject.local;
+
+  // --- NetworkManager (passwordless for local wheel) ---
+  const nm = new Set([
+    "org.freedesktop.NetworkManager.network-control",
+    "org.freedesktop.NetworkManager.enable-disable-network",
+    "org.freedesktop.NetworkManager.enable-disable-wifi",
+    "org.freedesktop.NetworkManager.enable-disable-wwan",
+    "org.freedesktop.NetworkManager.settings.modify.system",
+    "org.freedesktop.NetworkManager.settings.modify.own",
+  ]);
+  if (nm.has(action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+
+  // --- Storage (UDisks2): Disks app & Nautilus mounts (prompt once) ---
+  const udisks = new Set([
+    "org.freedesktop.udisks2.filesystem-mount",
+    "org.freedesktop.udisks2.filesystem-mount-system",
+    "org.freedesktop.udisks2.filesystem-unmount-others",
+    "org.freedesktop.udisks2.encrypted-unlock",
+    "org.freedesktop.udisks2.eject-media",
+    "org.freedesktop.udisks2.power-off-drive",
+    "org.freedesktop.udisks2.modify-device",
+    "org.freedesktop.udisks2.rescan",
+    "org.freedesktop.udisks2.open-device",
+    "org.freedesktop.udisks2.loop-setup",
+    "org.freedesktop.udisks2.loop-delete-others",
+  ]);
+  if (udisks.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+
+  // --- Printers (cups-pk-helper) (prompt once) ---
+  const printers = new Set([
+    "org.opensuse.cupspkhelper.mechanism.all-edit",
+    "org.opensuse.cupspkhelper.mechanism.add-printer",
+    "org.opensuse.cupspkhelper.mechanism.delete-printer",
+    "org.opensuse.cupspkhelper.mechanism.configure-printer",
+    "org.opensuse.cupspkhelper.mechanism.devices-get",
+  ]);
+  if (printers.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+
+  // --- AccountsService (GNOME Users panel) (prompt once) ---
+  if (action.id === "org.freedesktop.accounts.user-administration")
+    return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+
+  // --- Color management (colord / gnome-color-manager) (passwordless) ---
+  if (action.id.startsWith("org.freedesktop.color-manager."))
+    return ok ? polkit.Result.YES : polkit.Result.NO;
+
+  // --- Bluetooth (BlueZ) (passwordless) ---
+  if (action.id.startsWith("org.bluez."))
+    return ok ? polkit.Result.YES : polkit.Result.NO;
+
+  // --- Power management (systemd-logind) (prompt once) ---
+  const logind = new Set([
+    "org.freedesktop.login1.power-off",
+    "org.freedesktop.login1.power-off-multiple-sessions",
+    "org.freedesktop.login1.reboot",
+    "org.freedesktop.login1.reboot-multiple-sessions",
+    "org.freedesktop.login1.suspend",
+    "org.freedesktop.login1.hibernate",
+    "org.freedesktop.login1.handle-lid-switch",
+    "org.freedesktop.login1.inhibit-block",
+    "org.freedesktop.login1.inhibit-delay",
+  ]);
+  if (logind.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+});
