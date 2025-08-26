@@ -1,19 +1,29 @@
-polkit.addRule(function (action, subject) {
-  const ok = subject.isInGroup("wheel") && subject.active && subject.local;
+polkit.addRule(function(action, subject) {
+  var ok = subject.isInGroup("wheel") && subject.active && subject.local;
 
-  // --- NetworkManager (passwordless for local wheel) ---
-  const nm = new Set([
+  function inList(list, id) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] === id) return true;
+    }
+    return false;
+  }
+  function hasPrefix(id, prefix) {
+    return id.substr(0, prefix.length) === prefix;
+  }
+
+  // --- NetworkManager (passwordless) ---
+  var nm = [
     "org.freedesktop.NetworkManager.network-control",
     "org.freedesktop.NetworkManager.enable-disable-network",
     "org.freedesktop.NetworkManager.enable-disable-wifi",
     "org.freedesktop.NetworkManager.enable-disable-wwan",
     "org.freedesktop.NetworkManager.settings.modify.system",
-    "org.freedesktop.NetworkManager.settings.modify.own",
-  ]);
-  if (nm.has(action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+    "org.freedesktop.NetworkManager.settings.modify.own"
+  ];
+  if (inList(nm, action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
 
-  // --- Storage (UDisks2): Disks app & Nautilus mounts (prompt once) ---
-  const udisks = new Set([
+  // --- Storage (UDisks2) (one-time prompt) ---
+  var udisks = [
     "org.freedesktop.udisks2.filesystem-mount",
     "org.freedesktop.udisks2.filesystem-mount-system",
     "org.freedesktop.udisks2.filesystem-unmount-others",
@@ -24,34 +34,34 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.udisks2.rescan",
     "org.freedesktop.udisks2.open-device",
     "org.freedesktop.udisks2.loop-setup",
-    "org.freedesktop.udisks2.loop-delete-others",
-  ]);
-  if (udisks.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+    "org.freedesktop.udisks2.loop-delete-others"
+  ];
+  if (inList(udisks, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
-  // --- Printers (cups-pk-helper) (prompt once) ---
-  const printers = new Set([
+  // --- Printers (cups-pk-helper) (one-time prompt) ---
+  var printers = [
     "org.opensuse.cupspkhelper.mechanism.all-edit",
     "org.opensuse.cupspkhelper.mechanism.add-printer",
     "org.opensuse.cupspkhelper.mechanism.delete-printer",
     "org.opensuse.cupspkhelper.mechanism.configure-printer",
-    "org.opensuse.cupspkhelper.mechanism.devices-get",
-  ]);
-  if (printers.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+    "org.opensuse.cupspkhelper.mechanism.devices-get"
+  ];
+  if (inList(printers, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
-  // --- AccountsService (GNOME Users panel) (prompt once) ---
+  // --- AccountsService (one-time prompt) ---
   if (action.id === "org.freedesktop.accounts.user-administration")
     return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
-  // --- Color management (colord / gnome-color-manager) (passwordless) ---
-  if (action.id.startsWith("org.freedesktop.color-manager."))
+  // --- Color (colord) (passwordless) ---
+  if (hasPrefix(action.id, "org.freedesktop.color-manager."))
     return ok ? polkit.Result.YES : polkit.Result.NO;
 
   // --- Bluetooth (BlueZ) (passwordless) ---
-  if (action.id.startsWith("org.bluez."))
+  if (hasPrefix(action.id, "org.bluez."))
     return ok ? polkit.Result.YES : polkit.Result.NO;
 
-  // --- Power management (systemd-logind) (prompt once) ---
-  const logind = new Set([
+  // --- Power (systemd-logind) (one-time prompt) ---
+  var logind = [
     "org.freedesktop.login1.power-off",
     "org.freedesktop.login1.power-off-multiple-sessions",
     "org.freedesktop.login1.reboot",
@@ -60,7 +70,9 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.login1.hibernate",
     "org.freedesktop.login1.handle-lid-switch",
     "org.freedesktop.login1.inhibit-block",
-    "org.freedesktop.login1.inhibit-delay",
-  ]);
-  if (logind.has(action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+    "org.freedesktop.login1.inhibit-delay"
+  ];
+  if (inList(logind, action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+
+  // fall through: no opinion (other rules/policy apply)
 });
