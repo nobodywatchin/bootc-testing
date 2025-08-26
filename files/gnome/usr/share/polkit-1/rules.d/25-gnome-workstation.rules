@@ -2,14 +2,10 @@ polkit.addRule(function(action, subject) {
   var ok = subject.isInGroup("wheel") && subject.active && subject.local;
 
   function inList(list, id) {
-    for (var i = 0; i < list.length; i++) {
-      if (list[i] === id) return true;
-    }
+    for (var i = 0; i < list.length; i++) if (list[i] === id) return true;
     return false;
   }
-  function hasPrefix(id, prefix) {
-    return id.substr(0, prefix.length) === prefix;
-  }
+  function hasPrefix(id, p) { return id.substr(0, p.length) === p; }
 
   // --- NetworkManager (passwordless) ---
   var nm = [
@@ -48,8 +44,12 @@ polkit.addRule(function(action, subject) {
   ];
   if (inList(printers, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
-  // --- AccountsService (one-time prompt) ---
+  // --- AccountsService (Users panel) (one-time prompt) ---
   if (action.id === "org.freedesktop.accounts.user-administration")
+    return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+
+  // --- Hostname (About → Device Name) (one-time prompt) ---
+  if (hasPrefix(action.id, "org.freedesktop.hostname1."))
     return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
   // --- Color (colord) (passwordless) ---
@@ -72,7 +72,7 @@ polkit.addRule(function(action, subject) {
     "org.freedesktop.login1.inhibit-block",
     "org.freedesktop.login1.inhibit-delay"
   ];
-  if (inList(logind, action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+  if (inList(logind, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
 
-  // fall through: no opinion (other rules/policy apply)
+  // fall through: no opinion
 });
