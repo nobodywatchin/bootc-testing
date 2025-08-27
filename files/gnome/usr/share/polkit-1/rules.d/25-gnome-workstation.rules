@@ -55,7 +55,11 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.color-manager.modify-profile"
   ];
   if (any(colord) && ok) return polkit.Result.YES;
-
+  
+  // ==== Firmware updates (fwupd)  << Fixes org.gnome.Firmware
+  if (startsWith("org.freedesktop.fwupd.") && isWheel && isActiveLocal)
+    return polkit.Result.AUTH_ADMIN_KEEP;
+  
   // Power actions (logind)
   var logind = [
     "org.freedesktop.login1.power-off",
@@ -66,7 +70,7 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.login1.hibernate",
     "org.freedesktop.login1.handle-lid-switch"
   ];
-  if (any(logind) && ok) return polkit.Result.YES;
+  if (any(logind) && isWheel && isActiveLocal) return polkit.Result.YES;
 
   // Everything else: fall back to system defaults
 });
