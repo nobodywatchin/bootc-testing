@@ -17,7 +17,7 @@ polkit.addRule(function (action, subject) {
 
   // Hostname
   if (startsWith("org.freedesktop.hostname1.") && ok)
-    return polkit.Result.AUTH_ADMIN_KEEP;
+    return polkit.Result.YES;
 
   // Locale
   if (startsWith("org.freedesktop.locale1.") && ok)
@@ -37,5 +37,9 @@ polkit.addRule(function (action, subject) {
 
   // Networking (NetworkManager)
   if (startsWith("org.freedesktop.NetworkManager.") && ok)
+    return polkit.Result.YES;
+
+  // Power profiles (power-profiles-daemon)
+  if (startsWith("net.hadess.PowerProfiles.") && ok)
     return polkit.Result.YES;
 });
