@@ -46,11 +46,11 @@ polkit.addRule(function(action, subject) {
 
   // --- AccountsService (Users panel) (one-time prompt) ---
   if (action.id === "org.freedesktop.accounts.user-administration")
-    return ok ? polkit.Result.YES : polkit.Result.NO;
+    return ok ? polkit.Result.YES;
 
   // --- Hostname (About → Device Name) (one-time prompt) ---
   if (hasPrefix(action.id, "org.freedesktop.hostname1."))
-    return ok ? polkit.Result.YES : polkit.Result.NO;
+    return ok ? polkit.Result.YES;
 
   // --- Color (colord) (passwordless) ---
   if (hasPrefix(action.id, "org.freedesktop.color-manager."))
@@ -72,7 +72,5 @@ polkit.addRule(function(action, subject) {
     "org.freedesktop.login1.inhibit-block",
     "org.freedesktop.login1.inhibit-delay"
   ];
-  if (inList(logind, action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
-
-  // fall through: no opinion
+  if (inList(logind, action.id)) return ok ? polkit.Result.YES;
 });
