@@ -1,5 +1,8 @@
 ---
 modules:
+  - type: containerfile
+    snippets:
+      - RUN ln -s /usr/bin/dnf /usr/bin/dnf4 || true
   - type: dnf
     remove:
       packages:
