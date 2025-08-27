@@ -1,66 +1,62 @@
-polkit.addRule(function(action, subject) {
+// /etc/polkit-1/rules.d/25-gnome-workstation.rules
+polkit.addRule(function (action, subject) {
   var ok = subject.isInGroup("wheel") && subject.active && subject.local;
 
-  function inList(list, id) {
-    for (var i = 0; i < list.length; i++) if (list[i] === id) return true;
-    return false;
-  }
-  function hasPrefix(id, p) { return id.substr(0, p.length) === p; }
+  function any(list) { return list.indexOf(action.id) !== -1; }
+  function startsWith(p) { return action.id.lastIndexOf(p, 0) === 0; }
 
-  // --- NetworkManager (passwordless) ---
+  // Users (AccountsService + GNOME Control Center)
+  var accounts = [
+    "org.freedesktop.accounts.user-administration",
+    "org.freedesktop.accounts.change-own-user-data",
+    "org.gnome.controlcenter.user-accounts.administration"
+  ];
+  if (any(accounts) && ok) return polkit.Result.YES;
+
+  // Date & Time (systemd-timedated)
+  var timedate = [
+    "org.freedesktop.timedate1.set-ntp",
+    "org.freedesktop.timedate1.set-time",
+    "org.freedesktop.timedate1.set-timezone",
+    "org.freedesktop.timedate1.set-local-rtc"
+  ];
+  if (any(timedate) && ok) return polkit.Result.YES;
+
+  // Hostname (systemd-hostnamed)
+  var hostnamed = [
+    "org.freedesktop.hostname1.set-hostname",
+    "org.freedesktop.hostname1.set-static-hostname",
+    "org.freedesktop.hostname1.set-machine-info"
+  ];
+  if (any(hostnamed) && ok) return polkit.Result.YES;
+
+  // Network (NetworkManager)
   var nm = [
+    "org.freedesktop.NetworkManager.settings.modify.system",
     "org.freedesktop.NetworkManager.network-control",
     "org.freedesktop.NetworkManager.enable-disable-network",
     "org.freedesktop.NetworkManager.enable-disable-wifi",
     "org.freedesktop.NetworkManager.enable-disable-wwan",
-    "org.freedesktop.NetworkManager.settings.modify.system",
     "org.freedesktop.NetworkManager.settings.modify.own"
   ];
-  if (inList(nm, action.id)) return ok ? polkit.Result.YES : polkit.Result.NO;
+  if (any(nm) && ok) return polkit.Result.YES;
 
-  // --- Storage (UDisks2) (one-time prompt) ---
-  var udisks = [
-    "org.freedesktop.udisks2.filesystem-mount",
-    "org.freedesktop.udisks2.filesystem-mount-system",
-    "org.freedesktop.udisks2.filesystem-unmount-others",
-    "org.freedesktop.udisks2.encrypted-unlock",
-    "org.freedesktop.udisks2.eject-media",
-    "org.freedesktop.udisks2.power-off-drive",
-    "org.freedesktop.udisks2.modify-device",
-    "org.freedesktop.udisks2.rescan",
-    "org.freedesktop.udisks2.open-device",
-    "org.freedesktop.udisks2.loop-setup",
-    "org.freedesktop.udisks2.loop-delete-others"
+  // Printers (cups-pk-helper)
+  if (startsWith("org.opensuse.cupspkhelper.mechanism.") && ok)
+    return polkit.Result.YES;
+
+  // Color management (colord)
+  var colord = [
+    "org.freedesktop.color-manager.create-device",
+    "org.freedesktop.color-manager.create-profile",
+    "org.freedesktop.color-manager.delete-device",
+    "org.freedesktop.color-manager.delete-profile",
+    "org.freedesktop.color-manager.modify-device",
+    "org.freedesktop.color-manager.modify-profile"
   ];
-  if (inList(udisks, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
+  if (any(colord) && ok) return polkit.Result.YES;
 
-  // --- Printers (cups-pk-helper) (one-time prompt) ---
-  var printers = [
-    "org.opensuse.cupspkhelper.mechanism.all-edit",
-    "org.opensuse.cupspkhelper.mechanism.add-printer",
-    "org.opensuse.cupspkhelper.mechanism.delete-printer",
-    "org.opensuse.cupspkhelper.mechanism.configure-printer",
-    "org.opensuse.cupspkhelper.mechanism.devices-get"
-  ];
-  if (inList(printers, action.id)) return ok ? polkit.Result.AUTH_ADMIN_KEEP : polkit.Result.NO;
-
-  // --- AccountsService (Users panel) (one-time prompt) ---
-  if (action.id === "org.freedesktop.accounts.user-administration")
-    return ok ? polkit.Result.YES;
-
-  // --- Hostname (About → Device Name) (one-time prompt) ---
-  if (hasPrefix(action.id, "org.freedesktop.hostname1."))
-    return ok ? polkit.Result.YES;
-
-  // --- Color (colord) (passwordless) ---
-  if (hasPrefix(action.id, "org.freedesktop.color-manager."))
-    return ok ? polkit.Result.YES : polkit.Result.NO;
-
-  // --- Bluetooth (BlueZ) (passwordless) ---
-  if (hasPrefix(action.id, "org.bluez."))
-    return ok ? polkit.Result.YES : polkit.Result.NO;
-
-  // --- Power (systemd-logind) (one-time prompt) ---
+  // Power actions (logind)
   var logind = [
     "org.freedesktop.login1.power-off",
     "org.freedesktop.login1.power-off-multiple-sessions",
@@ -68,9 +64,9 @@ polkit.addRule(function(action, subject) {
     "org.freedesktop.login1.reboot-multiple-sessions",
     "org.freedesktop.login1.suspend",
     "org.freedesktop.login1.hibernate",
-    "org.freedesktop.login1.handle-lid-switch",
-    "org.freedesktop.login1.inhibit-block",
-    "org.freedesktop.login1.inhibit-delay"
+    "org.freedesktop.login1.handle-lid-switch"
   ];
-  if (inList(logind, action.id)) return ok ? polkit.Result.YES;
+  if (any(logind) && ok) return polkit.Result.YES;
+
+  // Everything else: fall back to system defaults
 });
