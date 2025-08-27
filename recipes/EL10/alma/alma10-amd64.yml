@@ -14,7 +14,8 @@ image-version: 10 # latest is also supported if you want new updates ASAP
 modules:
   - from-file: EL10/common/dnf.yml
   - from-file: EL10/common/tailscale-manual-centos10.yml
-  - from-file: EL10/common/gui.yml
+  - from-file: EL10/common/gnome.yml
+  - from-file: shared/common-justfiles.yml
   - from-file: shared/default-flatpaks.yml
   - from-file: shared/services.yml
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

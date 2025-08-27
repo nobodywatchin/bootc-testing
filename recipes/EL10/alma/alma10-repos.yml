@@ -1,8 +1,0 @@
-modules:
-  - type: files 
-    files:
-      - source: dnf/alma10 # Adds the proper repos
-        destination: /etc/yum.repos.d/
-  - type: containerfile
-    snippets:
-      - RUN dnf -y update

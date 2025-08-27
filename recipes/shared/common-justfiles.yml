@@ -1,0 +1,5 @@
+type: justfiles
+source: local
+validate: true
+include:
+  - 10-update.just
