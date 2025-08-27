@@ -21,8 +21,6 @@ modules:
     properties:
       NAME: myOS
       ID: myos
-      ID_LIKE: rhel centos fedora
-      PRETTY_NAME: myOS (Alma Linux 10)
+      PRETTY_NAME: myOS (Alma Linux 9)
       VENDOR_NAME: myOS
-      LOGO: fedora-logo
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

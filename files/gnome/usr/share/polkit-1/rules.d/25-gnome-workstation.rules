@@ -57,7 +57,7 @@ polkit.addRule(function (action, subject) {
   if (any(colord) && ok) return polkit.Result.YES;
   
   // ==== Firmware updates (fwupd)  << Fixes org.gnome.Firmware
-  if (startsWith("org.freedesktop.fwupd.") && isWheel && isActiveLocal)
+  if (id.slice(0, 23) === "org.freedesktop.fwupd.") {
     return polkit.Result.AUTH_ADMIN_KEEP;
   
   // Power actions (logind)
@@ -70,7 +70,7 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.login1.hibernate",
     "org.freedesktop.login1.handle-lid-switch"
   ];
-  if (any(logind) && isWheel && isActiveLocal) return polkit.Result.YES;
+    return polkit.Result.YES;
 
   // Everything else: fall back to system defaults
 });
