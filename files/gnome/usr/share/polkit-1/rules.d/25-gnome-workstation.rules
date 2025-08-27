@@ -11,7 +11,7 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.accounts.change-own-user-data",
     "org.gnome.controlcenter.user-accounts.administration"
   ];
-  if (any(accounts) && ok) return polkit.Result.YES;
+  if (any(accounts) && ok) return polkit.Result.AUTH_ADMIN_KEEP;
 
   // Date & Time (systemd-timedated)
   var timedate = [
@@ -20,7 +20,7 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.timedate1.set-timezone",
     "org.freedesktop.timedate1.set-local-rtc"
   ];
-  if (any(timedate) && ok) return polkit.Result.YES;
+  if (any(timedate) && ok) return polkit.Result.AUTH_ADMIN_KEEP;
 
   // Hostname (systemd-hostnamed)
   var hostnamed = [
@@ -28,7 +28,7 @@ polkit.addRule(function (action, subject) {
     "org.freedesktop.hostname1.set-static-hostname",
     "org.freedesktop.hostname1.set-machine-info"
   ];
-  if (any(hostnamed) && ok) return polkit.Result.YES;
+  if (any(hostnamed) && ok) return polkit.Result.AUTH_ADMIN_KEEP;
 
   // Network (NetworkManager)
   var nm = [
