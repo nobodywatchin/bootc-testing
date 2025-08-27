@@ -1,73 +1,41 @@
 polkit.addRule(function (action, subject) {
   var ok = subject.isInGroup("wheel") && subject.active && subject.local;
 
-  function any(list) {
-    return list.indexOf(action.id) !== -1;
-  }
-
   function startsWith(p) {
     return action.id.lastIndexOf(p, 0) === 0;
   }
 
   // Users (AccountsService + GNOME Control Center)
-  var accounts = [
-    "org.freedesktop.accounts.user-administration",
-    "org.freedesktop.accounts.change-own-user-data",
-    "org.gnome.controlcenter.user-accounts.administration"
-  ];
-  if (any(accounts) && ok)
+  if (startsWith("org.freedesktop.accounts.") && ok)
+    return polkit.Result.AUTH_ADMIN_KEEP;
+  if (startsWith("org.gnome.controlcenter.user-accounts.") && ok)
     return polkit.Result.AUTH_ADMIN_KEEP;
 
-  // Date & Time (systemd-timedated)
-  var timedate = [
-    "org.freedesktop.timedate1.set-ntp",
-    "org.freedesktop.timedate1.set-time",
-    "org.freedesktop.timedate1.set-timezone",
-    "org.freedesktop.timedate1.set-local-rtc"
-  ];
-  if (any(timedate) && ok)
+  // Date & Time
+  if (startsWith("org.freedesktop.timedate1.") && ok)
     return polkit.Result.AUTH_ADMIN_KEEP;
 
-  // Hostname (systemd-hostnamed)
-  var hostnamed = [
-    "org.freedesktop.hostname1.set-hostname",
-    "org.freedesktop.hostname1.set-static-hostname",
-    "org.freedesktop.hostname1.set-machine-info"
-  ];
-  if (any(hostnamed) && ok)
+  // Hostname
+  if (startsWith("org.freedesktop.hostname1.") && ok)
     return polkit.Result.AUTH_ADMIN_KEEP;
 
-  // Locale (systemd-localed)
-  var localed = [
-    "org.freedesktop.locale1.set-locale",
-    "org.freedesktop.locale1.set-keyboard"
-  ];
-  if (any(localed) && ok)
+  // Locale
+  if (startsWith("org.freedesktop.locale1.") && ok)
     return polkit.Result.YES;
 
-  // Reboot / Shutdown / Suspend (systemd-logind)
-  var logind = [
-    "org.freedesktop.login1.reboot",
-    "org.freedesktop.login1.power-off",
-    "org.freedesktop.login1.suspend",
-    "org.freedesktop.login1.hibernate"
-  ];
-  if (any(logind) && ok)
+  // Power / Reboot / Shutdown / Suspend (systemd-logind)
+  if (startsWith("org.freedesktop.login1.") && ok)
     return polkit.Result.YES;
 
   // Firmware updates (GNOME Firmware, fwupd)
   if (startsWith("org.freedesktop.fwupd.") && ok)
     return polkit.Result.AUTH_ADMIN_KEEP;
 
-  // Color Management (colord)
-  var colord = [
-    "org.freedesktop.color-manager.create-device",
-    "org.freedesktop.color-manager.create-profile",
-    "org.freedesktop.color-manager.delete-device",
-    "org.freedesktop.color-manager.delete-profile",
-    "org.freedesktop.color-manager.modify-device",
-    "org.freedesktop.color-manager.modify-profile"
-  ];
-  if (any(colord) && ok)
+  // Color management (colord)
+  if (startsWith("org.freedesktop.color-manager.") && ok)
+    return polkit.Result.YES;
+
+  // Networking (NetworkManager)
+  if (startsWith("org.freedesktop.NetworkManager.") && ok)
     return polkit.Result.YES;
 });
