@@ -1,10 +1,12 @@
 ---
 modules:
-  - type: dnf # Installs Core Groups for GUI
+  - type: dnf
+    repos:
+      cleanup: true
+      nonfree: rpmfusion
     group-install:
       packages: 
       - Workstation product core
-  - type: dnf # Installs Individual Packages for GUI
     install:
       packages: 
       # Multimedia Group
@@ -146,7 +148,6 @@ modules:
       - jetbrains-mono-fonts-all
       - gnome-disk-utility
       - flatpak
-      - broadcom-wl
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection
