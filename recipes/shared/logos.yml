@@ -1,4 +1,11 @@
-type: files
-files:
-  - source: logos 
-    destination: /
+modules:
+  - type: files
+    files:
+      - source: logos 
+        destination: /
+  - type: os-release
+    properties:
+      NAME: myOS
+      ID: myos
+      PRETTY_NAME: myOS
+      VENDOR_NAME: myOS

@@ -170,7 +170,3 @@ modules:
   - type: bling # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
     install:
       - dconf-update-service 
-  - type: files # Replaces logos
-    files:
-      - source: logos
-        destination: /
