@@ -6,6 +6,5 @@ modules:
   - type: os-release
     properties:
       NAME: myOS
-      ID: myos
       PRETTY_NAME: myOS
       VENDOR_NAME: myOS
