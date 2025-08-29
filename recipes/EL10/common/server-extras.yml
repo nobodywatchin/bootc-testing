@@ -37,7 +37,6 @@ modules:
         - cockpit-machines
         - cockpit-image-builder
         - cockpit-image-builder
-        - cockpit-image-ws
         # Logging
         - rsyslog
         # Containers (build + docker shim)
