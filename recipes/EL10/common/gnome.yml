@@ -4,7 +4,7 @@ modules:
       packages:
         - Workstation product core
     install:
-    install-weak-deps: false
+      install-weak-deps: false
       packages:
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
