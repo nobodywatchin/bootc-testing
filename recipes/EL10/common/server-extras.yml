@@ -1,13 +1,9 @@
 ---
 modules:
   - type: dnf
-    repos:
-      files:
-        - https://pkgs.tailscale.com/stable/rhel/10/tailscale.repo
     install:
       install-weak-deps: false
       packages:
-        - tailscale
         # Networking extras
         - iproute-tc
         - NetworkManager-tui
