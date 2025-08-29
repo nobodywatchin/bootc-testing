@@ -5,6 +5,7 @@ modules:
       install-weak-deps: false
       packages:
         # Networking extras
+        - ethtool
         - iproute-tc
         - NetworkManager-tui
         - dracut-network
@@ -20,6 +21,7 @@ modules:
         - blktrace
         - bpftool
         - tuned
+        - nvme-cli
         # File sharing
         - cifs-utils
         - nfs-utils
@@ -35,8 +37,7 @@ modules:
         - cockpit-storaged
         - cockpit-podman
         - cockpit-machines
-        - cockpit-image-builder
-        # Logging
+        # Logging (enable rsyslog only here)
         - rsyslog
         # Containers (build + docker shim)
         - buildah

@@ -1,12 +1,16 @@
 ---
 modules:
   - type: dnf # Installs Core Groups for GUI
+    remove:
+      packages:
+        - vim-minimal
     group-install:
       packages: 
       - Fonts
   - type: dnf # Installs Individual Packages for GUI
     install:
       packages: 
+      - vim-enhanced
       # Workstation Product Core Packages
       - adwaita-qt5  # Adwaita theme integration for Qt5 applications
       - alsa-sof-firmware  # Sound Open Firmware (SOF) for Intel audio devices
