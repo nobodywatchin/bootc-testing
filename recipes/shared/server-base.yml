@@ -83,7 +83,6 @@ modules:
         - file
         - gnupg2
         - mailcap
-        - plocate
         - rsync
         - tar
         - unzip

@@ -15,6 +15,10 @@ modules:
   - type: containerfile
     snippets:
       - RUN ln -s /usr/bin/dnf /usr/bin/dnf4 || true
+  - type: dnf
+    install:
+      packages:
+        - mlocate
   - from-file: shared/server-base.yml
   - from-file: EL9/common/tailscale-manual-rhel9.yml
   - from-file: shared/server-extras.yml
