@@ -15,9 +15,9 @@ modules:
   - type: containerfile
     snippets:
       - RUN ln -s /usr/bin/dnf /usr/bin/dnf4 || true
-  - from-file: EL9/common/server-base.yml
+  - from-file: shared/server-base.yml
   - from-file: EL9/common/tailscale-manual-rhel9.yml
-  - from-file: EL9/common/server-extras.yml
+  - from-file: shared/server-extras.yml
   - from-file: EL9/common/gnome.yml
   - from-file: shared/default-flatpaks.yml
   - from-file: shared/services.yml
