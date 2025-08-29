@@ -5,40 +5,26 @@ modules:
       packages:
         - subscription-manager
     install:
-      packages:
-        - epel-release
-  - type: containerfile
-    snippets:
-      - RUN dnf config-manager --set-enabled crb
-  - type: dnf
-    install:
       install-weak-deps: false
       packages:
-        - glibc
-        - libgomp
-        # Base
+        # Core
         - audit
         - rpm-plugin-audit
         - basesystem
         - bash
         - coreutils
-        - cronie
         - crypto-policies
         - crypto-policies-scripts
         - dnf
         - e2fsprogs
         - filesystem
         - glibc
+        - ca-certificates
         - hostname
         - irqbalance
         - kbd
-        - kexec-tools
         - less
-        - logrotate
-        - man-db
-        - man-pages
         - ncurses
-        - parted
         - policycoreutils
         - procps-ng
         - rootfiles
@@ -51,15 +37,12 @@ modules:
         - systemd-udev
         - util-linux
         - xfsprogs
-        - vim-minimal
-        # Networking
+        # Networking (core)
         - curl
-        - firewalld
         - iproute
         - iputils
-        - openssh-clients
-        - openssh-server
         - NetworkManager
+        - openssh-server
         - p11-kit
         - chrony
         # Storage & FS
@@ -67,31 +50,9 @@ modules:
         - lvm2
         - sg3_utils
         - sg3_utils-libs
-        # Monitoring & utils
-        - lsof
-        - sos
-        - smartmontools
-        - strace
-        - rasdaemon
-        - time
-        # Base tools
-        - bzip2
-        - file
-        - gnupg2
-        - mailcap
-        - rsync
-        - tar
-        - unzip
-        - wget
-        - which
-        - zip
-        # BootC
-        - system-reinstall-bootc
         # System plumbing
         - dbus
-        - kernel-tools
-        - linux-firmware
         - python3-libselinux
-        # Containers (runtime)
-        - podman
-        - skopeo
+        - linux-firmware
+        # BootC helper
+        - system-reinstall-bootc

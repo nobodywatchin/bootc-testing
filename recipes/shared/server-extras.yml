@@ -2,6 +2,19 @@
 modules:
   - type: dnf
     install:
+      packages:
+        - epel-release
+
+  - type: containerfile
+    snippets:
+      - |
+        RUN dnf -y install dnf-plugins-core \
+         && dnf -y config-manager --set-enabled crb \
+         && dnf -y remove dnf-plugins-core \
+         && dnf -y clean all
+
+  - type: dnf
+    install:
       install-weak-deps: false
       packages:
         # Networking extras
@@ -12,6 +25,7 @@ modules:
         - mtr
         - tcpdump
         - traceroute
+
         # Storage / perf / fabrics
         - cryptsetup
         - mdadm
@@ -22,14 +36,17 @@ modules:
         - bpftool
         - tuned
         - nvme-cli
+
         # File sharing
         - cifs-utils
         - nfs-utils
+
         # Virtualization
         - libvirt
         - libvirt-daemon-config-network
         - libvirt-daemon-driver-network
         - virt-what
+
         # Cockpit
         - cockpit
         - cockpit-ostree
@@ -37,8 +54,43 @@ modules:
         - cockpit-storaged
         - cockpit-podman
         - cockpit-machines
-        # Logging (enable rsyslog only here)
+
+        # Logging
         - rsyslog
-        # Containers (build + docker shim)
+
+        # Containers (runtime + build + docker shim)
+        - podman
+        - skopeo
         - buildah
         - podman-docker
+
+        # Admin / diagnostics
+        - lsof
+        - sos
+        - smartmontools
+        - strace
+        - rasdaemon
+        - time
+
+        # Partitioning & kernel tools
+        - parted
+        - kernel-tools
+
+        # Userland convenience
+        - vim-minimal
+        - bzip2
+        - file
+        - gnupg2
+        - mailcap
+        - rsync
+        - tar
+        - unzip
+        - wget
+        - which
+        - zip
+
+        # SSH client (daemon is in base)
+        - openssh-clients
+
+        # Firewall (optional; enable if you manage via firewalld)
+        - firewalld
