@@ -1,9 +1,6 @@
 ---
 modules:
   - type: dnf
-    repos:
-      cleanup: true
-      nonfree: rpmfusion
     group-install:
       packages: 
       - Workstation product core
