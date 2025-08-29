@@ -1,0 +1,49 @@
+---
+modules:
+  - type: dnf
+    repos:
+      files:
+        - https://pkgs.tailscale.com/stable/rhel/10/tailscale.repo
+    install:
+      install-weak-deps: false
+      packages:
+        - tailscale
+        # Networking extras
+        - iproute-tc
+        - NetworkManager-tui
+        - dracut-network
+        - mtr
+        - tcpdump
+        - traceroute
+        # Storage / perf / fabrics
+        - cryptsetup
+        - mdadm
+        - quota
+        - rdma-core
+        - nvmetcli
+        - blktrace
+        - bpftool
+        - tuned
+        # File sharing
+        - cifs-utils
+        - nfs-utils
+        # Virtualization
+        - libvirt
+        - libvirt-daemon-config-network
+        - libvirt-daemon-driver-network
+        - virt-what
+        # Cockpit
+        - cockpit
+        - cockpit-ostree
+        - cockpit-files
+        - cockpit-storaged
+        - cockpit-podman
+        - cockpit-machines
+        - cockpit-image-builder
+        - cockpit-image-builder
+        - cockpit-image-ws
+        # Logging
+        - rsyslog
+        # Containers (build + docker shim)
+        - buildah
+        - podman-docker

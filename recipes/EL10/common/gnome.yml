@@ -1,11 +1,15 @@
 modules:
   - type: dnf
+    remove:
+      packages:
+        - vim-minimal
     group-install:
       packages:
         - Workstation product core
     install:
       install-weak-deps: false
       packages:
+        - vim-enhanced # Replaces vim-minimal
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
         - pipewire-alsa
