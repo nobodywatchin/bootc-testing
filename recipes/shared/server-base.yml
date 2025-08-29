@@ -12,14 +12,10 @@ modules:
       - RUN dnf config-manager --set-enabled crb
   - type: dnf
     install:
-      allow-erasing: true
+      install-weak-deps: false
       packages:
         - glibc
         - libgomp
-  - type: dnf
-    install:
-      install-weak-deps: false
-      packages:
         # Base
         - audit
         - rpm-plugin-audit
