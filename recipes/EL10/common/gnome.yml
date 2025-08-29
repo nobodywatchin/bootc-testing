@@ -17,7 +17,6 @@ modules:
         - gstreamer1-plugins-good
         - gstreamer1-plugins-bad-free
         - gstreamer1-plugins-bad-free-libs
-        - gstreamer1-plugin-pipewire
         - alsa-ucm
         - alsa-utils
         - pavucontrol
@@ -63,7 +62,6 @@ modules:
         - nftables
         - ModemManager
         - ppp
-        - usb_modeswitch
 
         # --- Bluetooth stack
         - bluez
@@ -98,7 +96,6 @@ modules:
         # --- Hardware / firmware / power / TB
         - fwupd
         - bolt
-        - power-profiles-daemon
         - switcheroo-control
 
         # --- Camera
