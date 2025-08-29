@@ -3,8 +3,8 @@ modules:
     group-install:
       packages:
         - Workstation product core
-    install-weak-deps: false
     install:
+    install-weak-deps: false
       packages:
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
