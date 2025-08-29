@@ -1,15 +1,11 @@
 ---
 modules:
-  - type: containerfile
-    snippets:
-      - RUN ln -s /usr/bin/dnf /usr/bin/dnf4 || true
   - type: dnf
     remove:
       packages:
         - subscription-manager
     install:
       packages:
-      # Extra Packages for Enterprise Linux
         - epel-release
   - type: containerfile
     snippets:
@@ -94,6 +90,8 @@ modules:
         - wget
         - which
         - zip
+        # Bootc
+        - system-reinstall-bootc
         # System plumbing
         - dbus
         - kernel-tools

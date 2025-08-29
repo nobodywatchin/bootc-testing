@@ -12,6 +12,12 @@ modules:
       - RUN dnf config-manager --set-enabled crb
   - type: dnf
     install:
+      allow-erasing: true
+      packages:
+        - glibc
+        - libgomp
+  - type: dnf
+    install:
       install-weak-deps: false
       packages:
         # Base
@@ -59,6 +65,7 @@ modules:
         - openssh-server
         - NetworkManager
         - p11-kit
+        - chrony
         # Storage & FS
         - dosfstools
         - lvm2
