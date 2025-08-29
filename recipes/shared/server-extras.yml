@@ -7,11 +7,7 @@ modules:
 
   - type: containerfile
     snippets:
-      - |
-        RUN dnf -y install dnf-plugins-core \
-         && dnf -y config-manager --set-enabled crb \
-         && dnf -y remove dnf-plugins-core \
-         && dnf -y clean all
+      - dnf -y config-manager --set-enabled crb
 
   - type: dnf
     install:
