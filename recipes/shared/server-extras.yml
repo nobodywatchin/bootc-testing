@@ -7,7 +7,7 @@ modules:
 
   - type: containerfile
     snippets:
-      - dnf -y config-manager --set-enabled crb
+      - RUN dnf -y config-manager --set-enabled crb
 
   - type: dnf
     install:
