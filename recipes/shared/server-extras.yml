@@ -59,17 +59,11 @@ modules:
         # Containers
         - podman
         - podman-docker
-        - kubelet
-        - kubectl
-        - kubeadm
-        - cri-tools
-        - cri-o
-        - containernetworking-plugins
+        - kubernetes
         - container-selinux
         - conntrack-tools
         - skopeo
         - buildah
-        - helm
 
         # Kubernetes
         - helm
