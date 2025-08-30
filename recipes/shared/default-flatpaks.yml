@@ -28,6 +28,9 @@ modules:
           - com.usebottles.bottles
           - net.nokyan.Resources
           - com.mattjakeman.ExtensionManager
+          - org.gnome.TextEditor
+          - org.gnome.Calculator
+          - org.gnome.Loupe
           - org.gnome.Decibels
           - org.gnome.Showtime
           - org.gnome.FileRoller
