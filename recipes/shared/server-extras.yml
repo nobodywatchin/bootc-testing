@@ -21,6 +21,8 @@ modules:
         - mtr
         - tcpdump
         - traceroute
+        - iptables
+        - socat
 
         # Storage / perf / fabrics
         - cryptsetup
@@ -54,11 +56,23 @@ modules:
         # Logging
         - rsyslog
 
-        # Containers (runtime + build + docker shim)
+        # Containers
         - podman
+        - podman-docker
+        - kubelet
+        - kubectl
+        - kubeadm
+        - cri-tools
+        - cri-o
+        - containernetworking-plugins
+        - container-selinux
+        - conntrack-tools
         - skopeo
         - buildah
-        - podman-docker
+        - helm
+
+        # Kubernetes
+        - helm
 
         # Admin / diagnostics
         - lsof
