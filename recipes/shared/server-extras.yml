@@ -59,14 +59,10 @@ modules:
         # Containers
         - podman
         - podman-docker
-        - kubernetes
         - container-selinux
         - conntrack-tools
         - skopeo
         - buildah
-
-        # Kubernetes
-        - helm
 
         # Admin / diagnostics
         - lsof
