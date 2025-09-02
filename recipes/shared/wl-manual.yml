@@ -1,20 +1,23 @@
 ---
 type: containerfile
 snippets:
-  # 1) Import RPM Fusion GPG keys using distribution-gpg-keys (Alma docs Step 2)
-  - RUN dnf -y install distribution-gpg-keys && \
-      rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel) && \
-      rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel)
+  # 1) Import RPM Fusion GPG keys (install -> import -> erase in one layer)
+  - RUN set -euo pipefail && \
+      dnf -y install distribution-gpg-keys && \
+      rpm --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel) && \
+      rpm --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel) && \
+      dnf -y erase distribution-gpg-keys && \
+      dnf clean all
 
-  # 2) Install RPM Fusion release repos with localpkg_gpgcheck=1 (Alma docs Step 3)
+  # 2) Install RPM Fusion release repos with GPG check
   - RUN dnf -y --setopt=localpkg_gpgcheck=1 install \
       https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
       https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
 
-  # 3) Install Broadcom wl + akmods (pulls from RPM Fusion nonfree)
+  # 3) Install Broadcom wl + akmods (minimal deps)
   - RUN dnf -y --setopt=install_weak_deps=False \
       --enablerepo=rpmfusion-free,rpmfusion-nonfree \
       install broadcom-wl akmod-wl akmods kernel-devel kernel-headers
 
-  # 4) Remove RPM Fusion repos to avoid conflicts later (e.g., with Negativo17)
+  # 4) Remove RPM Fusion repos (avoid conflicts with Negativo17 later) and clean
   - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && dnf clean all
