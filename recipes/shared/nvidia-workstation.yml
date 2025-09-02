@@ -1,0 +1,11 @@
+---
+type: dnf
+install:
+  packages:
+    - nvidia-driver-libs.i686
+    - nvidia-driver-cuda-libs.i68
+    - libnvidia-fbc
+    - libnvidia-cfg
+    - nvidia-settings
+    - nvidia-libXNVCtrl
+    - nvidia-libXNVCtrl-devel

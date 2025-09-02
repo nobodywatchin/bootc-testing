@@ -28,6 +28,8 @@ jobs:
         recipe:
           - /EL10/alma/alma10-workstation.yml
           - /EL10/alma/alma10-server.yml
+          - /EL10/alma/alma10-workstation-nvidia.yml
+          - /EL10/alma/alma10-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL10 Images
@@ -54,6 +56,8 @@ jobs:
         recipe:
           - /EL9/alma/alma9-workstation.yml
           - /EL9/alma/alma9-server.yml
+          - /EL9/alma/alma9-workstation-nvidia.yml
+          - /EL9/alma/alma9-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL9 Images

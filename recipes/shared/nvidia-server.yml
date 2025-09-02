@@ -1,0 +1,16 @@
+---
+modules:
+  - type: containerfile
+    snippets:
+      - RUN dnf config-manager --add-repo https://negativo17.org/repos/epel-nvidia.repo
+  - type: dnf
+    install:
+      packages:
+        - akmod-nvidia
+        - nvidia-driver
+        - nvidia-driver-libs
+        - nvidia-driver-cuda
+        - nvidia-driver-cuda-libs
+        - nvidia-modprobe
+        - nvidia-persistenced
+        - libnvidia-ml
