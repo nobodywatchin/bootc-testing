@@ -26,7 +26,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL10/alma/alma10-amd64.yml
+          - /EL10/alma/alma10-workstation.yml
+          - /EL10/alma/alma10-server.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL10 Images
@@ -51,7 +52,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL9/alma/alma9-amd64.yml
+          - /EL9/alma/alma9-workstation.yml
+          - /EL9/alma/alma9-server.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Build EL9 Images
