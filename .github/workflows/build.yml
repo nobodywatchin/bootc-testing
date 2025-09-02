@@ -16,7 +16,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   workstation10:
-    name: Build EL10 Workstation Images
+    name: EL10 Workstation
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,7 +30,7 @@ jobs:
           - /EL10/alma/alma10-workstation-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
-      - name: Build EL10 Images
+      - name: EL10 Workstation
         uses: blue-build/github-action@v1.8
         with:
           recipe: ${{ matrix.recipe }}
@@ -41,7 +41,7 @@ jobs:
           maximize_build_space: true
 
   server10:
-    name: Build EL10 Server Images
+    name: EL10 Server
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -55,7 +55,7 @@ jobs:
           - /EL10/alma/alma10-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
-      - name: Build EL10 Images
+      - name: EL10 Server
         uses: blue-build/github-action@v1.8
         with:
           recipe: ${{ matrix.recipe }}
@@ -66,7 +66,7 @@ jobs:
           maximize_build_space: true
 
   workstation9:
-    name: Build EL9 Workstation Images
+    name: EL9 Workstation
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -80,7 +80,7 @@ jobs:
           - /EL9/alma/alma9-workstation-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
-      - name: Build EL9 Images
+      - name: EL9 Workstation
         uses: blue-build/github-action@v1.8
         with:
           recipe: ${{ matrix.recipe }}
@@ -91,7 +91,7 @@ jobs:
           maximize_build_space: true
 
   server9:
-    name: Build EL9 Server Images
+    name: EL9 Server
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -105,7 +105,7 @@ jobs:
           - /EL9/alma/alma9-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
-      - name: Build EL9 Images
+      - name: EL9 Server
         uses: blue-build/github-action@v1.8
         with:
           recipe: ${{ matrix.recipe }}
