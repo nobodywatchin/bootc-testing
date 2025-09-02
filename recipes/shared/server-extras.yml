@@ -60,6 +60,7 @@ modules:
         # Containers
         - podman
         - podman-docker
+        - podman-compose
         - container-selinux
         - conntrack-tools
         - skopeo
