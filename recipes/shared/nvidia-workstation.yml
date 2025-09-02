@@ -2,8 +2,6 @@
 type: dnf
 install:
   packages:
-    - nvidia-driver-libs.i686
-    - nvidia-driver-cuda-libs.i686
     - libnvidia-fbc
     - libnvidia-cfg
     - nvidia-settings

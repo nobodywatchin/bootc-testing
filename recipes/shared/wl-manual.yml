@@ -1,0 +1,15 @@
+---
+type: containerfile
+snippets:
+# 1) Add RPM Fusion (EL; works for EL9/EL10 via %rhel)
+  - RUN dnf -y install \
+      https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm \
+      https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+
+  # 2) Install Broadcom wl + akmods (no weak deps to keep it lean)
+  - RUN dnf -y --setopt=install_weak_deps=False \
+      --enablerepo=rpmfusion-free,rpmfusion-nonfree \
+      install broadcom-wl akmod-wl akmods kernel-devel kernel-headers
+
+  # 3) Remove RPM Fusion repo files (so future installs/updates won't use them)
+  - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && dnf clean all

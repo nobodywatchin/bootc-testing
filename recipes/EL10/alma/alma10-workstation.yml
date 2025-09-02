@@ -19,6 +19,7 @@ modules:
   - from-file: shared/server-base.yml
   - from-file: EL10/common/tailscale-manual-rhel10.yml
   - from-file: shared/server-extras.yml
+  - from-file: shared/wl-manual.yml
   - from-file: EL10/common/gnome.yml
   - from-file: shared/default-flatpaks.yml
   - from-file: shared/services.yml 

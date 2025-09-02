@@ -1,0 +1,15 @@
+---
+type: containerfile
+snippets:
+  # Add RPM Fusion for EL10
+  - RUN dnf -y install \
+      https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm \
+      https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
+
+  # Install Broadcom wl + akmods (lean: no weak deps)
+  - RUN dnf -y --setopt=install_weak_deps=False \
+      --enablerepo=rpmfusion-free,rpmfusion-nonfree \
+      install broadcom-wl akmod-wl akmods kernel-devel kernel-headers
+
+  # Remove RPM Fusion repos afterward
+  - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && dnf clean all
