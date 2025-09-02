@@ -115,8 +115,6 @@ modules:
         # GNOME 48 COPR PACKAGES
     replace:
     - from-repo: copr:copr.fedorainfracloud.org:jreilly1821:c10s-gnome
-      install-weak-deps: false
-      skip-unavailable: true
       packages:
         - gdm
         - gnome-shell
@@ -127,7 +125,7 @@ modules:
         - gnome-remote-desktop
         - xdg-desktop-portal
         - xdg-desktop-portal-gnome
-        
+
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection
