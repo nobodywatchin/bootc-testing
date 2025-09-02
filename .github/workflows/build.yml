@@ -15,8 +15,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
   cancel-in-progress: true
 jobs:
-  bluebuild10:
-    name: Build EL10 Images
+  workstation10:
+    name: Build EL10 Workstation Images
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,8 +27,31 @@ jobs:
       matrix:
         recipe:
           - /EL10/alma/alma10-workstation.yml
-          - /EL10/alma/alma10-server.yml
           - /EL10/alma/alma10-workstation-nvidia.yml
+    steps:
+      # the build is fully handled by the reusable github action
+      - name: Build EL10 Images
+        uses: blue-build/github-action@v1.8
+        with:
+          recipe: ${{ matrix.recipe }}
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+          rechunk: true
+          maximize_build_space: true
+
+  server10:
+    name: Build EL10 Server Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false # stop GH from cancelling all matrix builds if one fails
+      matrix:
+        recipe:
+          - /EL10/alma/alma10-server.yml
           - /EL10/alma/alma10-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
@@ -40,11 +63,10 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           rechunk: true
-
-          # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
-  bluebuild9:
-    name: Build EL9 Images
+
+  workstation9:
+    name: Build EL9 Workstation Images
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -55,8 +77,31 @@ jobs:
       matrix:
         recipe:
           - /EL9/alma/alma9-workstation.yml
-          - /EL9/alma/alma9-server.yml
           - /EL9/alma/alma9-workstation-nvidia.yml
+    steps:
+      # the build is fully handled by the reusable github action
+      - name: Build EL9 Images
+        uses: blue-build/github-action@v1.8
+        with:
+          recipe: ${{ matrix.recipe }}
+          cosign_private_key: ${{ secrets.SIGNING_SECRET }}
+          registry_token: ${{ github.token }}
+          pr_event_number: ${{ github.event.number }}
+          rechunk: true
+          maximize_build_space: true
+
+  server9:
+    name: Build EL9 Server Images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    strategy:
+      fail-fast: false # stop GH from cancelling all matrix builds if one fails
+      matrix:
+        recipe:
+          - /EL9/alma/alma9-server.yml
           - /EL9/alma/alma9-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
@@ -68,6 +113,4 @@ jobs:
           registry_token: ${{ github.token }}
           pr_event_number: ${{ github.event.number }}
           rechunk: true
-
-          # enabled by default, disable if your image is small and you want faster builds
           maximize_build_space: true
