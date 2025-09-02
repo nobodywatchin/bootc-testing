@@ -126,6 +126,7 @@ modules:
     replace:
     - from-repo: copr:copr.fedorainfracloud.org:jreilly1821:c10s-gnome
       packages:
+        - glib2
         - gdm
         - gnome-shell
         - gnome-control-center
@@ -152,7 +153,6 @@ modules:
       - 1460 # Vitals
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
-      - 1319 # GSConnect (KDE Connect Integration)
   - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
       - source: gnome 

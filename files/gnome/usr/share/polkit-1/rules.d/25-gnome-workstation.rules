@@ -23,6 +23,10 @@ polkit.addRule(function (action, subject) {
   if (startsWith("org.freedesktop.locale1.") && ok)
     return polkit.Result.YES;
 
+  // Disks
+  if (startsWith("org.freedesktop.udisks2.") && ok)
+    return polkit.Result.AUTH_ADMIN_KEEP;
+
   // Power / Reboot / Shutdown / Suspend (systemd-logind)
   if (startsWith("org.freedesktop.login1.") && ok)
     return polkit.Result.YES;

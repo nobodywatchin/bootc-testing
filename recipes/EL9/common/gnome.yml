@@ -30,12 +30,12 @@ modules:
         - dejavu-sans-fonts
         - dejavu-sans-mono-fonts
         - dejavu-serif-fonts
-        - jetbrains-mono-fonts-all
         # (emoji is already in Workstation product core)
         - google-noto-sans-arabic-fonts
         - google-noto-sans-hebrew-fonts
         - google-noto-sans-devanagari-fonts
-        - google-noto-sans-cjk-fonts
+        - google-noto-cjk-fonts-common
+        - google-noto-fonts-common
 
         # --- Guest/VM agents
         - qemu-guest-agent
@@ -86,7 +86,6 @@ modules:
 
         # --- Camera
         - libcamera
-        - libcamera-v4l2
         - libcamera-gstreamer
         - libcamera-tools
 
@@ -103,7 +102,8 @@ modules:
         # --- GNOME Packages
         - gnome-color-manager
         - gnome-disk-utility
-        - ptyxis
+        - gnome-terminal
+        - gnome-terminal-nautilus
         - nautilus
         - orca
         - xdg-user-dirs-gtk
@@ -129,7 +129,6 @@ modules:
       - 779 # Clipboard Indicator
       - 1460 # Vitals
       - 1401 # Bluetooth Quick Connect
-      - 1319 # GSConnect (KDE Connect Integration)
   - type: files # Adds to the dconf db (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
       - source: gnome 
