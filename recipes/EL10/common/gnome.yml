@@ -75,15 +75,6 @@ modules:
         - bluez
         # - bluez-tools   # optional: scriptable CLI helpers
 
-        # --- GNOME Packages (not in COPR)
-        - gnome-color-manager
-        - gnome-disk-utility
-        - ptyxis
-        - nautilus
-        - orca
-        - xdg-user-dirs-gtk
-        - colord
-
         # --- GVFS (files/SMB/phones)
         - gvfs-fuse
         - gvfs-goa
@@ -112,7 +103,26 @@ modules:
         - systemd-oomd
         - systemd-container
         
-        # GNOME 48 COPR PACKAGES
+        # --- GNOME Packages (not in COPR)
+        - gnome-color-manager
+        - gnome-disk-utility
+        - ptyxis
+        - nautilus
+        - orca
+        - xdg-user-dirs-gtk
+        - colord
+        # --- GNOME Packages (to be replaced)
+        - gdm
+        - gnome-shell
+        - gnome-control-center
+        - gnome-settings-daemon
+        - gnome-session
+        - gnome-initial-setup
+        - gnome-remote-desktop
+        - xdg-desktop-portal
+        - xdg-desktop-portal-gnome
+        
+        # GNOME 48 COPR REPLACEMENT PACKAGES
     replace:
     - from-repo: copr:copr.fedorainfracloud.org:jreilly1821:c10s-gnome
       packages:

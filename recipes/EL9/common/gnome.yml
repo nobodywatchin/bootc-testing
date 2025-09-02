@@ -6,139 +6,117 @@ modules:
         - vim-minimal
     group-install:
       packages: 
-      - Fonts
-  - type: dnf # Installs Individual Packages for GUI
+      - Workstation product core
     install:
-      packages: 
-      - vim-enhanced
-      # Workstation Product Core Packages
-      - adwaita-qt5  # Adwaita theme integration for Qt5 applications
-      - alsa-sof-firmware  # Sound Open Firmware (SOF) for Intel audio devices
-      - bind-utils  # DNS tools like dig and nslookup
-      - cifs-utils  # Mount and manage CIFS/SMB network shares
-      - dnf  # Package manager for installing and updating software
-      - evolution  # Email and calendar application for GNOME
-      - evolution-ews  # Exchange Web Services support for Evolution
-      - evolution-help  # Documentation for Evolution email client
-      - git  # Distributed version control system
-      - glibc-all-langpacks  # All language packs for GNU C Library
-      - gnupg2  # GPG encryption and signing tools
-      - google-noto-emoji-fonts  # Noto Emoji fonts for better emoji support
-      - hunspell  # Spell checker library and command-line tool
-      - ibus-anthy  # Japanese input method for IBus
-      - ibus-gtk2  # GTK2 support for IBus input framework
-      - ibus-gtk3  # GTK3 support for IBus input framework
-      - ibus-hangul  # Korean input method for IBus
-      - ibus-libpinyin  # Pinyin input method for Chinese
-      - ibus-libzhuyin  # Zhuyin input method for Chinese
-      - ibus-m17n  # Multilingual input methods for IBus
-      - ibus-typing-booster  # Predictive typing support for IBus
-      - lrzsz  # Tools for X/Y/ZMODEM file transfers
-      - pinentry-gnome3  # GNOME3 frontend for GPG passphrase entry
-      - pinfo  # Alternative to "info" command with colorized output
-      - plymouth  # Boot splash screen and graphical startup animations
-      - polkit  # Policy framework for privilege escalation
-      - qgnomeplatform  # Improves Qt app integration with GNOME
-      - qt5-qtbase  # Qt5 core libraries for GUI applications
-      - qt5-qtbase-gui  # GUI components for Qt5 applications
-      - qt5-qtdeclarative  # Qt5 module for QML-based applications
-      - qt5-qtxmlpatterns  # Qt5 module for XML pattern matching
-      - setroubleshoot  # SELinux troubleshooting tool
-      - telnet  # Remote login protocol (deprecated but still included)
-      - thermald  # CPU thermal management daemon
-      - xorg-x11-drv-libinput  # Input driver for touchpads and mice on Xorg
+      install-weak-deps: false
+      packages:
+        - vim-enhanced # Replaces vim-minimal
+        # --- Audio / Multimedia (PipeWire-first)
+        - pipewire
+        - pipewire-alsa
+        - pipewire-pulseaudio
+        - pipewire-jack-audio-connection-kit
+        - pipewire-utils
+        - wireplumber
+        - gstreamer1-plugins-base
+        - gstreamer1-plugins-good
+        - gstreamer1-plugins-bad-free
+        - gstreamer1-plugins-bad-free-libs
+        - alsa-ucm
+        - alsa-utils
+        - pavucontrol
 
-      # Multimedia Packages
-      - PackageKit-gstreamer-plugin  # Enables automatic installation of GStreamer codecs via PackageKit
-      - alsa-ucm  # ALSA Use Case Manager profiles for audio hardware
-      - alsa-utils  # ALSA command-line utilities for sound control
-      - gstreamer1-plugins-bad-free  # GStreamer plugins with experimental or less stable features
-      - gstreamer1-plugins-good  # High-quality GStreamer plugins for common media formats
-      - gstreamer1-plugins-ugly-free  # GStreamer plugins with potential licensing issues but good quality
-      - pipewire  # Low-latency audio/video framework replacing PulseAudio and JACK
-      - pipewire-alsa  # ALSA compatibility layer for PipeWire
-      - pipewire-gstreamer  # GStreamer plugin for PipeWire integration
-      - pipewire-jack-audio-connection-kit  # JACK API emulation via PipeWire for pro audio users
-      - pipewire-pulseaudio  # PulseAudio replacement using PipeWire
-      - pipewire-utils  # Utilities for managing PipeWire
-      - pavucontrol  # GUI volume control for PulseAudio (useful with PipeWire)
+        # --- Fonts (curated)
+        - dejavu-sans-fonts
+        - dejavu-sans-mono-fonts
+        - dejavu-serif-fonts
+        - jetbrains-mono-fonts-all
+        # (emoji is already in Workstation product core)
+        - google-noto-sans-arabic-fonts
+        - google-noto-sans-hebrew-fonts
+        - google-noto-sans-devanagari-fonts
+        - google-noto-sans-cjk-fonts
 
-      # Additional Packages
-      - gstreamer1-plugins-base # Essential GStreamer plugins for basic media playback
-      - lame  # MP3 encoder for audio compression
-      - lame-libs  # Libraries for MP3 encoding and decoding
-      - libjxl  # JPEG XL image format support
-      - NetworkManager-adsl # ADSL (PPP over Ethernet) support for NetworkManager
-    
-      # GNOME Desktop
-      - gdm  # GNOME Display Manager for graphical login
-      - gnome-bluetooth  # Bluetooth integration for GNOME
-      - gnome-color-manager  # Color profile management tool for GNOME
-      - gnome-control-center  # GNOME settings application
-      - gnome-initial-setup  # First-time setup tool for GNOME
-      - gnome-remote-desktop  # Remote desktop support for GNOME (RDP/VNC)
-      - gnome-session-wayland-session  # Wayland session support for GNOME
-      - gnome-settings-daemon  # Background services for GNOME settings
-      - gnome-shell  # Core GNOME desktop environment
-      - gnome-user-docs  # GNOME user documentation
-      - gnome-terminal  # Terminal emulator for GNOME
-      - gnome-disk-utility  # GUI tool for disk and partition management
-      - gvfs-fuse  # FUSE support for GVFS (allows mounting virtual file systems)
-      - gvfs-goa  # GNOME Online Accounts integration for GVFS
-      - gvfs-gphoto2  # Support for accessing digital cameras via GVFS
-      - gvfs-mtp  # MTP protocol support for mobile device access via GVFS
-      - gvfs-smb  # SMB/CIFS file sharing support for GVFS
-      - libsane-hpaio  # SANE drivers for HP scanners
-      - nautilus  # GNOME file manager
-      - orca  # Screen reader for visually impaired users
-      - sane-backends-drivers-scanners  # Drivers for various scanners
-      - xdg-desktop-portal-gnome  # GNOME-specific portal implementation for sandboxed apps
-      - xdg-user-dirs-gtk  # GTK frontend for managing user directories
-      - yelp-tools  # Documentation and help viewer for GNOME
+        # --- Guest/VM agents
+        - qemu-guest-agent
+        - spice-vdagent
+        - open-vm-tools-desktop
+        - hyperv-daemons
 
-      # Boot  
-      - plymouth  # Boot splash screen system
-      - plymouth-system-theme  # Default system theme for Plymouth
+        # --- Printing & Scanning
+        - cups
+        - cups-pk-helper
+        - cups-filters
+        - ghostscript
+        - gutenprint
+        - gutenprint-cups
+        - system-config-printer-udev
+        - hplip
+        - libsane-hpaio
+        - sane-backends-drivers-scanners
+        - sane-airscan   # from EPEL
 
-      # Guest Agents 
-      - hyperv-daemons  # Hyper-V guest tools for better integration with Microsoft Hyper-V
-      - open-vm-tools  # VMware guest utilities for improved performance and integration
-      - qemu-guest-agent  # QEMU guest agent for better communication between host and guest VM
-      
-      # print-client mandatory packages
-      - cups  # Common UNIX Printing System for managing printers
-      - cups-pk-helper  # Helper for integrating cups with PolicyKit for print jobs
-      - enscript  # Converts text files to PostScript or HTML for printing
+        # --- Networking
+        - NetworkManager-wifi
+        - NetworkManager-bluetooth
+        - NetworkManager-wwan
+        - NetworkManager-adsl
+        - NetworkManager-openvpn
+        - NetworkManager-openconnect
+        - dnsmasq        # keep disabled unless you need the system daemon
+        - nftables
+        - ModemManager
+        - ppp
 
-      # print-client default packages
-      - colord  # Color management system for Linux, used for printer profiles
-      - gutenprint  # High-quality printer drivers for CUPS
-      - gutenprint-cups  # CUPS integration for Gutenprint drivers
-      - gutenprint-doc  # Documentation for Gutenprint drivers
-      - paps  # Converts text to PostScript for printing with CUPS
-      - pnm2ppa  # Converts PNM (Portable AnyMap) images to PPA (Printer Protocol Architecture) format
-      - system-config-printer-udev  # Printer configuration tool for UDEV-based devices
+        # --- Bluetooth stack
+        - bluez
+        # - bluez-tools   # optional: scriptable CLI helpers
 
-      # print-client optional packages
-      - bluez-cups  # Bluetooth support for CUPS printing
-      - hplip  # HP Linux Imaging and Printing software for HP printers
-      
-      # networkmanager-submodules
-      - NetworkManager-bluetooth  # NetworkManager plugin for managing Bluetooth network devices
-      - NetworkManager-wifi  # NetworkManager plugin for managing WiFi network connections
-      - NetworkManager-wwan  # NetworkManager plugin for managing WWAN (mobile broadband) connections
-      - dnsmasq  # Lightweight DNS forwarder and DHCP server
-      - iptables-nft  # iptables framework using the nftables backend for firewall rules
+        # --- GVFS (files/SMB/phones)
+        - gvfs-fuse
+        - gvfs-goa
+        - gvfs-gphoto2
+        - gvfs-mtp
+        - gvfs-smb
 
-      # More Packages
-      - fwupd # Firmware update daemon for Linux
-      - systemd-resolved  # Systemd component for DNS resolution
-      - systemd-container  # Tools for running and managing systemd in containers
-      - systemd-oomd  # Systemd service for out-of-memory handling
-      - libcamera  # Camera support library for modern Linux devices
-      - libcamera-gstreamer  # GStreamer plugin for libcamera
-      - libcamera-tools  # Command-line tools for libcamera
-      - wl-clipboard  # Clipboard utilities for Wayland
+        # --- Hardware / firmware / power / TB
+        - fwupd
+        - bolt
+        - switcheroo-control
+
+        # --- Camera
+        - libcamera
+        - libcamera-v4l2
+        - libcamera-gstreamer
+        - libcamera-tools
+
+        # --- Desktop niceties
+        - wl-clipboard
+        # (plymouth comes from the group already)
+        - plymouth-system-theme
+        - flatpak
+
+        # --- Systemd extras
+        - systemd-oomd
+        - systemd-container
+        
+        # --- GNOME Packages
+        - gnome-color-manager
+        - gnome-disk-utility
+        - ptyxis
+        - nautilus
+        - orca
+        - xdg-user-dirs-gtk
+        - colord
+        - gdm
+        - gnome-shell
+        - gnome-control-center
+        - gnome-settings-daemon
+        - gnome-session
+        - gnome-initial-setup
+        - gnome-remote-desktop
+        - xdg-desktop-portal
+        - xdg-desktop-portal-gnome
 
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
