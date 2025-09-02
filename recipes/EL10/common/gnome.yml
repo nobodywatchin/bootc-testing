@@ -3,7 +3,7 @@ modules:
     repos:
       cleanup: true 
       copr:
-        - jreilly1821/c10s-gnome-48
+        - jreilly1821/c10s-gnome
     remove:
       packages:
         - vim-minimal
