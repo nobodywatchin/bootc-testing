@@ -1,5 +1,9 @@
 modules:
   - type: dnf
+    repos:
+      cleanup: true 
+      copr:
+        - jreilly1821/c10s-gnome-48
     remove:
       packages:
         - vim-minimal
@@ -71,23 +75,13 @@ modules:
         - bluez
         # - bluez-tools   # optional: scriptable CLI helpers
 
-        # --- GNOME Shell (explicit pins)
-        - gdm
-        - gnome-shell
-        - gnome-control-center
-        - gnome-settings-daemon
-        - gnome-session-wayland-session
-        - gnome-initial-setup
-        - gnome-remote-desktop
-        - gnome-user-docs
+        # --- GNOME Packages (not in COPR)
         - gnome-color-manager
         - gnome-disk-utility
         - ptyxis
         - nautilus
         - orca
         - xdg-user-dirs-gtk
-        - xdg-desktop-portal
-        - xdg-desktop-portal-gnome
         - colord
 
         # --- GVFS (files/SMB/phones)
@@ -117,6 +111,23 @@ modules:
         # --- Systemd extras
         - systemd-oomd
         - systemd-container
+        
+        # GNOME 48 COPR PACKAGES
+    replace:
+    - from-repo: copr:copr.fedorainfracloud.org:jreilly1821:c10s-gnome
+      install-weak-deps: false
+      skip-unavailable: true
+      packages:
+        - gdm
+        - gnome-shell
+        - gnome-control-center
+        - gnome-settings-daemon
+        - gnome-session
+        - gnome-initial-setup
+        - gnome-remote-desktop
+        - xdg-desktop-portal
+        - xdg-desktop-portal-gnome
+        
   - type: gnome-extensions # Installs extensions for GNOME Desktop
     install:
       - 3843 # Just Perfection
