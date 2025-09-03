@@ -6,30 +6,24 @@ modules:
         RUN set -euo pipefail; \
           DNF="$(command -v dnf || command -v dnf5)"; \
           EL="$(rpm -E %rhel)"; \
-          \
-          # Optional helpers (if available in this image)
           $DNF -y install distribution-gpg-keys || true; \
-          $DNF config-manager --set-enabled crb || true; \
-          \
-          # Import RPM Fusion (nonfree) key: try local from distribution-gpg-keys, else from mirror
-          KEY_LOCAL="/usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL}"; \
-          KEY_URL="https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/repodata/repomd.xml.key"; \
-          if [ -f "$KEY_LOCAL" ]; then rpm --import "$KEY_LOCAL"; else rpm --import "$KEY_URL"; fi; \
-          \
-          # (Optional) also import FREE key
-          KEYF_LOCAL="/usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-${EL}"; \
-          KEYF_URL="https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/repodata/repomd.xml.key"; \
-          if [ -f "$KEYF_LOCAL" ]; then rpm --import "$KEYF_LOCAL"; else rpm --import "$KEYF_URL"; fi; \
-          \
+          # Import keys (fallback to mirror if local file missing)
+          for FLAVOR in nonfree free; do \
+            KEY_LOCAL="/usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-${FLAVOR}-el-${EL}"; \
+            KEY_URL="https://mirrors.rpmfusion.org/${FLAVOR}/el/updates/${EL}/x86_64/repodata/repomd.xml.key"; \
+            if [ -f "$KEY_LOCAL" ]; then rpm --import "$KEY_LOCAL"; else rpm --import "$KEY_URL"; fi; \
+          done; \
           # Install release RPMs (correct URLs)
           $DNF -y --setopt=localpkg_gpgcheck=1 install \
             "https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-${EL}.noarch.rpm" \
             "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-${EL}.noarch.rpm"; \
-          \
-          # Install wl stack (minimal deps)
-          $DNF -y --setopt=install_weak_deps=False --enablerepo=rpmfusion-nonfree \
-            install broadcom-wl akmod-wl akmods kernel-devel kernel-headers; \
-          \
-          # Cleanup: remove RPM Fusion repos/keys so Negativo17 can be used later cleanly
+          # Make sure the right repo IDs are enabled on EL
+          ($DNF config-manager --set-enabled rpmfusion-nonfree-updates rpmfusion-free-updates || true); \
+          # Cache (helps avoid 'unknown repo' races)
+          ($DNF -y makecache || true); \
+          # Install wl stack (no explicit --enablerepo; uses enabled repos)
+          $DNF -y --setopt=install_weak_deps=False install \
+            broadcom-wl akmod-wl akmods kernel-devel kernel-headers; \
+          # Cleanup: drop RPM Fusion repos/keys so Negativo17 can't conflict later
           rm -f /etc/yum.repos.d/rpmfusion-*.repo /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true; \
           $DNF clean all
