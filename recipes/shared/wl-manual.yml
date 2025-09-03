@@ -2,10 +2,9 @@
 modules:
   - type: containerfile
     snippets:
-      # Import EPEL & RPM Fusion GPG keys, install their release RPMs via rpm
-      - RUN set -euo pipefail && \
+      - |
+        RUN set -euo pipefail && \
           EL="$(rpm -E %rhel)" && \
-          \
           # --- RPM Fusion keys (free + nonfree) ---
           curl -fsSL -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} \
             https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
@@ -13,7 +12,6 @@ modules:
             https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
           rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} && \
           rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL} && \
-          \
           # --- RPM Fusion release RPMs (free + nonfree) ---
           rpm -Uvh --replacepkgs \
             https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/r/rpmfusion-free-release-${EL}-1.noarch.rpm \
@@ -21,6 +19,7 @@ modules:
 
   - type: dnf
     install:
+      install-weak-deps: false
       packages:
         - broadcom-wl
         - akmod-wl
@@ -30,6 +29,7 @@ modules:
 
   - type: containerfile
     snippets:
-      - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && \
+      - |
+        RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && \
             rm -f /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* && \
             true
