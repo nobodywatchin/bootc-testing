@@ -4,21 +4,26 @@ modules:
     snippets:
       - |
         RUN set -euo pipefail; \
-            DNF="$(command -v dnf || command -v dnf5 || true)"; \
-            if [ -z "$DNF" ]; then echo "dnf/dnf5 not found in this image"; exit 1; fi; \
-            \
-            # Import RPM Fusion nonfree key from distribution-gpg-keys
-            rpm --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel); \
-            \
-            # Add RPM Fusion nonfree release rpm with GPG check
-            $DNF -y --setopt=localpkg_gpgcheck=1 install \
-              https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm; \
-            \
-            # Install wl stack (minimal deps)
-            $DNF -y --setopt=install_weak_deps=False --enablerepo=rpmfusion-nonfree \
-              install broadcom-wl akmod-wl akmods kernel-devel kernel-headers; \
-            \
-            # Remove RPM Fusion repos and keys so they can't conflict later
-            rm -f /etc/yum.repos.d/rpmfusion-*.repo \
-                  /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true; \
-            $DNF clean all
+          DNF="$(command -v dnf || command -v dnf5)"; \
+          EL="$(rpm -E %rhel)"; \
+          $DNF -y install distribution-gpg-keys || true; \
+          # Import keys (fallback to mirror if local file missing)
+          for FLAVOR in nonfree free; do \
+            KEY_LOCAL="/usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-${FLAVOR}-el-${EL}"; \
+            KEY_URL="https://mirrors.rpmfusion.org/${FLAVOR}/el/updates/${EL}/x86_64/repodata/repomd.xml.key"; \
+            if [ -f "$KEY_LOCAL" ]; then rpm --import "$KEY_LOCAL"; else rpm --import "$KEY_URL"; fi; \
+          done; \
+          # Install release RPMs (correct URLs)
+          $DNF -y --setopt=localpkg_gpgcheck=1 install \
+            "https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-${EL}.noarch.rpm" \
+            "https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-${EL}.noarch.rpm"; \
+          # Make sure the right repo IDs are enabled on EL
+          ($DNF config-manager --set-enabled rpmfusion-nonfree-updates rpmfusion-free-updates || true); \
+          # Cache (helps avoid 'unknown repo' races)
+          ($DNF -y makecache || true); \
+          # Install wl stack (no explicit --enablerepo; uses enabled repos)
+          $DNF -y --setopt=install_weak_deps=False install \
+            broadcom-wl akmod-wl akmods kernel-devel kernel-headers; \
+          # Cleanup: drop RPM Fusion repos/keys so Negativo17 can't conflict later
+          rm -f /etc/yum.repos.d/rpmfusion-*.repo /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true; \
+          $DNF clean all
