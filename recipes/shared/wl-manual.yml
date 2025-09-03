@@ -5,14 +5,12 @@ modules:
       - |
         RUN set -euo pipefail && \
           EL="$(rpm -E %rhel)" && \
-          # --- RPM Fusion keys (free + nonfree) ---
           curl -fsSL -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} \
             https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
           curl -fsSL -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL} \
             https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
           rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} && \
           rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL} && \
-          # --- RPM Fusion release RPMs (free + nonfree) ---
           rpm -Uvh --replacepkgs \
             https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/r/rpmfusion-free-release-${EL}-1.noarch.rpm \
             https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/r/rpmfusion-nonfree-release-${EL}-1.noarch.rpm
