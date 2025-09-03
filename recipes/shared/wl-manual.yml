@@ -3,31 +3,22 @@ modules:
   - type: containerfile
     snippets:
       - |
-        RUN set -euo pipefail && \
-          EL="$(rpm -E %rhel)" && \
-          curl -fsSL -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} \
-            https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
-          curl -fsSL -o /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL} \
-            https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/repodata/repomd.xml.key && \
-          rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-${EL} && \
-          rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-nonfree-el-${EL} && \
-          rpm -Uvh --replacepkgs \
-            https://mirrors.rpmfusion.org/free/el/updates/${EL}/x86_64/r/rpmfusion-free-release-${EL}-1.noarch.rpm \
-            https://mirrors.rpmfusion.org/nonfree/el/updates/${EL}/x86_64/r/rpmfusion-nonfree-release-${EL}-1.noarch.rpm
-
-  - type: dnf
-    install:
-      install-weak-deps: false
-      packages:
-        - broadcom-wl
-        - akmod-wl
-        - akmods
-        - kernel-devel
-        - kernel-headers
-
-  - type: containerfile
-    snippets:
-      - |
-        RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && \
-            rm -f /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* && \
-            true
+        RUN set -euo pipefail; \
+            DNF="$(command -v dnf || command -v dnf5 || true)"; \
+            if [ -z "$DNF" ]; then echo "dnf/dnf5 not found in this image"; exit 1; fi; \
+            \
+            # Import RPM Fusion nonfree key from distribution-gpg-keys
+            rpm --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel); \
+            \
+            # Add RPM Fusion nonfree release rpm with GPG check
+            $DNF -y --setopt=localpkg_gpgcheck=1 install \
+              https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm; \
+            \
+            # Install wl stack (minimal deps)
+            $DNF -y --setopt=install_weak_deps=False --enablerepo=rpmfusion-nonfree \
+              install broadcom-wl akmod-wl akmods kernel-devel kernel-headers; \
+            \
+            # Remove RPM Fusion repos and keys so they can't conflict later
+            rm -f /etc/yum.repos.d/rpmfusion-*.repo \
+                  /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true; \
+            $DNF clean all
