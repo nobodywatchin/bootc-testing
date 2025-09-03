@@ -12,18 +12,7 @@ modules:
       packages:
         # Replaces vim-minimal
         - vim-enhanced 
-        
-        # build toolchain for akmods
-        - gcc
-        - make
-        - perl
-        - elfutils-libelf-devel
-        - rpm-build
 
-        # signing + SB helpers
-        - openssl
-        - mokutil
-        
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
         - pipewire-alsa
