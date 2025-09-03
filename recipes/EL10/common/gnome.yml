@@ -76,6 +76,12 @@ modules:
         # --- Bluetooth stack
         - bluez
         # - bluez-tools   # optional: scriptable CLI helpers
+        - brcmfmac-firmware
+        - atheros-firmware
+        - tiwilink-firmware
+        - realtek-firmware
+        - nxpwireless-firmware
+        - mt7xxx-firmware
 
         # --- GVFS (files/SMB/phones)
         - gvfs-fuse

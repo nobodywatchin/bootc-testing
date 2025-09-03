@@ -4,14 +4,14 @@ modules:
   - type: dnf
     repos:
       keys:
-        - https://rpmfusion.org/free/el/updates/%OS_VERSION_MAJOR%/x86_64/repodata/repomd.xml.key
-        - https://rpmfusion.org/nonfree/el/updates/%OS_VERSION_MAJOR%/x86_64/repodata/repomd.xml.key
+        - https://rpmfusion.org/free/el/updates/%RHEL_VERSION%/x86_64/repodata/repomd.xml.key
+        - https://rpmfusion.org/nonfree/el/updates/%RHEL_VERSION%/x86_64/repodata/repomd.xml.key
     install:
       # URLs are supported in `packages:` (module installs them first). 
       # Then the repos exist for the next module. 
       packages:
-        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-%OS_VERSION_MAJOR%.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-%OS_VERSION_MAJOR%.noarch.rpm
+        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-%RHEL_VERSION%.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-%RHEL_VERSION%.noarch.rpm
 
   # 2) Now install wl + akmods + build/signing deps (no weak deps)
   - type: dnf
