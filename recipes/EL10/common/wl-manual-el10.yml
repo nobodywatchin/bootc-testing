@@ -4,11 +4,9 @@ modules:
   - type: dnf
     repos:
       keys:
-        - https://rpmfusion.org/free/el/updates/10/x86_64/repodata/repomd.xml.key
-        - https://rpmfusion.org/nonfree/el/updates/10/x86_64/repodata/repomd.xml.key
+        - https://download1.rpmfusion.org/free/el/RPM-GPG-KEY-rpmfusion-free-el-10
+        - https://download1.rpmfusion.org/nonfree/el/RPM-GPG-KEY-rpmfusion-nonfree-el-10
     install:
-      # URLs are supported in `packages:` (module installs them first). 
-      # Then the repos exist for the next module. 
       packages:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
