@@ -1,15 +1,42 @@
 ---
-type: containerfile
-snippets:
-  # Add RPM Fusion for EL9
-  - RUN dnf -y install \
-      https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm \
-      https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
+modules:
+  # 1) Import keys + add repos via release RPMs (EL9/EL10 via %OS_VERSION%)
+  - type: dnf
+    repos:
+      keys:
+        - https://rpmfusion.org/free/el/updates/9/x86_64/repodata/repomd.xml.key
+        - https://rpmfusion.org/nonfree/el/updates/9/x86_64/repodata/repomd.xml.key
+    install:
+      # URLs are supported in `packages:` (module installs them first). 
+      # Then the repos exist for the next module. 
+      packages:
+        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
 
-  # Install Broadcom wl + akmods (lean: no weak deps)
-  - RUN dnf -y --setopt=install_weak_deps=False \
-      --enablerepo=rpmfusion-free,rpmfusion-nonfree \
-      install broadcom-wl akmod-wl akmods kernel-devel kernel-headers
+  # 2) Now install wl + akmods + build/signing deps (no weak deps)
+  - type: dnf
+    install:
+      install-weak-deps: false
+      packages:
+        # Broadcom wl stack
+        - broadcom-wl
+        - akmod-wl
+        - akmods
+        - kernel-devel
+        - kernel-headers
+        # Toolchain for akmods build
+        - gcc
+        - make
+        - perl
+        - elfutils-libelf-devel
+        - rpm-build
+        # Secure Boot keygen/enrollment helpers
+        - openssl
+        - mokutil
 
-  # Remove RPM Fusion repos afterward
-  - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo && dnf clean all
+  # 3) Drop RPM Fusion repo files/keys so Negativo17 can be used later
+  - type: containerfile
+    snippets:
+      - |
+        RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo \
+               /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true
