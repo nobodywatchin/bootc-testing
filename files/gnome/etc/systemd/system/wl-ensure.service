@@ -1,0 +1,11 @@
+[Unit]
+Description=Ensure Broadcom wl module is built and loaded for this kernel
+After=akmods.service systemd-udev-settle.service network-pre.target
+Wants=akmods.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/myos/wl-ensure.sh
+
+[Install]
+WantedBy=multi-user.target
