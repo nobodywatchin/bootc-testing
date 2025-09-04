@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Simple Broadcom wl (no Secure Boot) bootstrapper for EL10/Alma 10
-# - Assumes akmods + akmod-wl + build deps are already installed.
-# - Blacklists OSS drivers, ensures akmods runs at boot,
-#   and auto-builds/loads wl after kernel updates.
+# Broadcom wl (no Secure Boot) bootstrapper for EL10/Alma 10
+# - Assumes akmods + akmod-wl + kernel-devel + kernel-headers + gcc + make + NetworkManager are installed.
+# - Installs wl-ensure.sh and systemd unit, blacklists OSS drivers, enables services, runs once.
 
 require_root() {
   if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
@@ -17,7 +16,7 @@ warn_if_secure_boot() {
   if command -v mokutil >/dev/null 2>&1; then
     if mokutil --sb-state 2>/dev/null | grep -qiE 'SecureBoot\s*enabled'; then
       echo "WARNING: Secure Boot appears ENABLED; wl will not load without signing/MOK." >&2
-      echo "Disable Secure Boot in firmware (or switch to the signed/MOK flow) and re-run." >&2
+      echo "Disable Secure Boot in firmware or switch to the signed/MOK flow." >&2
     fi
   fi
 }
@@ -36,4 +35,13 @@ enable_akmods() {
   systemctl enable akmods.service >/dev/null 2>&1 || true
 }
 
+main() {
+  require_root
+  warn_if_secure_boot
+  write_blacklist
+  install_helper
+  install_unit
+  run_once_now
+  echo "Done. wl will auto-build/load on each boot (Secure Boot must be OFF)."
+}
 main "$@"
