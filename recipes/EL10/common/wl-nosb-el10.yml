@@ -1,6 +1,6 @@
 ---
 modules:
-  # 1) Import keys + add repos via release RPMs (EL9/EL10 via %OS_VERSION%)
+  # 1) RPM Fusion (EL10)
   - type: dnf
     repos:
       keys:
@@ -11,28 +11,32 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-  # 2) Now install wl + akmods + build/signing deps (no weak deps)
+  # 2) wl via AKMOD + minimal build deps (no Secure Boot bits)
   - type: dnf
     install:
       install-weak-deps: false
       packages:
-        # Broadcom wl stack
-        - broadcom-wl
-        - akmod-wl
         - akmods
+        - akmod-wl
         - kernel-devel
         - kernel-headers
-        # Toolchain for akmods build
         - gcc
         - make
-        - perl
-        - elfutils-libelf-devel
-        - rpm-build
-        # Secure Boot keygen/enrollment helpers
-        - openssl
-        - mokutil
+        - NetworkManager
 
-  # 3) Drop RPM Fusion repo files/keys so Negativo17 can be used later
+  # 3) Blacklist conflicts + auto-build/load on boot
+  - type: script
+    scripts:
+      - broadcom-wl-nosb-setup.sh
+
+  # 4) Enable AKMod Services
+  - type: systemd
+    system:
+      enabled:
+        - akmods.service
+        - wl-ensure.service
+
+  # 5) Drop RPM Fusion repo files/keys so Negativo17 can be used later
   - type: containerfile
     snippets:
       - |
