@@ -11,40 +11,11 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-  # 2) wl via AKMOD + minimal build deps (no Secure Boot bits)
+  # 2) wl via AKMOD
   - type: dnf
     install:
-      install-weak-deps: false
       packages:
         - akmods
         - akmod-wl
         - kernel-devel
         - kernel-headers
-        - gcc
-        - make
-        - NetworkManager
-
-  # 3) Add custom scripts and services
-  - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
-    files:
-      - source: wl-no-sb 
-        destination: /
-
-  # 4) Blacklist conflicts + auto-build/load on boot
-  - type: script
-    scripts:
-      - broadcom-wl-nosb-setup.sh
-
-  # 5) Enable AKMod Services
-  - type: systemd
-    system:
-      enabled:
-        - akmods.service
-        - wl-ensure.service
-
-  # 6) Drop RPM Fusion repo files/keys so Negativo17 can be used later
-  - type: containerfile
-    snippets:
-      - |
-        RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo \
-               /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true
