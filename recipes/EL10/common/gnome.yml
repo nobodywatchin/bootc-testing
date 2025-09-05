@@ -129,6 +129,7 @@ modules:
         - gnome-remote-desktop
         - xdg-desktop-portal
         - xdg-desktop-portal-gnome
+        - tuned-ppd
         
         # GNOME 48 COPR REPLACEMENT PACKAGES
     replace:
