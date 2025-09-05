@@ -96,6 +96,3 @@ modules:
 
         # Firewall (optional; enable if you manage via firewalld)
         - firewalld
-
-        # Power Profiles
-        - power-profiles-daemon
