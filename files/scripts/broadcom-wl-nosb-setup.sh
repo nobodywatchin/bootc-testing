@@ -39,9 +39,7 @@ main() {
   require_root
   warn_if_secure_boot
   write_blacklist
-  install_helper
-  install_unit
-  run_once_now
+  enable_akmods
   echo "Done. wl will auto-build/load on each boot (Secure Boot must be OFF)."
 }
 main "$@"
