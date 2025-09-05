@@ -24,19 +24,25 @@ modules:
         - make
         - NetworkManager
 
-  # 3) Blacklist conflicts + auto-build/load on boot
+  # 3) Add custom scripts and services
+  - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
+    files:
+      - source: wl-no-sb 
+        destination: /
+
+  # 4) Blacklist conflicts + auto-build/load on boot
   - type: script
     scripts:
       - broadcom-wl-nosb-setup.sh
 
-  # 4) Enable AKMod Services
+  # 5) Enable AKMod Services
   - type: systemd
     system:
       enabled:
         - akmods.service
         - wl-ensure.service
 
-  # 5) Drop RPM Fusion repo files/keys so Negativo17 can be used later
+  # 6) Drop RPM Fusion repo files/keys so Negativo17 can be used later
   - type: containerfile
     snippets:
       - |
