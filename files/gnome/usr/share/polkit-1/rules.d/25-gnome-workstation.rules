@@ -47,6 +47,10 @@ polkit.addRule(function (action, subject) {
   if (startsWith("net.hadess.PowerProfiles.") && ok)
     return polkit.Result.YES;
 
+  // Thunderbolt Devices (bolt)
+  if (startsWith("org.freedesktop.bolt") && ok)
+    return polkit.Result.AUTH_ADMIN_KEEP;
+
   // Tailscale GUI
   if ((action.id == "io.tailscale.tailscaled") && ok)
     return polkit.Result.YES;
