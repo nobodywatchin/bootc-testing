@@ -23,5 +23,6 @@ modules:
   - type: containerfile
     snippets:
       - |
-        RUN dnf config-manager --disable rpmfusion-free rpmfusion-nonfree \
-          && rm -f /etc/yum.repos.d/rpmfusion-*.repo
+        RUN set -euo pipefail; \
+            dnf -y remove 'rpmfusion-*-release' || true; \
+            rm -f /etc/yum.repos.d/rpmfusion-*.repo || true

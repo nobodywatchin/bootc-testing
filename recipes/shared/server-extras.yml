@@ -66,6 +66,12 @@ modules:
         - skopeo
         - buildah
 
+        # Security
+        - fuse-overlayfs
+        - slirp4netns
+        - shadow-utils
+        - policycoreutils-python-utils
+
         # Admin / diagnostics
         - lsof
         - sos
