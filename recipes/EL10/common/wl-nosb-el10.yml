@@ -15,7 +15,7 @@ modules:
     install:
       install-weak-deps: false
       packages:
-        - kmod-wl
+        - boradcom-wl
         - iw
         - wpa_supplicant
 
