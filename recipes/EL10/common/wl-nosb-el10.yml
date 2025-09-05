@@ -1,6 +1,5 @@
----
 modules:
-  # 1) RPM Fusion (EL10)
+  # 1) Enable RPM Fusion (EL10)
   - type: dnf
     repos:
       keys:
@@ -11,11 +10,18 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-  # 2) wl via AKMOD
+  # 2) Install wl stack (akmod path)
   - type: dnf
     install:
+      install-weak-deps: false
       packages:
-        - akmods
-        - akmod-wl
-        - kernel-devel
-        - kernel-headers
+        - kmod-wl
+        - iw
+        - wpa_supplicant
+
+  # 3) Remove RPM Fusion repos (leave wl installed)
+  - type: containerfile
+    snippets:
+      - |
+        RUN dnf config-manager --disable rpmfusion-free rpmfusion-nonfree \
+          && rm -f /etc/yum.repos.d/rpmfusion-*.repo
