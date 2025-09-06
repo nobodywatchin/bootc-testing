@@ -19,10 +19,27 @@ modules:
         - iw
         - wpa_supplicant
 
-  # 3) Remove RPM Fusion repos (leave wl installed)
+  # 3) Make wl the only Broadcom stack and keep image deterministic
   - type: containerfile
     snippets:
       - |
+        # Remove any akmods bits that may have been dragged in earlier layers/images
+        RUN dnf -y remove akmods akmod-wl broadcom-wl || true
+
+        # Prefer wl over in-kernel drivers
+        RUN printf '%s\n' "blacklist b43" "blacklist brcmsmac" "blacklist brcmfmac" \
+          > /usr/lib/modprobe.d/blacklist-broadcom.conf
+        RUN printf '%s\n' wl > /usr/lib/modules-load.d/wl.conf
+
+        # Optional: mask akmods keygen to guarantee it never fires if akmods reappears
+        RUN systemctl mask akmods-keygen@akmods-keygen.service || true
+
+        # Make sure initramfs won’t pre-load b43/brcm*; and include wl if needed
+        RUN dracut -f
+
+        # Clean out RPM Fusion repos post-install (packages stay)
         RUN set -euo pipefail; \
+            if command -v dnf5 >/dev/null 2>&1; then CM="dnf5 config-manager"; else CM="dnf config-manager"; fi; \
+            $CM --set-disabled 'rpmfusion-*' || true; \
             dnf -y remove 'rpmfusion-*-release' || true; \
             rm -f /etc/yum.repos.d/rpmfusion-*.repo || true
