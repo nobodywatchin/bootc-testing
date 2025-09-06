@@ -10,29 +10,37 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-  # 2) Install wl stack (akmod path)
+  # 2) Install akmod-wl + build deps (no weak deps)
   - type: dnf
     install:
       install-weak-deps: false
       packages:
-        - kmod-wl
+        - akmods
+        - akmod-wl
+        - kernel-devel
+        - kernel-headers
+        - gcc
+        - make
+        - binutils
+        - elfutils-libelf-devel
+        - bc
+        - patch
         - iw
         - wpa_supplicant
 
-  # 3) Make wl win; remove akmods if it somehow sneaks in; disable RPM Fusion repos
+  # 3) Force wl to win; quiet the SB keygen; disable RPM Fusion repos post-install
   - type: containerfile
     snippets:
       - |
-        # Remove akmods bits (if inherited from base) and silence its keygen unit
-        RUN dnf -y remove akmods akmod-wl broadcom-wl || true
-        RUN systemctl mask akmods-keygen@akmods-keygen.service || true
-
-        # Prefer wl over in-kernel Broadcom drivers
+        # Keep wl preferred over in-tree drivers
         RUN printf '%s\n' "blacklist b43" "blacklist brcmsmac" "blacklist brcmfmac" \
           > /usr/lib/modprobe.d/blacklist-broadcom.conf
         RUN printf '%s\n' wl > /usr/lib/modules-load.d/wl.conf
 
-        # Turn off RPM Fusion repos after install (packages remain)
+        # Secure Boot keygen unit is unnecessary here
+        RUN systemctl mask akmods-keygen@akmods-keygen.service || true
+
+        # Turn off RPM Fusion repos after installing packages (packages remain)
         RUN set -euo pipefail; \
             if command -v dnf5 >/dev/null 2>&1; then CM="dnf5 config-manager"; else CM="dnf config-manager"; fi; \
             $CM --set-disabled 'rpmfusion-*' || true; \
