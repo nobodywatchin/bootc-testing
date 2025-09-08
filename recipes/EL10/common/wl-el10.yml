@@ -10,13 +10,58 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-  # 2) Prebuilt kABI-tracking kmod for Broadcom wl (no compilers, OOTB)
+  # 2) wl via akmods + build deps (flat, minimal)
   - type: dnf
     install:
       install-weak-deps: false
       packages:
+        - akmod-wl
         - kmod-wl
-        - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
+        - broadcom-wl
+        - kernel-devel
+        - kernel-headers
+        - gcc
+        - make
+        - binutils
+        - elfutils-libelf-devel
+        - bc
+        - patch
+        - wpa_supplicant
         - rfkill
         - iw
-        - wpa_supplicant
+
+  # 3) First-boot builder: compile wl for the running kernel if missing
+  - type: containerfile
+    snippets:
+      - |
+        RUN cat > /usr/lib/systemd/system/wl-akmod-build.service << 'EOF'
+        [Unit]
+        Description=Build & load Broadcom wl via akmods if needed (first boot)
+        After=local-fs.target systemd-udev-settle.service
+        Before=NetworkManager.service
+        ConditionPathExists=!/run/wl-akmod-build.done
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/bin/bash -ec '
+          set -o pipefail
+          if ! /usr/sbin/modinfo wl >/dev/null 2>&1; then
+            echo "wl module not found for $(uname -r) — building with akmods"
+            /usr/sbin/akmods --force --kernels "$(uname -r)" --kmod wl
+            /usr/sbin/depmod -a
+          else
+            echo "wl module already available for $(uname -r)"
+          fi
+          # Remove possible conflicting drivers (broadcom-wl already blacklists them)
+          for m in b43 bcma brcmsmac; do /usr/sbin/modprobe -r "$m" 2>/dev/null || true; done
+          # Load wl (don’t fail the boot if it can’t load)
+          /usr/sbin/modprobe wl || true
+          touch /run/wl-akmod-build.done
+        '
+  
+        [Install]
+        WantedBy=multi-user.target
+        EOF
+      - RUN systemctl enable wl-akmod-build.service akmods.service
+      - RUN systemctl disable akmods-keygen@akmods-keygen.service || true
