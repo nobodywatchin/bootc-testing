@@ -16,7 +16,7 @@ modules:
       install-weak-deps: false
       packages:
         - kmod-wl
-       - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
+        - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
         - rfkill
         - iw
         - wpa_supplicant
