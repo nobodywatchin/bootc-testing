@@ -17,7 +17,6 @@ modules:
     packages:
       - kmod-wl
       - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
-      - NetworkManager-wifi
       - rfkill
       - iw
       - wpa_supplicant
