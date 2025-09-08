@@ -1,23 +1,11 @@
 modules:
   # 1) Enable RPM Fusion (EL10)
   - type: dnf
-    repos:
-      keys:
-        - https://download1.rpmfusion.org/free/el/RPM-GPG-KEY-rpmfusion-free-el-10
-        - https://download1.rpmfusion.org/nonfree/el/RPM-GPG-KEY-rpmfusion-nonfree-el-10
-    install:
-      packages:
-        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
-
-  # 2) wl via akmods + build deps (flat, minimal)
-  - type: dnf
     install:
       install-weak-deps: false
       packages:
-        - akmod-wl
-        - kmod-wl
-        - broadcom-wl
+        - https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+        - dkms
         - kernel-devel
         - kernel-headers
         - gcc
@@ -26,46 +14,60 @@ modules:
         - elfutils-libelf-devel
         - bc
         - patch
+        - NetworkManager-wifi
         - wpa_supplicant
         - rfkill
         - iw
 
-  # 3) Pull patched wl, replace akmod source, add 1st-boot builder
+  # 2) Clone the patched repo into the exact DKMS path
   - type: containerfile
     snippets:
-      # Pin what we clone (change WL_REV to a commit/tag you trust)
+      - ARG WL_REPO=https://github.com/csabika98/broadcom-wl-patched.git
+      - ARG WL_REV=main
       - |
-        ARG WL_REPO=https://github.com/csabika98/broadcom-wl-patched.git
-        ARG WL_REV=master
-      - |
-        RUN --mount=type=cache,target=/var/cache/dnf \
-            --mount=type=cache,target=/root/.cache \
+        RUN --mount=type=cache,target=/root/.cache \
             git clone --depth=1 --branch "$WL_REV" "$WL_REPO" /tmp/wl-patched && \
-            # Replace akmod source tree with patched driver
-            rm -rf /usr/src/wl-6.30.223.271 && \
-            mkdir -p /usr/src/wl-6.30.223.271 && \
-            cp -a /tmp/wl-patched/* /usr/src/wl-6.30.223.271/ && \
-            chown -R root:root /usr/src/wl-6.30.223.271 && \
-            find /usr/src/wl-6.30.223.271 -type f -exec chmod 0644 {} \; && \
-            find /usr/src/wl-6.30.223.271 -type d -exec chmod 0755 {} \; && \
+            rm -rf /usr/src/broadcom-wl-6.30.223.271 && \
+            mkdir -p /usr/src/broadcom-wl-6.30.223.271 && \
+            cp -a /tmp/wl-patched/* /usr/src/broadcom-wl-6.30.223.271/ && \
+            chown -R root:root /usr/src/broadcom-wl-6.30.223.271 && \
+            find /usr/src/broadcom-wl-6.30.223.271 -type f -exec chmod 0644 {} \; && \
+            find /usr/src/broadcom-wl-6.30.223.271 -type d -exec chmod 0755 {} \; && \
             rm -rf /tmp/wl-patched
-      # The tiny first-boot builder (printf avoids heredoc parsing issues)
+
+      # 3) Ensure conflicting drivers are blacklisted (repo README lists them)
+      - |
+        RUN printf '%s\n' \
+          'blacklist ssb' \
+          'blacklist bcma' \
+          'blacklist b43' \
+          'blacklist brcmsmac' \
+          > /etc/modprobe.d/blacklist-broadcom-wl.conf
+
+      # 4) First-boot DKMS setup: add/build/install for the running kernel, then load wl
       - |
         RUN printf '%s\n' \
           '[Unit]' \
-          'Description=Build & load Broadcom wl via akmods if needed (first boot)' \
+          'Description=DKMS: build & load Broadcom wl on first boot' \
           'After=local-fs.target systemd-udev-settle.service' \
           'Before=NetworkManager.service' \
-          'ConditionPathExists=!/run/wl-akmod-build.done' \
+          'ConditionPathExists=!/run/wl-dkms-setup.done' \
           '' \
           '[Service]' \
           'Type=oneshot' \
           'RemainAfterExit=yes' \
-          "ExecStart=/usr/bin/bash -ec 'set -o pipefail; if ! /usr/sbin/modinfo wl >/dev/null 2>&1; then echo \"wl module not found for \$(uname -r) — building with akmods\"; /usr/sbin/akmods --force --kernels \"\$(uname -r)\" --kmod wl; /usr/sbin/depmod -a; else echo \"wl module already available for \$(uname -r)\"; fi; for m in b43 bcma brcmsmac; do /usr/sbin/modprobe -r \"\$m\" 2>/dev/null || true; done; /usr/sbin/modprobe wl || true; touch /run/wl-akmod-build.done'" \
+          "ExecStart=/usr/bin/bash -ec 'set -o pipefail; \
+             if ! dkms status broadcom-wl/6.30.223.271 | grep -q installed; then \
+               dkms add -m broadcom-wl -v 6.30.223.271 || true; \
+               dkms build -m broadcom-wl -v 6.30.223.271 -k \"\$(uname -r)\"; \
+               dkms install -m broadcom-wl -v 6.30.223.271 -k \"\$(uname -r)\"; \
+             fi; \
+             for m in b43 bcma brcmsmac; do /usr/sbin/modprobe -r \"\$m\" 2>/dev/null || true; done; \
+             /usr/sbin/depmod -a; \
+             /usr/sbin/modprobe wl || true; \
+             touch /run/wl-dkms-setup.done'" \
           '' \
           '[Install]' \
           'WantedBy=multi-user.target' \
-          > /usr/lib/systemd/system/wl-akmod-build.service
-      - RUN systemctl enable wl-akmod-build.service akmods.service
-      # SB irrelevant for you; make sure keygen is not enabled
-      - RUN systemctl disable akmods-keygen@akmods-keygen.service || true
+          > /usr/lib/systemd/system/wl-dkms-setup.service
+      - RUN systemctl enable wl-dkms-setup.service
