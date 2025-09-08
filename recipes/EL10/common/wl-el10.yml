@@ -10,21 +10,21 @@ modules:
         - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
         - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
 
-# 2) Prebuilt kABI-tracking kmod for Broadcom wl (no compilers, OOTB)
-- type: dnf
-  install:
-    install-weak-deps: false
-    packages:
-      - kmod-wl
-      - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
-      - rfkill
-      - iw
-      - wpa_supplicant
+  # 2) Prebuilt kABI-tracking kmod for Broadcom wl (no compilers, OOTB)
+  - type: dnf
+    install:
+      install-weak-deps: false
+      packages:
+        - kmod-wl
+       - broadcom-wl          # ships the blacklist for b43/bcma/brcmsmac
+        - rfkill
+        - iw
+        - wpa_supplicant
 
-# 3) Remove RPM Fusion repo definitions (keep installed packages)
-- type: dnf
-  remove:
-    auto-remove: false
-    packages:
-      - rpmfusion-free-release
-      - rpmfusion-nonfree-release
+  # 3) Remove RPM Fusion repo definitions (keep installed packages)
+  - type: dnf
+    remove:
+      auto-remove: false
+      packages:
+        - rpmfusion-free-release
+        - rpmfusion-nonfree-release
