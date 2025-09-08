@@ -22,9 +22,8 @@ modules:
         - wpa_supplicant
 
   # 3) Remove RPM Fusion repo definitions (keep installed packages)
-  - type: dnf
-    remove:
-      auto-remove: false
-      packages:
-        - rpmfusion-free-release
-        - rpmfusion-nonfree-release
+  - type: containerfile
+    content: |
+      # Delete RPM Fusion repo definitions and GPG keys
+      RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo /usr/share/yum.repos.d/rpmfusion-*.repo || true
+      RUN rm -f /etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-* || true
