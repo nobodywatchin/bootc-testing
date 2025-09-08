@@ -30,9 +30,26 @@ modules:
         - rfkill
         - iw
 
-  # 3) First-boot builder: compile wl for the running kernel if missing
+  # 3) Pull patched wl, replace akmod source, add 1st-boot builder
   - type: containerfile
     snippets:
+      # Pin what we clone (change WL_REV to a commit/tag you trust)
+      - |
+        ARG WL_REPO=https://github.com/csabika98/broadcom-wl-patched.git
+        ARG WL_REV=master
+      - |
+        RUN --mount=type=cache,target=/var/cache/dnf \
+            --mount=type=cache,target=/root/.cache \
+            git clone --depth=1 --branch "$WL_REV" "$WL_REPO" /tmp/wl-patched && \
+            # Replace akmod source tree with patched driver
+            rm -rf /usr/src/wl-6.30.223.271 && \
+            mkdir -p /usr/src/wl-6.30.223.271 && \
+            cp -a /tmp/wl-patched/* /usr/src/wl-6.30.223.271/ && \
+            chown -R root:root /usr/src/wl-6.30.223.271 && \
+            find /usr/src/wl-6.30.223.271 -type f -exec chmod 0644 {} \; && \
+            find /usr/src/wl-6.30.223.271 -type d -exec chmod 0755 {} \; && \
+            rm -rf /tmp/wl-patched
+      # The tiny first-boot builder (printf avoids heredoc parsing issues)
       - |
         RUN printf '%s\n' \
           '[Unit]' \
@@ -50,4 +67,5 @@ modules:
           'WantedBy=multi-user.target' \
           > /usr/lib/systemd/system/wl-akmod-build.service
       - RUN systemctl enable wl-akmod-build.service akmods.service
+      # SB irrelevant for you; make sure keygen is not enabled
       - RUN systemctl disable akmods-keygen@akmods-keygen.service || true
