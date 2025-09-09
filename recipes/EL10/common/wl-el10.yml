@@ -14,7 +14,7 @@ modules:
         - elfutils-libelf-devel
         - bc
         - patch
-        - NetworkManager-wifi
+        - git
         - wpa_supplicant
         - rfkill
         - iw
