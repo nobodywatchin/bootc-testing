@@ -31,16 +31,19 @@ modules:
         - mokutil
         - perl
 
-  # 3) Ensure kernel-devel matches the baked kernel
-  - type: script
-    snippets:
-      - set -euo pipefail
-        KVER=$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-core | head -n1)
-        echo "Installing kernel-devel-${KVER}"
-        dnf -y install "kernel-devel-${KVER}"
+  # 3) Add custom wl service and script
+  - type: files 
+    files:
+      - source: wl 
+        destination: /
 
-  # 4) Enable akmods service
+  # 4) Give script permissions to run 
+  - type: containerfile
+    snippets:
+      - RUN chmod 0755 /usr/local/sbin/wl-akmods-build.sh
+
+  # 5) Enable custom service
   - type: systemd
     system:
       enabled:
-        - akmods.service
+        - wl-akmods-load.service
