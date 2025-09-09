@@ -162,10 +162,21 @@ modules:
       - 1460 # Vitals
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
+  
   - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
       - source: gnome 
         destination: /
+  
   - type: bling # Updates dconf on boot (GNOME Extensions Settings, Themes, App Folders)
     install:
       - dconf-update-service 
+  
+  - type: kargs # Kernel Arguments for Desktop
+    kargs:
+      - mem_sleep_default=s2idle # Wakes up faster (For Laptops)
+      - amdgpu.si_support=1 # Enables AMDGPU on Southern Islands GPUs
+      - amdgpu.cik_support=1 # Enables AMDGPU on Sea Islands GPUs
+      - radeon.si_support=0 # Disables Radeon on Southern Islands GPUs
+      - radeon.cik_support=0 # Disables Radeon on Sea Islands GPUs
+      - modprobe.blacklist=radeon # Blacklists Radeon drivers altogether
