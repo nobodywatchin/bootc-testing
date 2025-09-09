@@ -2,7 +2,6 @@
 Description=Build & load Broadcom wl once per new kernel (ostree-safe)
 After=local-fs.target
 RequiresMountsFor=/usr/lib/modules/%v
-# Only run if we haven't done this for the current kernel release
 ConditionPathExists=!/var/lib/wl-akmods/done-%v
 
 [Service]
