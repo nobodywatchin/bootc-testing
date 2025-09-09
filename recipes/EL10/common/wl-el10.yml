@@ -41,6 +41,7 @@ modules:
   - type: containerfile
     snippets:
       - RUN chmod 0755 /usr/local/sbin/wl-akmods-build.sh
+      - RUN chmod 0755 /usr/local/sbin/needs-wl.sh
       - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo
 
   # 5) Enable custom service
