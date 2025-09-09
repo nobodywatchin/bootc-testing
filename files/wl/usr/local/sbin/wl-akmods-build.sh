@@ -1,38 +1,35 @@
 #!/bin/bash
 set -euo pipefail
-
 KVER="$(uname -r)"
 MARK="/var/lib/wl-akmods/done-${KVER}"
+[ -f "$MARK" ] && exit 0
 
-# Only run once per kernel
-if [[ -f "$MARK" ]]; then exit 0; fi
-
-# Build the kmod RPM via akmods
+# Build kmod RPM
 /usr/sbin/akmods --kernels "$KVER" --akmod wl
 
-# Find the freshly built RPM
+# Take the newest wl kmod RPM
 RPM=$(ls -1 /var/cache/akmods/wl/kmod-wl-*.rpm | tail -n1)
 
-# Extract and stage wl.ko(.xz) to /var
+# Extract and stage for this exact kernel
 WORK=/var/lib/wl-spool
 rm -rf "$WORK" && mkdir -p "$WORK"
 cd "$WORK"
 rpm2cpio "$RPM" | cpio -idmv
 
-MOD=$(find "$WORK" -type f -regex '.*\/wl\.ko(\.xz)?$' | head -n1)
 install -d -m 0755 "/var/lib/wl-extra/${KVER}/extra"
-cp -f "$MOD" "/var/lib/wl-extra/${KVER}/extra/"
+cp -f "lib/modules/${KVER}/extra/wl/wl.ko"* "/var/lib/wl-extra/${KVER}/extra/"
 
-# Ensure the tmpfiles link exists
+# Expose via tmpfiles link
 cat >/etc/tmpfiles.d/wl-extra.conf <<'EOF'
 L+ /usr/lib/modules/%v/extra - - - - /var/lib/wl-extra/%v/extra
 EOF
 systemd-tmpfiles --create /etc/tmpfiles.d/wl-extra.conf
 
-# Register and load
+# Register & load
 depmod -a "$KVER"
+modprobe lib80211 || true
 modprobe wl || true
 
-# Mark as done
+# Mark done for this kernel
 install -d -m 0755 /var/lib/wl-akmods
 : > "$MARK"
