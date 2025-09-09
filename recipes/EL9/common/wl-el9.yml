@@ -41,11 +41,7 @@ modules:
   - type: containerfile
     snippets:
       - RUN chmod 0755 /usr/local/sbin/wl-akmods-build.sh
-      - RUN set -euo pipefail; \
-            if command -v dnf5 >/dev/null 2>&1; then CM="dnf5 config-manager"; else CM="dnf config-manager"; fi; \
-            $CM --set-disabled 'rpmfusion-*' || true; \
-            dnf -y remove 'rpmfusion-*-release' || true; \
-            rm -f /etc/yum.repos.d/rpmfusion-*.repo || true
+      - RUN rm -f /etc/yum.repos.d/rpmfusion-*.repo
 
   # 5) Enable custom service
   - type: systemd
