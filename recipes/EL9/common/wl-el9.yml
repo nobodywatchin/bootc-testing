@@ -1,14 +1,14 @@
 modules:
-  # 1) Enable RPM Fusion (EL10)
+  # 1) Enable RPM Fusion (EL9)
   - type: dnf
     repos:
       keys:
-        - https://download1.rpmfusion.org/free/el/RPM-GPG-KEY-rpmfusion-free-el-10
-        - https://download1.rpmfusion.org/nonfree/el/RPM-GPG-KEY-rpmfusion-nonfree-el-10
+        - https://download1.rpmfusion.org/free/el/RPM-GPG-KEY-rpmfusion-free-el-9
+        - https://download1.rpmfusion.org/nonfree/el/RPM-GPG-KEY-rpmfusion-nonfree-el-9
     install:
       packages:
-        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-10.noarch.rpm
-        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-10.noarch.rpm
+        - https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-9.noarch.rpm
+        - https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-9.noarch.rpm
 
   # 2) wl via akmods + build deps (flat, minimal)
   - type: dnf

@@ -68,16 +68,25 @@ EOF2
 systemctl daemon-reload
 systemctl enable --now "${UNIT}"
 
-# 8) Load deps if they exist as modules (often built-in on EL10; ignore failures)
+# 8) Blacklist Other Wifi Drivers
+mkdir -p /run/modprobe.d
+cat >/run/modprobe.d/wl-blacklist.conf <<'BL'
+blacklist b43
+blacklist brcmsmac
+blacklist bcma
+blacklist ssb
+BL
+
+# 9) Load deps if they exist as modules (often built-in on EL10; ignore failures)
 LIB80211="$(find "/usr/lib/modules/${KVER}" -name 'lib80211.ko*' -print -quit || true)"
 [[ -n "${LIB80211}" ]] && insmod "${LIB80211}" || true
 CFG80211="$(find "/usr/lib/modules/${KVER}" -name 'cfg80211.ko*' -print -quit || true)"
 [[ -n "${CFG80211}" ]] && insmod "${CFG80211}" || true
 
-# 9) Insert wl by absolute path; ignore if it errors (you can modprobe later)
+# 10) Insert wl by absolute path; ignore if it errors (you can modprobe later)
 insmod "${DST}/wl/wl.ko" || true
 
-# 10) Mark done for this kernel
+# 11) Mark done for this kernel
 install -d -m 0755 /var/lib/wl-akmods
 : > "$MARK"
 echo "[wl-akmods] wl staged/mounted for ${KVER}"
