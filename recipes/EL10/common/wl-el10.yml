@@ -31,13 +31,13 @@ modules:
         - mokutil
         - perl
 
-# 3) Ensure kernel-devel matches the baked kernel
-- type: script
-  snippets:
-    - set -euo pipefail
-      KVER=$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-core | head -n1)
-      echo "Installing kernel-devel-${KVER}"
-      dnf -y install "kernel-devel-${KVER}"
+  # 3) Ensure kernel-devel matches the baked kernel
+  - type: script
+    snippets:
+      - set -euo pipefail
+        KVER=$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-core | head -n1)
+        echo "Installing kernel-devel-${KVER}"
+        dnf -y install "kernel-devel-${KVER}"
 
   # 4) Enable akmods service
   - type: systemd
