@@ -16,7 +16,10 @@ sha256sum --check --ignore-missing SHA256SUMS
 
 echo "Extracting and installing..."
 tar -xzf "${JUST_TAR}"
-sudo install -m 0755 just /usr/local/bin/just
+
+# Ensure target dir exists in the image root
+install -d /usr/local/bin
+install -m 0755 just /usr/local/bin/just
 
 echo "Installed:"
 /usr/local/bin/just --version
