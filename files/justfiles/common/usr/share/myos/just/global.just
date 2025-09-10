@@ -1,0 +1,1 @@
+import '/usr/share/myos/just/index.just'

@@ -14,6 +14,7 @@ modules:
       install-weak-deps: false
       packages:
         - fastfetch
+        - just
         # Networking extras
         - ethtool
         - iproute-tc
@@ -103,3 +104,8 @@ modules:
 
         # Firewall (optional; enable if you manage via firewalld)
         - firewalld
+  
+  - type: files # adds common justfiles
+    files:
+      - source: justfiles/common 
+        destination: /
