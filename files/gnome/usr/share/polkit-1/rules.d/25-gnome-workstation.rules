@@ -43,13 +43,11 @@ polkit.addRule(function (action, subject) {
   if (startsWith("org.freedesktop.NetworkManager.") && ok)
     return polkit.Result.YES;
 
-  // Power profiles (power-profiles-daemon)
-  if (startsWith("net.hadess.PowerProfiles.") && ok)
-    return polkit.Result.YES;
-
-  // Tuned (tuned-ppd)
-  if ((/^org\.tuned/.test(action.id) || /^org\.freedesktop\.tuned/.test(action.id)) &&
-      (subject.isInGroup("wheel") || subject.isInGroup("tuned"))) {
+  // Power profiles (tuned-ppd implements power-profiles-daemon API)
+  if (
+    startsWith("net.hadess.PowerProfiles.") && ok ||
+    startsWith("org.freedesktop.UPower.PowerProfiles.") && ok
+  ) {
     return polkit.Result.YES;
   }
 
@@ -57,5 +55,4 @@ polkit.addRule(function (action, subject) {
   if (startsWith("org.freedesktop.bolt") && ok)
     return polkit.Result.AUTH_ADMIN_KEEP;
 
-  // No decision -> fall through (polkit will evaluate other rules or deny)
 });

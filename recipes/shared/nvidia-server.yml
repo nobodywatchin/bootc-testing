@@ -1,9 +1,9 @@
 ---
 modules:
-  - type: containerfile
-    snippets:
-      - RUN dnf config-manager --add-repo https://negativo17.org/repos/epel-nvidia.repo
   - type: dnf
+    repos:
+      files:
+        - https://negativo17.org/repos/epel-nvidia.repo
     install:
       packages:
         - akmod-nvidia
