@@ -104,8 +104,3 @@ modules:
 
         # Firewall (optional; enable if you manage via firewalld)
         - firewalld
-  
-  - type: files # adds common justfiles
-    files:
-      - source: justfiles/common 
-        destination: /

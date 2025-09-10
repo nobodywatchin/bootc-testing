@@ -19,6 +19,7 @@ modules:
   - from-file: shared/server-base.yml
   - from-file: EL10/common/tailscale-manual-rhel10.yml
   - from-file: shared/server-extras.yml
+  - from-file: EL10/common/el10-just.yml
   - from-file: shared/kubernetes.yml
   - from-file: shared/services.yml 
   - from-file: shared/logos.yml 
