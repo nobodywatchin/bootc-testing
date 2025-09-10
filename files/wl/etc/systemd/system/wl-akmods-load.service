@@ -5,7 +5,7 @@ ConditionPathExists=/usr/local/sbin/wl-akmods-build.sh
 
 [Service]
 Type=oneshot
-ExecCondition=/usr/local/sbin/needs_wl.sh
+ExecCondition=/usr/local/sbin/needs-wl.sh
 ExecStart=/usr/local/sbin/wl-akmods-build.sh
 RemainAfterExit=yes
 Environment="PATH=/usr/sbin:/usr/bin:/sbin:/bin"
