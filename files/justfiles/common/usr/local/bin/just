@@ -1,24 +1,13 @@
 #!/bin/sh
-# Prefer a project justfile; else use global/system default.
+# Prefer a project justfile; else use immutable index.just in /usr/share.
 find_up() {
   dir="$PWD"
   while :; do
-    [ -f "$dir/justfile" ] && return 0
-    [ -f "$dir/Justfile" ] && return 0
-    [ "$dir" = "/" ] && return 1
+    [ -f "$dir/justfile" ] && exec /usr/bin/just "$@"
+    [ -f "$dir/Justfile" ] && exec /usr/bin/just "$@"
+    [ "$dir" = "/" ] && break
     dir="$(dirname "$dir")"
   done
 }
-
-if find_up; then
-  exec /usr/bin/just "$@"
-else
-  # Try user-global first if it exists, else system default.
-  if [ -f "$XDG_CONFIG_HOME/just/justfile" ]; then
-    exec /usr/bin/just --justfile "$XDG_CONFIG_HOME/just/justfile" "$@"
-  elif [ -f "$HOME/.config/just/justfile" ]; then
-    exec /usr/bin/just --justfile "$HOME/.config/just/justfile" "$@"
-  else
-    exec /usr/bin/just --justfile /etc/just/justfile "$@"
-  fi
-fi
+find_up
+exec /usr/bin/just --justfile /usr/share/myos/just/index.just "$@"
