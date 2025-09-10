@@ -20,9 +20,9 @@ modules:
       packages:
         - mlocate
   - from-file: shared/server-base.yml
-  - from-file: EL9/common/tailscale-rhel9.yml
-  - from-file: EL10/common/just-el9.yml
   - from-file: shared/server-extras.yml
+  - from-file: EL9/common/tailscale-rhel9.yml
+  - from-file: EL9/common/just-el9.yml
   - from-file: shared/kubernetes.yml
   - from-file: shared/services.yml
   - from-file: shared/logos.yml 
