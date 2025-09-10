@@ -1,119 +1,120 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -euo pipefail
 
-# -------- Config / paths --------
 KVER="$(uname -r)"
 MARK="/var/lib/wl-akmods/done-${KVER}"
 WORK="/var/lib/wl-spool"
 SRC_BASE="/var/lib/wl-mount/${KVER}/updates"
 SRC_WL="${SRC_BASE}/wl"
 DST="/usr/lib/modules/${KVER}/updates"
-WL_DST="${DST}/wl/wl.ko"
+UNIT="$(systemd-escape --path --suffix=mount "${DST}")"   # e.g. usr-lib-modules-<...>-updates.mount
 
-log() { echo "[wl-akmods] $*"; }
-die() { echo "[wl-akmods][ERROR] $*" >&2; exit 1; }
+ensure_mount_unit() {
+  # Create the bind-mount unit whose *name* matches the Where= path (must match or systemd refuses it)
+  install -d -m 0755 "${SRC_WL}"
+  install -d -m 0755 "${DST}" || true
 
-is_staged() {
-  [[ -f "$WL_DST" ]] && modinfo "$WL_DST" >/dev/null 2>&1
-}
-
-# -------- Guard: only skip if truly staged --------
-if [[ -f "$MARK" ]]; then
-  if is_staged; then
-    log "mark + wl.ko present; nothing to do for ${KVER}"
-    exit 0
-  else
-    log "mark exists but wl.ko missing or unreadable; repairing…"
-    rm -f "$MARK"
-  fi
-fi
-
-# -------- Ensure logging dir for akmods on ostree --------
-install -d -m 0755 /var/log/akmods
-
-# -------- 1) Build via akmods (best-effort; we’ll still try to use any produced RPM) --------
-/usr/sbin/akmods --kernels "${KVER}" --akmod wl || true
-
-# -------- 2) Find a kmod RPM for this kernel --------
-RPM="$(ls -1t /var/cache/akmods/wl/kmod-wl-*.x86_64.rpm 2>/dev/null | head -n1 || true)"
-[[ -n "$RPM" ]] || die "No kmod-wl RPM found under /var/cache/akmods/wl; check akmods logs."
-
-# -------- 3) Extract wl.ko(.xz) safely --------
-rm -rf "${WORK}"
-install -d -m 0755 "${WORK}"
-pushd "${WORK}" >/dev/null
-
-rpm2cpio "${RPM}" | cpio -idmv >/dev/null 2>&1 || die "Failed to extract ${RPM}"
-
-FOUND="$(find "${WORK}" -type f \( -name 'wl.ko' -o -name 'wl.ko.xz' \) -print -quit || true)"
-[[ -n "$FOUND" ]] || die "wl.ko(.xz) not found inside ${RPM}"
-
-WLKO="$FOUND"
-if [[ "$WLKO" == *.xz ]]; then
-  xz -df "$WLKO"
-  WLKO="${WLKO%.xz}"
-fi
-[[ -f "$WLKO" ]] || die "Decompression failed; ${WLKO} missing."
-
-# -------- 4) Secure Boot: sign if enabled and key exists --------
-if mokutil --sb-state 2>/dev/null | grep -qi enabled; then
-  PRIV="$(ls -1t /etc/pki/akmods/private/*.priv 2>/dev/null | head -n1 || true)"
-  CERT="$(ls -1t /etc/pki/akmods/certs/*.der   2>/dev/null | head -n1 || true)"
-  SIGN="/usr/lib/modules/${KVER}/build/scripts/sign-file"
-  if [[ -n "$PRIV" && -n "$CERT" && -x "$SIGN" ]]; then
-    "$SIGN" sha256 "$PRIV" "$CERT" "$WLKO" || die "Secure Boot signing failed."
-    log "signed wl.ko (SB enabled)"
-  else
-    log "WARNING: SB enabled but sign prerequisites missing; the module may not load."
-  fi
-fi
-
-popd >/dev/null
-
-# -------- 5) Stage into /var and bind-mount into /usr (ostree-safe) --------
-install -d -m 0755 "${SRC_WL}"
-install -m 0644 "${WLKO}" "${SRC_WL}/wl.ko"
-
-UNIT="$(systemd-escape --path --suffix=mount "${DST}")"
-UNIT_PATH="/etc/systemd/system/${UNIT}"
-
-# Build a correct .mount: filename MUST reflect Where= path
-cat > "${UNIT_PATH}" <<EOF
+  cat >/etc/systemd/system/"${UNIT}" <<EOF
 [Unit]
 Description=Bind-mount wl updates for kernel ${KVER}
-DefaultDependencies=no
-After=local-fs.target
-Before=sysinit.target
 
 [Mount]
-What=${SRC_BASE}
 Where=${DST}
+What=${SRC_BASE}
 Type=none
-Options=bind,ro
+Options=bind
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
-systemctl daemon-reload
-systemctl enable --now "${UNIT}"
+  systemctl daemon-reload
+  systemctl enable --now "${UNIT}"
+}
 
-# -------- 6) Validate mount and staged file --------
-systemctl -q is-active "${UNIT}" || die "mount unit ${UNIT} not active."
-is_staged || die "wl.ko not visible at ${WL_DST} after mount."
+blacklist_conf() {
+  install -d -m 0755 /run/modprobe.d
+  cat >/run/modprobe.d/wl-blacklist.conf <<'EOF'
+# block in-kernel Broadcom drivers that conflict with wl
+blacklist b43
+blacklist bcma
+blacklist brcmsmac
+EOF
+}
 
-# -------- 7) Try to load dependencies if present (harmless if built-in) --------
-CFG80211="$(find "/usr/lib/modules/${KVER}" -name 'cfg80211.ko*' -print -quit || true)"
-[[ -n "$CFG80211" ]] && insmod "$CFG80211" || true
-LIB80211="$(find "/usr/lib/modules/${KVER}" -name 'lib80211.ko*' -print -quit || true)"
-[[ -n "$LIB80211" ]] && insmod "$LIB80211" || true
+try_insmod() {
+  # cfg80211 may be needed; lib80211 is built-in on many EL kernels
+  local cfg
+  cfg="$(find "/usr/lib/modules/${KVER}" -name 'cfg80211.ko*' -print -quit || true)"
+  [[ -n "${cfg}" ]] && insmod "${cfg}" || true
 
-# -------- 8) Load wl --------
-if ! modprobe wl 2>/dev/null; then
-  insmod "${WL_DST}" || die "Failed to load wl."
+  insmod "${DST}/wl/wl.ko" || true
+  modprobe wl || true
+}
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 0) If mark exists but wl is actually missing (e.g., after a base update),
+#    clear the mark so we rebuild/re-stage.
+if [[ -f "${MARK}" && ! -e "${DST}/wl/wl.ko" && ! -e "${SRC_WL}/wl.ko" ]]; then
+  rm -f "${MARK}"
 fi
 
-# -------- 9) Mark done (now that the mount+file are good) --------
+# 1) If we’ve already done this for this kernel, ensure the mount is up and try load.
+if [[ -f "${MARK}" ]]; then
+  ensure_mount_unit
+  blacklist_conf
+  # depmod is a no-op on ostree /lib; we rely on direct insmod+modprobe
+  try_insmod
+  exit 0
+fi
+
+# 2) If wl.ko is already present (staged or mounted), just mount+load and mark done.
+if [[ -e "${DST}/wl/wl.ko" || -e "${SRC_WL}/wl.ko" ]]; then
+  ensure_mount_unit
+  blacklist_conf
+  try_insmod
+  install -d -m 0755 /var/lib/wl-akmods
+  : > "${MARK}"
+  echo "[wl-akmods] used existing wl.ko for ${KVER}"
+  exit 0
+fi
+
+# 3) No wl.ko yet: try akmods to (build → rpm), then extract wl.ko from the kmod RPM.
+install -d -m 0755 /var/log/akmods || true
+/usr/sbin/akmods --kernels "${KVER}" --akmod wl || true
+
+RPM="$(ls -1t /var/cache/akmods/wl/kmod-wl-${KVER%%.*}-*.x86_64.rpm 2>/dev/null | head -n1 || true)"
+if [[ -z "${RPM}" || ! -f "${RPM}" ]]; then
+  echo "[wl-akmods] ERROR: no kmod-wl RPM produced for ${KVER}"
+  exit 1
+fi
+
+rm -rf "${WORK}"
+install -d -m 0755 "${WORK}"
+pushd "${WORK}" >/dev/null
+rpm2cpio "${RPM}" | cpio -idmv
+FOUND="$(find "${WORK}" -type f \( -name 'wl.ko' -o -name 'wl.ko.xz' \) -print -quit || true)"
+popd >/dev/null
+
+if [[ -z "${FOUND}" ]]; then
+  echo "[wl-akmods] ERROR: wl.ko(.xz) not found in ${RPM}"
+  exit 1
+fi
+
+# Decompress if necessary and stage to the writable mount source
+if [[ "${FOUND}" == *.xz ]]; then
+  xz -df "${FOUND}"
+  FOUND="${FOUND%.xz}"
+fi
+
+install -d -m 0755 "${SRC_WL}"
+install -m 0644 "${FOUND}" "${SRC_WL}/wl.ko"
+
+# 4) Bind-mount -> blacklist -> load -> mark
+ensure_mount_unit
+blacklist_conf
+try_insmod
+
 install -d -m 0755 /var/lib/wl-akmods
 : > "${MARK}"
-log "wl staged/mounted for ${KVER}"
+echo "[wl-akmods] wl staged/mounted for ${KVER}"
