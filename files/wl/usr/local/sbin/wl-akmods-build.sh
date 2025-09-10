@@ -7,11 +7,11 @@ WORK="/var/lib/wl-spool"
 SRC_BASE="/var/lib/wl-mount/${KVER}/updates"
 SRC_WL="${SRC_BASE}/wl"
 DST="/usr/lib/modules/${KVER}/updates"
-UNIT="$(systemd-escape --path --suffix=mount "${DST}")"   # e.g. usr-lib-modules-<...>-updates.mount
+UNIT="$(systemd-escape --path --suffix=mount "${DST}")"   # usr-lib-modules-...-updates.mount
 
 ensure_mount_unit() {
-  # Create the bind-mount unit whose *name* matches the Where= path (must match or systemd refuses it)
   install -d -m 0755 "${SRC_WL}"
+  # /usr is read-only under ostree; it's fine if this fails:
   install -d -m 0755 "${DST}" || true
 
   cat >/etc/systemd/system/"${UNIT}" <<EOF
@@ -27,7 +27,6 @@ Options=bind
 [Install]
 WantedBy=multi-user.target
 EOF
-
   systemctl daemon-reload
   systemctl enable --now "${UNIT}"
 }
@@ -42,35 +41,46 @@ blacklist brcmsmac
 EOF
 }
 
+restore_label() {
+  # prefer restorecon; fall back to chcon
+  if command -v restorecon >/dev/null 2>&1; then
+    restorecon -Rv "$1" || true
+  else
+    chcon -R -t modules_object_t "$1" || true
+  fi
+}
+
 try_insmod() {
-  # cfg80211 may be needed; lib80211 is built-in on many EL kernels
+  # cfg80211 may be separate; lib80211 is often built-in on EL10
   local cfg
   cfg="$(find "/usr/lib/modules/${KVER}" -name 'cfg80211.ko*' -print -quit || true)"
   [[ -n "${cfg}" ]] && insmod "${cfg}" || true
 
+  # load the staged module and then resolve softdeps
   insmod "${DST}/wl/wl.ko" || true
   modprobe wl || true
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
-# 0) If mark exists but wl is actually missing (e.g., after a base update),
-#    clear the mark so we rebuild/re-stage.
+# 0) If mark exists but wl is missing (e.g., base flip), clear the mark.
 if [[ -f "${MARK}" && ! -e "${DST}/wl/wl.ko" && ! -e "${SRC_WL}/wl.ko" ]]; then
   rm -f "${MARK}"
 fi
 
-# 1) If we’ve already done this for this kernel, ensure the mount is up and try load.
+# 1) If already done for this kernel, ensure the mount and try load.
 if [[ -f "${MARK}" ]]; then
   ensure_mount_unit
   blacklist_conf
-  # depmod is a no-op on ostree /lib; we rely on direct insmod+modprobe
   try_insmod
   exit 0
 fi
 
-# 2) If wl.ko is already present (staged or mounted), just mount+load and mark done.
+# 2) If wl.ko already exists (staged or mounted), mount+label+load and mark done.
 if [[ -e "${DST}/wl/wl.ko" || -e "${SRC_WL}/wl.ko" ]]; then
   ensure_mount_unit
+  # make sure correct SELinux labels exist on both sides
+  restore_label "${SRC_BASE}"
+  if mountpoint -q "${DST}"; then restore_label "${DST}"; fi
   blacklist_conf
   try_insmod
   install -d -m 0755 /var/lib/wl-akmods
@@ -79,11 +89,13 @@ if [[ -e "${DST}/wl/wl.ko" || -e "${SRC_WL}/wl.ko" ]]; then
   exit 0
 fi
 
-# 3) No wl.ko yet: try akmods to (build → rpm), then extract wl.ko from the kmod RPM.
+# 3) Build via akmods → extract wl.ko from the kmod RPM.
 install -d -m 0755 /var/log/akmods || true
 /usr/sbin/akmods --kernels "${KVER}" --akmod wl || true
 
-RPM="$(ls -1t /var/cache/akmods/wl/kmod-wl-${KVER%%.*}-*.x86_64.rpm 2>/dev/null | head -n1 || true)"
+# Figure out the kmod-wl RPM name for this kernel series (X.Y.Z-NN).
+SERIES="$(echo "${KVER}" | sed -E 's/^([0-9]+\.[0-9]+\.[0-9]+)-([0-9]+).*/\1-\2/')"
+RPM="$(ls -1t /var/cache/akmods/wl/kmod-wl-${SERIES}.el10_*x86_64.rpm 2>/dev/null | head -n1 || true)"
 if [[ -z "${RPM}" || ! -f "${RPM}" ]]; then
   echo "[wl-akmods] ERROR: no kmod-wl RPM produced for ${KVER}"
   exit 1
@@ -101,17 +113,16 @@ if [[ -z "${FOUND}" ]]; then
   exit 1
 fi
 
-# Decompress if necessary and stage to the writable mount source
-if [[ "${FOUND}" == *.xz ]]; then
-  xz -df "${FOUND}"
-  FOUND="${FOUND%.xz}"
-fi
+# Decompress if necessary, then stage
+[[ "${FOUND}" == *.xz ]] && xz -df "${FOUND}" && FOUND="${FOUND%.xz}"
 
 install -d -m 0755 "${SRC_WL}"
 install -m 0644 "${FOUND}" "${SRC_WL}/wl.ko"
 
-# 4) Bind-mount -> blacklist -> load -> mark
+# 4) Bind-mount → label (source & destination) → blacklist → load → mark
 ensure_mount_unit
+restore_label "${SRC_BASE}"
+if mountpoint -q "${DST}"; then restore_label "${DST}"; fi
 blacklist_conf
 try_insmod
 
