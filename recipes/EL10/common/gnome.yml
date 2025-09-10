@@ -73,15 +73,21 @@ modules:
         - ModemManager
         - ppp
 
-        # --- Bluetooth stack
-        - bluez
+        # Wireless (Bluetooth/Wifi)
+        - bluez # Bluetooth dependency
+        - bluez-cups
         # - bluez-tools   # optional: scriptable CLI helpers
+        - hidapi
         - brcmfmac-firmware
         - atheros-firmware
         - tiwilink-firmware
         - realtek-firmware
         - nxpwireless-firmware
         - mt7xxx-firmware
+        - iwlwifi-dvm-firmware
+        - iwlwifi-mvm-firmware
+        - iwlegacy-firmware
+        - libertas-firmware
 
         # --- GVFS (files/SMB/phones)
         - gvfs-fuse
