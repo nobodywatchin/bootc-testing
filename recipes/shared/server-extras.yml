@@ -14,6 +14,7 @@ modules:
       install-weak-deps: false
       packages:
         - fastfetch
+        - fzf
         # Networking extras
         - ethtool
         - iproute-tc
