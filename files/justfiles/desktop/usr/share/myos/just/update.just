@@ -1,7 +1,9 @@
 # Update System Flatpaks and OS Image
 update-system:
-  sudo bootc upgrade
   sudo flatpak update --system -y
+  sudo bootc upgrade
+  #!/usr/bin/bash
+  echo "Reboot to apply System updates"
 
 # Update User Flatpaks and Distrobox Containers
 update-user:
