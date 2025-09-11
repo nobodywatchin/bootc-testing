@@ -1,6 +1,12 @@
 # Update System Flatpaks and OS Image
 update-system:
   sudo bootc upgrade
+  sudo flatpak update --system -y
+
+# Update User Flatpaks and Distrobox Containers
+update-user:
+  flatpak update --user -y
+  distrobox-upgrade --all
 
 # Update Podman Containers
 update-podman:
@@ -15,5 +21,6 @@ update-firmware:
 # Update Everything
 update-all:
   just update-system
+  just update-user
   just update-podman
   just update-firmware
