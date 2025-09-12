@@ -2,5 +2,8 @@ import '/usr/share/myos/just/default.just'
 import '/usr/share/myos/just/update.just'
 
 default:
-  @choice="$$(just --summary | tr ' ' '\n' | grep -v '^default$$' | fzf)"; \
-  [ -n "$$choice" ] && exec just "$$choice" || true
+  @if command -v fzf >/dev/null 2>&1; then \
+    just --summary | tr ' ' '\n' | grep -v '^default$$' | fzf | xargs -r just; \
+  else \
+    just --list; \
+  fi
