@@ -18,7 +18,7 @@ modules:
         - plocate
   - from-file: shared/server-base.yml
   - from-file: shared/server-extras.yml
-  - from-file: EL10/common/tailscale-rhel10.yml
+  - from-file: EL10/common/tailscale-el10.yml
   - from-file: EL10/common/just-el10.yml
   - from-file: shared/kubernetes.yml
   - from-file: shared/services.yml 
