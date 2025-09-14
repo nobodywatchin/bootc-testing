@@ -15,6 +15,7 @@ modules:
       packages:
         - fastfetch
         - fzf
+        - gh
         # Networking extras
         - ethtool
         - iproute-tc
