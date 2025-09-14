@@ -5,6 +5,6 @@ modules:
       - https://pkgs.tailscale.com/stable/rhel/10/repo.gpg
     files:
       - https://pkgs.tailscale.com/stable/rhel/10/tailscale.repo
-  packages:
-    install:
+  install:
+    packages:
       - tailscale
