@@ -14,6 +14,7 @@ modules:
     install:
       install-weak-deps: false
       packages:
+        - uxplay
         - morewaita-icon-theme
         # Replaces vim-minimal
         - vim-enhanced 
@@ -170,6 +171,7 @@ modules:
       - 6580 # Open Bar
       - 1401 # Bluetooth Quick Connect
       - 6051 # DuckduckGo Web search
+      - 8243 # UXPlay Control
   
   - type: files # Adds polkit and dconf rules (Custom settings for GNOME, Extensions, Themes, and App Folders)
     files:
