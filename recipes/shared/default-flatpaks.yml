@@ -30,6 +30,7 @@ modules:
           - com.mattjakeman.ExtensionManager
           - io.github.flattool.Warehouse
           - io.github.flattool.Ignition
+          - org.gnome.Epiphany
           - org.gnome.TextEditor
           - org.gnome.Calculator
           - org.gnome.Loupe
