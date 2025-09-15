@@ -1,6 +1,10 @@
 ---
 modules:
   - type: dnf # Installs Core Groups for GUI
+    repos:
+      cleanup: true 
+      copr:
+        - trixieua/morewaita-icon-theme
     remove:
       packages:
         - vim-minimal
@@ -10,6 +14,7 @@ modules:
     install:
       install-weak-deps: false
       packages:
+        - morewaita-icon-theme
         # Replaces vim-minimal
         - vim-enhanced 
 
