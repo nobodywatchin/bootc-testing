@@ -78,7 +78,7 @@ translate=true
 
 [org/gnome/desktop/app-folders/folders/Web]
 name='Web'
-apps=['com.brave.Browser.desktop', 'com.google.Chrome.desktop', 'io.github.ungoogled_software.ungoogled_chromium.desktop', 'com.microsoft.Edge.desktop', 'org.mozilla.firefox.desktop', 'io.gitlab.librewolf-community.desktop', 'one.ablaze.floorp.desktop', 'com.opera.Opera.desktop', 'com.vivaldi.Vivaldi.desktop', 'app.zen_browser.zen.desktop', 'org.torproject.torbrowser-launcher.desktop', 'org.torproject.torbrowser-launcher.settings.desktop', 'io.github.OkuBrowser.oku.desktop', 'engineer.atlas.Nyxt.desktop', 'org.qutebrowser.qutebrowser.desktop']
+apps=['org.gnome.Epiphany.desktop', 'com.brave.Browser.desktop', 'com.google.Chrome.desktop', 'io.github.ungoogled_software.ungoogled_chromium.desktop', 'com.microsoft.Edge.desktop', 'org.mozilla.firefox.desktop', 'io.gitlab.librewolf-community.desktop', 'one.ablaze.floorp.desktop', 'com.opera.Opera.desktop', 'com.vivaldi.Vivaldi.desktop', 'app.zen_browser.zen.desktop', 'org.torproject.torbrowser-launcher.desktop', 'org.torproject.torbrowser-launcher.settings.desktop', 'io.github.OkuBrowser.oku.desktop', 'engineer.atlas.Nyxt.desktop', 'org.qutebrowser.qutebrowser.desktop']
 translate=true
 
 [org/gnome/desktop/app-folders/folders/Social]
@@ -105,7 +105,7 @@ translate=true
 
 [org/gnome/desktop/app-folders/folders/Settings]
 name='Settings'
-apps=['org.gnome.Settings.desktop', 'io.github.flattool.Ignition.desktop', 'org.gnome.tweaks.desktop', 'page.tesk.Refine.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.pulseaudio.pavucontrol.desktop', 'io.github.andreibachim.shortcut.desktop']
+apps=['org.gnome.Settings.desktop', 'io.github.flattool.Ignition.desktop', 'org.gnome.tweaks.desktop', 'page.tesk.Refine.desktop', 'io.github.swordpuffin.rewaita.desktop', 'com.mattjakeman.ExtensionManager.desktop', 'page.codeberg.libre_menu_editor.LibreMenuEditor.desktop', 'ca.desrt.dconf-editor.desktop', 'io.github.realmazharhussain.GdmSettings.desktop', 'io.github.vikdevelop.SaveDesktop.desktop', 'io.github.swordpuffin.wardrobe.desktop', 'org.pulseaudio.pavucontrol.desktop', 'io.github.andreibachim.shortcut.desktop']
 translate=true
 
 [org/gnome/desktop/app-folders/folders/Downloads]
