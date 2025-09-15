@@ -3,6 +3,9 @@ enabled-extensions=['just-perfection-desktop@just-perfection', 'KeepAwake@jepfa.
 
 [org/gnome/shell/extensions/just-perfection]
 animation=5
+quick-settings-dark-mode=false
+workspace-switcher-should-show=true
+workspace-switcher-size=10
 
 [org/gnome/shell/extensions/vitals]
 icon-style=1
