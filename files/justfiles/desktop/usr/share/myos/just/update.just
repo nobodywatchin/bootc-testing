@@ -17,7 +17,8 @@ update-podman:
 # Update Firmware
 update-firmware:
   sudo fwupdmgr refresh --force
-  sudo fwupdmgr update -y
+  sudo fwupdmgr get-updates
+  sudo fwupdmgr update
 
 # Update Everything
 update-all:
