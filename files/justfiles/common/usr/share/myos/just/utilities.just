@@ -11,12 +11,6 @@ regenerate-grub:
       grub2-mkconfig -o /etc/grub2.cfg
     fi
 
-# Clean up old up unused podman images, volumes, flatpak packages
-clean-user:
-    podman image prune -af
-    podman volume prune -f
-    flatpak uninstall --unused
-
 # Check for local overrides
 check-local-overrides:
     diff -r \
@@ -48,18 +42,6 @@ check-local-overrides:
       --exclude="cdi" \
       --exclude="default.target" \
       /usr/etc /etc 2>/dev/null | sed '/Binary\ files\ /d'
-
-# Debug dump pastebin for issue reporting
-debug-info:
-    rpm_ostree_status=$(echo -e "=== Rpm-Ostree Status ===\n"; rpm-ostree status --verbose)
-    sysinfo=$(echo -e "\n"; fpaste --sysinfo --printonly)
-    flatpaks=$(echo "=== Flatpaks Installed ==="; flatpak list --columns=application,version,options)
-    audit_results=$(echo -e "\n=== Audit Results ===\n"; ujust audit-secureblue)
-    local_overrides=$(echo -e "\n=== Listing Local Overrides ===\n"; ujust check-local-overrides)
-    recent_events=$(echo -e "\n=== Recent System Events ===\n"; journalctl -b -p err..alert --since "1 hour ago")
-    failed_services=$(echo -e "\n=== Failed Services ===\n"; systemctl list-units --state=failed)
-    content="$rpm_ostree_status$sysinfo$flatpaks$audit_results$local_overrides$recent_events$failed_services"
-    echo "$content" | fpaste --confirm --private=1
 
 # Returns the state of container domain user namespaces. (enabled/disabled)
 check-container-userns-state:

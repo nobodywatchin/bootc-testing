@@ -1,6 +1,5 @@
 # setup system DNS resolution
 dns-selector:
-    #! /bin/run0 /bin/bash
     # constants
     readonly resolved_conf="/etc/systemd/resolved.conf.d/10-securedns.conf"
     readonly policy_file="/etc/trivalent/policies/managed/10-securedns-browser.json"

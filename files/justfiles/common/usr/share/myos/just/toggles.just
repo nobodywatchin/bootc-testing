@@ -1,6 +1,5 @@
 # Toggle unconfined domain userns creation
 toggle-unconfined-domain-userns-creation:
-    #! /bin/run0 /bin/bash
     set -euo pipefail
     MODULE_NAME="harden_userns"
 
@@ -16,7 +15,6 @@ toggle-unconfined-domain-userns-creation:
 
 # Toggle container domain userns creation
 toggle-container-domain-userns-creation:
-    #! /bin/run0 /bin/bash
     set -euo pipefail
     MODULE_NAME="harden_container_userns"
 
@@ -49,7 +47,6 @@ toggle-container-domain-userns-creation:
 
 # Toggle debug mode (requires restart)
 toggle-debug-mode:
-    #! /bin/run0 /bin/bash
     if test -e /etc/sysctl.d/99-enable-coredump.conf; then
         cp /usr/etc/security/limits.d/60-disable-coredump.conf /etc/security/limits.d/60-disable-coredump.conf
         cp /usr/etc/systemd/system.conf.d/60-disable-coredump.conf /etc/systemd/system.conf.d/60-disable-coredump.conf

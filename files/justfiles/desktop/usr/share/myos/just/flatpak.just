@@ -112,3 +112,46 @@ list-hmalloc-enabled:
     if [[ $found -eq 0 ]]; then
         echo "No apps currently LD_PRELOADing hardened_malloc."
     fi
+
+# Prune system Flatpaks not in BlueBuild defaults
+prune-system-flatpaks:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    config="/usr/share/bluebuild/default-flatpaks/configuration.yaml"
+
+    if ! command -v yq >/dev/null 2>&1; then
+      echo "Error: yq is required. Install yq first." >&2
+      exit 1
+    fi
+
+    # Collect desired system app IDs from the config
+    mapfile -t desired < <(yq -r '.[] | select(.scope=="system") | .install[]?' "$config" | sed '/^\s*$/d')
+
+    if [[ ${#desired[@]} -eq 0 ]]; then
+      echo "No desired system Flatpaks found in config; aborting to avoid removing everything." >&2
+      exit 2
+    fi
+
+    # Build a set for fast membership checks
+    declare -A desired_set=()
+    for app in "${desired[@]}"; do
+      desired_set["$app"]=1
+    done
+
+    # Get current system-wide apps (apps only; no runtimes)
+    mapfile -t installed < <(flatpak list --system --app --columns=application)
+
+    echo "Pruning system Flatpaks not in the default list..."
+    removed_any=0
+    for app in "${installed[@]}"; do
+      if [[ -z "${desired_set[$app]:-}" ]]; then
+        echo "Removing extra: $app"
+        sudo flatpak --system -y uninstall "$app"
+        removed_any=1
+      fi
+    done
+
+    if [[ "$removed_any" -eq 0 ]]; then
+      echo "Nothing to prune. System Flatpaks already match your defaults."
+    fi
