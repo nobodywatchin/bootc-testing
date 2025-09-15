@@ -1,44 +1,28 @@
-OWNER    := env("OWNER", "nobodywatchin")
-REPO     := env("REPO", "bootc-testing")
 REGISTRY := env("REGISTRY", "ghcr.io")
+OWNER    := env("OWNER", "nobodywatchin")
 
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
-# Interactive rebase with bootc
+# Hardcoded list of images
+IMAGES = """
+alma10-testing-server:latest
+alma10-testing-server-nvidia:latest
+alma10-testing-workstation:latest
+alma10-testing-workstation-nvidia:latest
+alma9-testing-server:latest
+alma9-testing-server-nvidia:latest
+alma9-testing-workstation:latest
+alma9-testing-workstation-nvidia:latest
+"""
+
 rebase:
-    @command -v curl >/dev/null || { echo "Missing 'curl'."; exit 1; }
-    @command -v jq   >/dev/null || { echo "Missing 'jq'."; exit 1; }
-    @command -v fzf  >/dev/null || { echo "Missing 'fzf'."; exit 1; }
+    @command -v fzf >/dev/null || { echo "Missing 'fzf'."; exit 1; }
 
-    # 1) Discover image names (public) from the repo's Packages page
-    @echo "Discovering images from https://github.com/{{OWNER}}?tab=packages&repo_name={{REPO}} ..."
-    @html="$$(curl -fsSL "https://github.com/{{OWNER}}?tab=packages&repo_name={{REPO}}")" || { echo "Failed to fetch packages page"; exit 1; }
-    @mapfile -t images < <(printf '%s' "$$html" \
-        | grep -oE "/{{OWNER}}/{{REPO}}/pkgs/container/[^\"?]+" \
-        | sed -E 's#.*/pkgs/container/##' \
-        | sort -u)
+    # Pick an image:tag from the hardcoded list
+    @sel="$$(printf '%s\n' {{IMAGES}} | fzf --prompt='Select image: ')"
+    @test -n "$$sel" || { echo "No image selected"; exit 1; }
 
-    @if [[ -z "$${images[0]-}" ]]; then \
-        echo "No images found under {{OWNER}}/{{REPO}} (are they public?)"; \
-        exit 1; \
-      fi
-
-    # 2) Pick image
-    @sel_image="$$(printf '%s\n' "$${images[@]}" | fzf --prompt='Select image: ')"
-    @test -n "$$sel_image" || { echo "No image selected"; exit 1; }
-
-    # 3) Fetch tags from GHCR v2 (anonymous works for public images)
-    @echo "Fetching tags for $$sel_image from {{REGISTRY}} ..."
-    @tags_json="$$(curl -fsSL "https://{{REGISTRY}}/v2/{{OWNER}}/$$sel_image/tags/list")" || { echo "Failed to query tags (is the package private?)"; exit 1; }
-    @mapfile -t tags < <(printf '%s' "$$tags_json" | jq -r '.tags[]?' | sort -u)
-    @if [[ -z "$${tags[0]-}" ]]; then echo "No tags found for $$sel_image"; exit 1; fi
-
-    # 4) Pick tag
-    @sel_tag="$$(printf '%s\n' "$${tags[@]}" | fzf --prompt='Select tag: ')"
-    @test -n "$$sel_tag" || { echo "No tag selected"; exit 1; }
-
-    # 5) Switch with bootc
-    @ref="{{REGISTRY}}/{{OWNER}}/$$sel_image:$$sel_tag"
+    @ref="{{REGISTRY}}/{{OWNER}}/$$sel"
     @echo "Selected: $$ref"
     @echo "Executing: sudo bootc switch $$ref"
     @sudo bootc switch "$$ref"
