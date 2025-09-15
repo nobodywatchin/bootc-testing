@@ -14,10 +14,23 @@ modules:
     install:
       install-weak-deps: false
       packages:
-        - uxplay
-        - morewaita-icon-theme
         # Replaces vim-minimal
         - vim-enhanced 
+
+        # Apple & Android Device Integrations
+        - uxplay
+        - libimobiledevice
+        - libimobiledevice-utils
+        - libimobiledevice-glue
+        - libusbmuxd
+        - libusbmuxd-utils
+        - libplist
+        - ifuse
+        - libmtp
+        - libgphoto2
+
+        # Icon Theme
+        - morewaita-icon-theme
         
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
@@ -93,6 +106,7 @@ modules:
         - libertas-firmware
 
         # --- GVFS (files/SMB/phones)
+        - gvfs
         - gvfs-fuse
         - gvfs-goa
         - gvfs-gphoto2
@@ -103,6 +117,8 @@ modules:
         - fwupd
         - bolt
         - switcheroo-control
+        - powertop
+        - tuned-ppd
 
         # --- Camera
         - libcamera
@@ -128,6 +144,7 @@ modules:
         - orca
         - xdg-user-dirs-gtk
         - colord
+        - baobab
         # --- GNOME Packages (to be replaced)
         - gdm
         - gnome-shell
@@ -138,7 +155,6 @@ modules:
         - gnome-remote-desktop
         - xdg-desktop-portal
         - xdg-desktop-portal-gnome
-        - tuned-ppd
         
         # GNOME 48 COPR REPLACEMENT PACKAGES
     replace:
