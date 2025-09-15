@@ -1,8 +1,7 @@
 # Update System Flatpaks and OS Image
 update-system:
   sudo bootc upgrade
-  #!/usr/bin/bash
-  echo "Reboot to apply System updates"
+  @echo "Reboot to apply system updates"
 
 # Update Podman Containers
 update-podman:

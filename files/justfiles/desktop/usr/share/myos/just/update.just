@@ -2,8 +2,7 @@
 update-system:
   sudo flatpak update --system -y
   sudo bootc upgrade
-  #!/usr/bin/bash
-  echo "Reboot to apply System updates"
+  @echo "Reboot to apply system updates"
 
 # Update User Flatpaks and Distrobox Containers
 update-user:
