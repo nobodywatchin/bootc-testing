@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: alma9-server
+name: alma9-workstation
 # description will be included in the image's metadata
 description: This is my personal OS image.
 
@@ -20,10 +20,13 @@ modules:
       packages:
         - mlocate
   - from-file: shared/server-base.yml
-  - from-file: shared/server-extras.yml
-  - from-file: EL9/common/tailscale-rhel9.yml
-  - from-file: EL9/common/just-el9.yml
+  - from-file: RHEL/common/server-epel.yml
+  - from-file: RHEL/alma9/common/tailscale-rhel9.yml
+  - from-file: RHEL/alma9/common/just-el9.yml
   - from-file: shared/kubernetes.yml
+  - from-file: RHEL/alma9/common/wl-el9.yml
+  - from-file: RHEL/alma9/common/gnome.yml
+  - from-file: shared/default-flatpaks.yml
   - from-file: shared/services.yml
   - from-file: shared/logos.yml 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

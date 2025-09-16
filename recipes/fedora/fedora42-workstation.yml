@@ -17,11 +17,11 @@ modules:
       packages:
         - plocate
   - from-file: shared/server-base.yml
-  - from-file: fedora/common/server-extras.yml
-  - from-file: fedora/common/tailscale-fedora42.yml
-  - from-file: fedora/common/just-fedora42.yml
+  - from-file: fedora/common/server-fedora.yml
+  - from-file: fedora/common/tailscale-fedora.yml
+  - from-file: fedora/common/just-fedora.yml
   - from-file: shared/kubernetes.yml
-  - from-file: fedora/common/wl-fedora42.yml
+  - from-file: fedora/common/wl-fedora.yml
   - from-file: fedora/common/gnome.yml
   - from-file: shared/default-flatpaks.yml
   - from-file: shared/services.yml 

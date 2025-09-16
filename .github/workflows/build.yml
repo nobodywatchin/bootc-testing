@@ -26,8 +26,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL10/alma/alma10-workstation.yml
-          - /EL10/alma/alma10-workstation-nvidia.yml
+          - /RHEL/alma10/alma10-workstation.yml
+          - /RHEL/alma10/alma10-workstation-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: EL10 Workstation
@@ -51,8 +51,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL10/alma/alma10-server.yml
-          - /EL10/alma/alma10-server-nvidia.yml
+          - /RHEL/alma10/alma10-server.yml
+          - /RHEL/alma10/alma10-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: EL10 Server
@@ -76,8 +76,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL9/alma/alma9-workstation.yml
-          - /EL9/alma/alma9-workstation-nvidia.yml
+          - /RHEL/alma9/alma9-workstation.yml
+          - /RHEL/alma9/alma9-workstation-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: EL9 Workstation
@@ -101,8 +101,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /EL9/alma/alma9-server.yml
-          - /EL9/alma/alma9-server-nvidia.yml
+          - /RHEL/alma9/alma9-server.yml
+          - /RHEL/alma9/alma9-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: EL9 Server
@@ -126,8 +126,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /fedora/42/fedora42-workstation.yml
-          - /fedora/42/fedora42-workstation-nvidia.yml
+          - /fedora/fedora42-workstation.yml
+          - /fedora/fedora42-workstation-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Fedora 42 Workstation
@@ -151,8 +151,8 @@ jobs:
       fail-fast: false # stop GH from cancelling all matrix builds if one fails
       matrix:
         recipe:
-          - /fedora/42/fedora42-server.yml
-          - /fedora/42/fedora42-server-nvidia.yml
+          - /fedora/fedora42-server.yml
+          - /fedora/fedora42-server-nvidia.yml
     steps:
       # the build is fully handled by the reusable github action
       - name: Fedora 42 Server
