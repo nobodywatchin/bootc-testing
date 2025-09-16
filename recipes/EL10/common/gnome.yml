@@ -8,12 +8,57 @@ modules:
     remove:
       packages:
         - vim-minimal
-    group-install:
-      packages:
-        - Workstation product core
     install:
       install-weak-deps: false
       packages:
+        # Workstation Product Core
+        - acl
+        - almalinux-release
+        - alsa-sof-firmware
+        - attr
+        - bash-completion
+        - bc
+        - bind-utils
+        - cpio
+        - crontabs
+        - cyrus-sasl-plain
+        - dos2unix
+        - git
+        - glibc-all-langpacks
+        - hunspell
+        - ibus-anthy
+        - ibus-gtk3
+        - ibus-hangul
+        - ibus-libpinyin
+        - ibus-libzhuyin
+        - ibus-m17n
+        - ibus-typing-booster
+        - logrotate
+        - lrzsz
+        - man-pages
+        - mcelog
+        - microcode_ctl
+        - net-tools
+        - nmap-ncat
+        - pciutils
+        - pinentry-gnome3
+        - plymouth
+        - polkit
+        - psacct
+        - qt6-qtbase
+        - qt6-qtbase-gui
+        - qt6-qtdeclarative
+        - realmd
+        - setroubleshoot
+        - sssd
+        - symlinks
+        - telnet
+        - thermald
+        - tree
+        - usbutils
+        - words
+        - bash-color-prompt
+
         # Replaces vim-minimal
         - vim-enhanced 
 

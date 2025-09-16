@@ -1,20 +1,64 @@
 modules:
   - type: dnf
     repos:
-      cleanup: true 
+      cleanup: true
       copr:
         - trixieua/morewaita-icon-theme
     remove:
       packages:
         - vim-minimal
-    group-install:
-      packages:
-        - Workstation product core
     install:
       install-weak-deps: false
       packages:
+        - acl
+        - fedora-release-workstation
+        - alsa-sof-firmware
+        - attr
+        - bash-completion
+        - bc
+        - bind-utils
+        - cpio
+        - crontabs
+        - cyrus-sasl-plain
+        - dos2unix
+        - git
+        - glibc-all-langpacks
+        - hunspell
+        - ibus-anthy
+        - ibus-gtk3
+        - ibus-hangul
+        - ibus-libpinyin
+        - ibus-libzhuyin
+        - ibus-m17n
+        - ibus-typing-booster
+        - logrotate
+        - lrzsz
+        - man-pages
+        - mcelog
+        - microcode_ctl
+        - net-tools
+        - nmap-ncat
+        - pciutils
+        - pinentry-gnome3
+        - plymouth
+        - polkit
+        - psacct
+        - qt6-qtbase
+        - qt6-qtbase-gui
+        - qt6-qtdeclarative
+        - realmd
+        - setroubleshoot
+        - sssd
+        - symlinks
+        - telnet
+        - thermald
+        - tree
+        - usbutils
+        - words
+        - bash-color-prompt
+
         # Replaces vim-minimal
-        - vim-enhanced 
+        - vim-enhanced
 
         # Apple & Android Device Integrations
         - uxplay
@@ -30,7 +74,7 @@ modules:
 
         # Icon Theme
         - morewaita-icon-theme
-        
+
         # --- Audio / Multimedia (PipeWire-first)
         - pipewire
         - pipewire-alsa
@@ -51,7 +95,7 @@ modules:
         - dejavu-sans-mono-fonts
         - dejavu-serif-fonts
         - jetbrains-mono-fonts-all
-        # (emoji is already in Workstation product core)
+        - google-noto-emoji-fonts
         - google-noto-sans-arabic-fonts
         - google-noto-sans-hebrew-fonts
         - google-noto-sans-devanagari-fonts
@@ -74,7 +118,7 @@ modules:
         - hplip
         - libsane-hpaio
         - sane-backends-drivers-scanners
-        - sane-airscan   # from EPEL
+        - sane-airscan 
 
         # --- Networking
         - NetworkManager-wifi
@@ -83,15 +127,14 @@ modules:
         - NetworkManager-adsl
         - NetworkManager-openvpn
         - NetworkManager-openconnect
-        - dnsmasq        # keep disabled unless you need the system daemon
+        - dnsmasq
         - nftables
         - ModemManager
         - ppp
 
-        # Wireless (Bluetooth/Wifi)
-        - bluez # Bluetooth dependency
+        # Wireless (Bluetooth/Wi-Fi) firmware
+        - bluez
         - bluez-cups
-        # - bluez-tools   # optional: scriptable CLI helpers
         - hidapi
         - brcmfmac-firmware
         - atheros-firmware
@@ -127,14 +170,13 @@ modules:
 
         # --- Desktop niceties
         - wl-clipboard
-        # (plymouth comes from the group already)
         - plymouth-system-theme
         - flatpak
 
         # --- Systemd extras
         - systemd-oomd
         - systemd-container
-        
+
         # --- GNOME Packages (not in COPR)
         - gnome-color-manager
         - gnome-disk-utility
@@ -144,7 +186,8 @@ modules:
         - xdg-user-dirs-gtk
         - colord
         - baobab
-        # --- GNOME Packages (to be replaced)
+
+        # --- GNOME Session
         - gdm
         - gnome-shell
         - gnome-control-center
