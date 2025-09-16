@@ -17,7 +17,7 @@ modules:
       packages:
         - plocate
   - from-file: shared/server-base.yml
-  - from-file: shared/server-extras.yml
+  - from-file: fedora/common/server-extras.yml
   - from-file: fedora/common/tailscale-fedora42.yml
   - from-file: fedora/common/just-fedora42.yml
   - from-file: shared/kubernetes.yml
