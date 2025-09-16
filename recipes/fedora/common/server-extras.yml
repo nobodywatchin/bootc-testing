@@ -1,9 +1,5 @@
 ---
 modules:
-  - type: containerfile
-    snippets:
-      - RUN dnf -y config-manager --set-enabled crb
-
   - type: dnf
     install:
       install-weak-deps: false
