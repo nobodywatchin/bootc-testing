@@ -174,7 +174,6 @@ modules:
         - flatpak
 
         # --- Systemd extras
-        - systemd-oomd
         - systemd-container
 
         # --- GNOME Packages (not in COPR)
