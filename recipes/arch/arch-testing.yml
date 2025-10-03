@@ -7,8 +7,9 @@ description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
 base-image: ghcr.io/bootcrew/arch-bootc
-image-version: latest # latest is also supported if you want new updates ASAP
-
+image-version: "0.1.0"
+labels:
+  org.opencontainers.image.version: "0.1.0"
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
